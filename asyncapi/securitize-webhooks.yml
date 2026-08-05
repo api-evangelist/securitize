@@ -1,0 +1,116 @@
+generated: '2026-08-05'
+method: searched
+source:
+- https://securitize.io/apis
+- openapi/securitize-domains-openapi-original.json
+spec_type: none
+asyncapi_published: false
+description: >-
+  Securitize markets a "Webhook API" as one of its three API offerings and implements it as a management surface
+  inside the Domains API — subscribe to an event type, point it at a payload URL, and configure a signature.
+  Securitize publishes no AsyncAPI document and no static event-type catalog: the list of subscribable event
+  types is served at runtime by GET /v1/webhooks/events, which requires an API key. This artifact records the
+  webhook surface that IS published, and names the catalog as gated rather than inventing event names.
+surface:
+  api: Securitize Domains API
+  base_url: https://public-api.securitize.io/
+  docs: https://securitize.io/apis
+  transport: http-post
+  delivery: real-time push to a subscriber-supplied payloadUrl
+management_operations:
+- operationId: EventsController_getEvents
+  method: GET
+  path: /v1/webhooks/events
+  description: >-
+    Returns the catalog of subscribable event types. Each entry is a WebhookEventDto — an eventType string plus
+    the array of property names that event carries.
+  response_schema: WebhookEventDto[]
+  gated: true
+  probed:
+    url: https://public-api.sandbox.securitize.io/v1/webhooks/events
+    status: 401
+    date: '2026-08-05'
+- operationId: SubscriptionsController_getSubscriptions
+  method: GET
+  path: /v1/webhooks/subscriptions
+  description: List existing webhook subscriptions.
+- operationId: SubscriptionsController_createSubscription
+  method: POST
+  path: /v1/webhooks/subscriptions
+  description: Subscribe a payload URL to an event type for one domain.
+  request_schema: CreateWebhookSubscriptionBodyDto
+  request_fields:
+  - name: domainId
+    type: string
+    required: true
+  - name: eventType
+    type: string
+    required: true
+  - name: payloadUrl
+    type: string
+    required: true
+  - name: isActive
+    type: boolean
+    required: false
+    default: true
+- operationId: SubscriptionsController_getSubscription
+  method: GET
+  path: /v1/webhooks/subscriptions/{subscriptionId}
+- operationId: SubscriptionsController_updateSubscription
+  method: PATCH
+  path: /v1/webhooks/subscriptions/{subscriptionId}
+- operationId: SubscriptionsController_deleteSubscription
+  method: DELETE
+  path: /v1/webhooks/subscriptions/{subscriptionId}
+- operationId: SettingsController_createSignature
+  method: POST
+  path: /v1/webhooks/settings/signature
+  description: Create the signing secret used to sign outbound webhook deliveries.
+subscription_shape:
+  schema: WebhookSubscriptionResponseDto
+  fields:
+  - name: id
+    type: string
+  - name: domainId
+    type: string
+  - name: eventType
+    type: string
+  - name: nonce
+    type: number
+    note: replay counter carried on the subscription; used with the signature setting
+  - name: payloadUrl
+    type: string
+  - name: isActive
+    type: boolean
+event_categories:
+  source: https://securitize.io/apis
+  verbatim_claim: >-
+    "The Webhook API enables seamless integration with Securitize services, offering you immediate updates about
+    your investors... KYC/B updates, Accreditation updates, Subscription agreement updates"
+  categories:
+  - KYC/KYB status updates
+  - Accreditation status updates
+  - Subscription agreement status updates
+  note: >-
+    These are the three categories Securitize names publicly. They are marketing-page categories, not eventType
+    identifiers — the actual eventType strings live behind the authenticated GET /v1/webhooks/events. No event
+    names have been invented here.
+security:
+  signature: supported (POST /v1/webhooks/settings/signature) — algorithm and header name not documented publicly
+  replay_protection: a nonce is carried on each subscription record
+  verification_docs: none published
+gaps:
+- >-
+  The event catalog is auth-gated. An integrator cannot discover what events exist before signing a contract and
+  receiving an API key, which makes the Webhook API impossible to evaluate up front.
+- >-
+  No AsyncAPI document. The webhook management API is in the OpenAPI, but the event payloads — the part a
+  subscriber actually has to parse — have no published schema at all.
+- >-
+  Signature verification is offered but not documented: no algorithm, no header name, no worked example. A
+  subscriber cannot implement verification from the public docs.
+x-evidence:
+  fetched: '2026-08-05'
+  spec: https://public-api.sandbox.securitize.io/doc/swagger-json
+  marketing: https://securitize.io/apis
+  events_probe_status: 401

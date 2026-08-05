@@ -1,0 +1,81 @@
+generated: '2026-08-05'
+method: searched
+source: https://mcp.securitize.io/mcp
+status: published
+announcement: https://securitize.io/learn/blog/Introducing-the-Securitize-MCP-Server-A-Gateway-to-Tokenized-Asset-Data
+server:
+  name: Securitize Connector
+  version: 1.16.0
+  transport: http
+  url: https://mcp.securitize.io/mcp
+  protocol_version: '2025-06-18'
+  authentication: none
+  capabilities:
+    tools:
+      listChanged: false
+    prompts:
+      listChanged: false
+    resources:
+      subscribe: false
+      listChanged: false
+    experimental: {}
+tools:
+- name: get_securitize_assets
+  title: Get Securitize Assets
+  description: Retrieve all available assets from Securitize
+  input_schema:
+    type: object
+    properties: {}
+- name: get_asset_count
+  title: Get Asset Count
+  description: Get the total count of available Securitize assets
+  input_schema:
+    type: object
+    properties: {}
+- name: search_assets
+  title: Search Assets
+  description: Search for specific assets by symbol or description
+  input_schema:
+    type: object
+    properties:
+      query:
+        type: string
+    required:
+    - query
+- name: get_asset_details
+  title: Get Asset Details
+  description: Get detailed information for a specific asset by symbol
+  input_schema:
+    type: object
+    properties:
+      symbol:
+        type: string
+    required:
+    - symbol
+- name: get_token_info
+  title: Get Token Info
+  description: Get detailed token information including addresses and bridge details
+  input_schema:
+    type: object
+    properties:
+      symbol:
+        type: string
+    required:
+    - symbol
+raw_tools_list: mcp/securitize-mcp-tools-list.json
+oauth_discovery:
+- path: /.well-known/oauth-authorization-server
+  status: 404
+- path: /.well-known/oauth-protected-resource
+  status: 404
+x-evidence:
+  fetched: '2026-08-05'
+  url: https://mcp.securitize.io/mcp
+  method: 'POST {"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+  http_status: 200
+  content_type: text/event-stream
+  note: >-
+    tools/list and initialize both answered anonymously — no OAuth challenge, no invalid_token. The five tools and
+    their input schemas below are the live server response, saved verbatim to
+    mcp/securitize-mcp-tools-list.json. GET https://mcp.securitize.io/ returns 404 and GET /mcp returns 406;
+    the endpoint is POST-only streamable HTTP.

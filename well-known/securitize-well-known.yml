@@ -1,0 +1,90 @@
+generated: '2026-08-05'
+method: probed
+source: live GET probes of every Securitize host in apis.yml
+result: none
+summary: >-
+  No .well-known document was found on any Securitize host. IMPORTANT FALSE-POSITIVE WARNING: securitize.io is a
+  client-rendered Builder.io single-page app whose catch-all answers HTTP 200 with the same HTML shell for EVERY
+  path, including every /.well-known/* path and /llms.txt. Those 200s are NOT documents and are recorded below as
+  html-catchall, not as hits. The API and docs hosts return honest 404s.
+hosts:
+- host: securitize.io
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    result: html-catchall
+  - path: /security.txt
+    status: 200
+    result: html-catchall
+  - path: /.well-known/openid-configuration
+    status: 200
+    result: html-catchall
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    result: html-catchall
+  - path: /.well-known/api-catalog
+    status: 200
+    result: html-catchall
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    result: html-catchall
+  - path: /.well-known/agent-card.json
+    status: 200
+    result: html-catchall
+  - path: /.well-known/agent.json
+    status: 200
+    result: html-catchall
+  - path: /llms.txt
+    status: 200
+    result: html-catchall
+  - path: /robots.txt
+    status: 200
+    result: found
+    note: 'Allows all user-agents; declares Sitemap: https://securitize.io/sitemap.xml'
+- host: mcp.securitize.io
+  documents:
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: sec-connect-api-docs.securitize.io
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /llms.txt
+    status: 200
+    result: found
+    file: ../llms/securitize-connect-api-llms.txt
+- host: domain-api-docs.securitize.io
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /llms.txt
+    status: 200
+    result: found
+    file: ../llms/securitize-domain-api-llms.txt
+gaps:
+- >-
+  No /.well-known/security.txt (RFC 9116) anywhere, despite a real, funded bug bounty program at
+  https://securitize.io/bug-bounty with a published contact address. A three-line security.txt pointing at that
+  page would make the program machine-discoverable at zero cost.
+- >-
+  No /.well-known/api-catalog (RFC 9727) even though Securitize publishes three named APIs on
+  https://securitize.io/apis.
+x-evidence:
+  fetched: '2026-08-05'
+  note: >-
+    No WellKnown or SecurityTxt pointer is wired into apis.yml — nothing was found, and a pointer to a file of
+    404s would credit a surface that does not exist.

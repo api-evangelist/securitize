@@ -1,0 +1,92 @@
+generated: '2026-08-05'
+method: derived
+source:
+- openapi/securitize-domains-openapi-original.json
+- https://domain-api-docs.securitize.io/guide/tr-api-for-partners
+- https://sec-connect-api-docs.securitize.io/
+standards:
+- id: openapi-3.0
+  conforms: true
+  evidence: >-
+    openapi/securitize-domains-openapi-original.json declares openapi 3.0.0 with 87 paths, 125 operations and 238
+    component schemas; served live at https://public-api.sandbox.securitize.io/doc/swagger-json.
+- id: oauth2
+  conforms: partial
+  evidence: >-
+    The Connect API implements an authorization-code-style OAuth provider (authorize redirect, 5-minute code,
+    access token, refresh token, redirect allowlist, three scopes) but publishes no RFC 8414 metadata document
+    and no OpenAPI oauth2 securityScheme. See scopes/securitize-scopes.yml.
+- id: oidc
+  conforms: false
+  evidence: no /.well-known/openid-configuration on any host; Securitize iD is described as an OAuth provider, not OIDC
+- id: rfc8414-oauth-authorization-server-metadata
+  conforms: false
+  evidence: 404 on mcp.securitize.io; SPA catch-all HTML on securitize.io
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: >-
+    No security.txt on any host, despite a real published bug bounty program. See
+    security/securitize-vulnerability-disclosure.yml.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Errors use the NestJS {message, statusCode} envelope; no application/problem+json appears in the spec. See
+    errors/securitize-problem-types.yml.
+- id: rfc9727-api-catalog
+  conforms: false
+  evidence: no /.well-known/api-catalog, though three APIs are published at https://securitize.io/apis
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: no sunset or deprecation policy published; no deprecated operations in the spec
+- id: mcp
+  conforms: true
+  version: '2025-06-18'
+  evidence: >-
+    https://mcp.securitize.io/mcp answers initialize and tools/list over streamable HTTP, reporting serverInfo
+    "Securitize Connector" 1.16.0 and protocolVersion 2025-06-18. See mcp/securitize-mcp.yml.
+- id: a2a
+  conforms: false
+  evidence: >-
+    /.well-known/agent-card.json and /.well-known/agent.json probed on securitize.io, mcp.securitize.io and both
+    docs hosts — 404 on the API hosts, SPA-catchall HTML on securitize.io. No agent card published.
+- id: asyncapi
+  conforms: false
+  evidence: >-
+    Securitize ships a real webhook surface (subscriptions, event types, signature settings) but publishes no
+    AsyncAPI document. See asyncapi/securitize-webhooks.yml.
+- id: idempotency-key
+  conforms: false
+  evidence: no idempotency key header or parameter anywhere in the spec or docs
+- id: pagination
+  conforms: true
+  evidence: consistent page + limit + orderField + orderDirection query parameters across 16 list operations
+- id: fatf-travel-rule
+  conforms: true
+  evidence: >-
+    A dedicated Travel Rule API for partners under /v1/tr/domains/{domainId}/ — investor registration for
+    individuals and entities plus blockchain-id issuance (7 operations), documented at
+    https://domain-api-docs.securitize.io/guide/tr-api-for-partners. This is a regulatory obligation implemented
+    as a first-class API surface.
+- id: kyc-aml
+  conforms: true
+  evidence: >-
+    KYC/KYB/AML status is a first-class API concept in both APIs — KycController get/update in the Domains API,
+    and the verification scope plus verification-details endpoint in the Connect API. Securitize publishes an AML
+    and CIP disclosure at https://securitize.io/AML-disclosures.
+regulatory_posture:
+  note: >-
+    Securitize operates SEC-registered entities — a registered transfer agent, a broker-dealer (Securitize
+    Markets) and an alternative trading system — and holds an EU investment-firm approval in Spain. That posture
+    is asserted on the company's own marketing and press pages, not in a compliance/trust center with named
+    third-party certifications.
+  named_certifications: []
+  trust_center: null
+  probed:
+  - url: https://trust.securitize.io/
+    status: 404
+  compliance_pointer_wired: false
+  compliance_pointer_reason: >-
+    No Compliance pointer is wired in apis.yml. Securitize publishes no trust center and names no third-party
+    certification (SOC 2, ISO 27001, PCI DSS) on any page reachable from its sitemap. Regulatory registrations
+    are not the same thing as a published compliance program, and emitting Compliance for them would credit a
+    surface that does not exist.

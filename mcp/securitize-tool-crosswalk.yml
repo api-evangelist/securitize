@@ -1,0 +1,199 @@
+generated: '2026-08-05'
+method: derived
+source:
+- mcp/securitize-mcp.yml
+- openapi/securitize-domains-openapi-original.json
+description: >-
+  Binds the five live Securitize MCP tools to the Securitize Domains API OpenAPI. The headline finding is a
+  complete surface divergence: the MCP server projects the PUBLIC tokenized-asset catalog (assets, symbols,
+  on-chain token metadata), while the Domains API projects the PRIVATE, per-domain operator workspace (investors,
+  KYC, issuances, transactions). Not one of the five MCP tools has a backing operation in the published OpenAPI,
+  and not one of the 125 REST operations has an MCP tool. They are two disjoint projections of the Securitize
+  data core, not overlapping ones.
+surfaces:
+  openapi:
+    file: openapi/securitize-domains-openapi-original.json
+    title: Securitize Domains API
+    version: 3.0.0
+    paths: 87
+    operations: 125
+    base_url: https://public-api.securitize.io/
+    gated: true
+    gate: apiKey in Authorization header, issued by Securitize customer success
+  mcp:
+    url: https://mcp.securitize.io/mcp
+    gated: false
+    note: tools/list answered anonymously on 2026-08-05
+  graphql: null
+crosswalk: []
+mcp_only:
+- tool: get_securitize_assets
+  reason: >-
+    Returns the public catalog of Securitize-tokenized assets. The Domains API has no cross-domain asset catalog
+    operation; its closest surface, TokensController_getTokens, is scoped to a single {domainId} and requires an
+    operator API key.
+- tool: get_asset_count
+  reason: Aggregate count over the public asset catalog. No REST operation returns a catalog-wide count.
+- tool: search_assets
+  reason: >-
+    Free-text search by symbol or description across the public catalog. The Domains API q parameter searches
+    investors and holders inside one domain, not assets across domains.
+- tool: get_asset_details
+  reason: >-
+    Asset detail keyed by public ticker symbol (BUIDL, ACRED, VBILL). Domains API token lookups are keyed by
+    {domainId} + {tokenId} UUIDs, not by public symbol, and are operator-scoped.
+- tool: get_token_info
+  reason: >-
+    On-chain token metadata including contract addresses and bridge details. The Domains API exposes blockchain
+    transaction operations for a domain's own token but publishes no public contract-address/bridge lookup.
+rest_only:
+- capability: Investors
+  operations:
+  - InvestorsController_getInvestors
+  - InvestorsController_getInvestor
+  - InvestorsController_addInvestor
+  - InvestorsController_addInvestors
+  - InvestorsController_editInvestor
+  - InvestorsController_deleteInvestor
+  - InvestorsController_sendInviteSecIdEmails
+- capability: Compliance status
+  operations:
+  - KycController_getKycStatus
+  - KycController_updateKycStatus
+  - AccreditationController_getAccreditationStatus
+  - AccreditationController_updateAccreditationStatus
+  - AccreditationController_sendAccreditationEmail
+  - QualificationController_getQualificationStatus
+  - QualificationController_updateQualificationStatus
+  - TokenQualificationController_getTokenQualificationStatus
+  - TokenQualificationController_updateTokenQualificationStatus
+- capability: Documents and legal signers
+  operations:
+  - DocumentsController_getInvestorDocuments
+  - DocumentsController_getInvestorDocument
+  - DocumentsController_createInvestorDocument
+  - DocumentsController_deleteInvestorDocument
+  - LegalSignersController_getLegalSigners
+  - LegalSignersController_getLegalSigner
+  - LegalSignersController_createIndividualLegalSigner
+  - LegalSignersController_createEntityLegalSigner
+  - LegalSignersController_deleteLegalSigner
+- capability: Fundraising and investments
+  operations:
+  - OpportunitiesController_getOpportunities
+  - OpportunitiesController_getOpportunity
+  - OpportunitiesController_updateOpportunity
+  - InvestmentController_getInvestment
+  - InvestmentController_createInvestment
+  - PledgedAmountController_getPledgedAmount
+  - PledgedAmountController_updatePledgedAmount
+  - FundedAmountController_getFundedAmount
+  - FundingAddressController_getFundingAddress
+  - SubscriptionAgreementStatusController_getSubscriptionAgreementStatus
+  - SubscriptionAgreementStatusController_updateSubscriptionAgreementStatus
+  - TransactionsController_getTransactions
+  - TransactionsController_createTransaction
+  - TransactionsController_updateTransaction
+  - TransactionsController_deleteTransaction
+  - FundraiseController_getFundraiseInvestors
+- capability: Tokens, issuance and holders
+  operations:
+  - TokensController_getTokens
+  - TokensController_getToken
+  - TokensController_updateToken
+  - TokensController_setNav
+  - IssuancesController_getIssuances
+  - IssuancesController_createIssuance
+  - IssuancesController_deleteIssuance
+  - HoldersController_getHolders
+  - SnapshotsController_getSnapshots
+  - SnapshotsController_getSnapshot
+  - SnapshotsController_addSnapshot
+  - SnapshotsController_getSnapshotRecords
+  - RoundsController_getRounds
+  - RoundsController_getRound
+  - RoundsController_updateRound
+- capability: Wallets and blockchain transactions
+  operations:
+  - TokenWalletsController_getTokenWallets
+  - TokenWalletsController_addTokenWallet
+  - TokenWalletsController_updateTokenWallet
+  - TokenWalletsController_deleteTokenWallet
+  - BlockchainTransactionsController_getBlockchainTransactions
+  - BlockchainTransactionsController_getTransaction
+  - BlockchainTransactionsController_addBlockchainTransactionData
+  - BlockchainTransactionsController_addBlockchainTransactionSign
+  - BlockchainTransactionsController_updateTransactionStatus
+  - BlockchainTransactionsController_deleteBlockchainTransaction
+  - ProceduresController_createClawbackTransactions
+  - ProceduresController_createDestroyTransaction
+  - ProceduresController_createDestroyTbeTransaction
+  - ProceduresController_createHoldTradingTransaction
+  - ProceduresController_createInternalTransferTbeTransaction
+  - ProceduresController_createLostSharesTransactions
+  - TransferTbeController_createTransferTbeTransaction
+  - TokenTransactionsController_getTokenTransactions
+  - TokenTransactionsController_getTokenTransaction
+- capability: Travel Rule
+  operations:
+  - InvestorsController_getTrInvestor
+  - InvestorsController_getTrIndividualInvestor
+  - InvestorsController_createTrIndividualInvestor
+  - InvestorsController_getTrEntityInvestor
+  - InvestorsController_createTrEntityInvestor
+  - InvestorsController_getInvestorBlockchainId
+  - InvestorsController_createInvestorBlockchainId
+- capability: Webhooks
+  operations:
+  - EventsController_getEvents
+  - SubscriptionsController_getSubscriptions
+  - SubscriptionsController_createSubscription
+  - SubscriptionsController_getSubscription
+  - SubscriptionsController_updateSubscription
+  - SubscriptionsController_deleteSubscription
+  - SettingsController_createSignature
+- capability: Domain configuration and reference data
+  operations:
+  - DomainsController_getDomains
+  - GeneralController_getGeneral
+  - GeneralController_updateInvestorsArea
+  - JurisdictionsController_getJurisdictions
+  - ConfigurationsController_getMainCurrency
+  - CurrenciesController_getCurrencies
+  - CustodiansController_getCustodians
+  - CustodiansController_addCustodian
+  - QuestionsController_getQuestions
+  - OperatorsController_getOperators
+  - OperatorsController_getOperator
+  - OrganizationsController_getOrganizations
+  - OrganizationsController_getOrganization
+  - LabelsController_getLabels
+  - LabelsController_addLabel
+  - LabelsController_deleteLabel
+  - TokenInfoController_getTokenInfo
+  - TokenInfoController_updateTokenInfo
+  - AppController_root
+- capability: APAC
+  operations:
+  - BankDepositFilesController_getBankDepositFiles
+  - BankDepositFilesController_getBankDepositFile
+  - BankDepositFilesController_createBankDepositFile
+  - BankDepositFilesController_deleteBankDepositFile
+  - BankDepositFilesController_getBankDepositFileRecords
+  - InvestmentRequestsController_getTotalPledgedAmounts
+coverage:
+  mcp_tools_named: 5
+  mcp_tools_bound_to_rest: 0
+  mcp_only: 5
+  rest_operations_total: 125
+  rest_operations_with_a_tool: 0
+  rest_only: 125
+notes:
+- >-
+  Because no MCP tool is backed by a published REST operation, none of the five tools can inherit a real
+  inputSchema from the spec. Their schemas in mcp/securitize-mcp.yml are the LIVE ones the server itself returned,
+  which is a stronger source than a derived binding would have been.
+- >-
+  The gap worth naming to Securitize: the public asset catalog the MCP server reads has no documented REST
+  equivalent, so a non-agent integrator cannot get the same data. Publishing that catalog as REST (or an OpenAPI
+  for the service behind mcp.securitize.io) would close the divergence in the right direction.

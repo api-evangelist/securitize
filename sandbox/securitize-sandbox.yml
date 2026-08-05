@@ -1,0 +1,86 @@
+generated: '2026-08-05'
+method: searched
+source:
+- https://domain-api-docs.securitize.io/api/api-specs
+- https://sec-connect-api-docs.securitize.io/authentication-1/authentication
+- https://securitize.io/bug-bounty
+description: >-
+  Securitize runs a full parallel sandbox estate under the .sandbox.securitize.io subdomain — API, control panel,
+  identity app and identity API. Notably, the sandbox host is where the ONLY publicly readable OpenAPI lives: the
+  Swagger UI and its underlying spec are served from public-api.sandbox.securitize.io, while the production host
+  serves the Swagger UI shell but 404s the spec document behind it. Credentials for both environments are issued
+  by customer success; there are no self-serve keys and no published magic test values.
+environments:
+- name: sandbox
+  api_base_url: https://public-api.sandbox.securitize.io/
+  api_reference: https://public-api.sandbox.securitize.io/docs/
+  openapi: https://public-api.sandbox.securitize.io/doc/swagger-json
+  openapi_status: 200
+  control_panel: https://cp.sandbox.securitize.io/
+  identity_app: https://id.sandbox.securitize.io/
+  identity_api: https://sec-id-api.sandbox.securitize.io/
+- name: production
+  api_base_url: https://public-api.securitize.io/
+  api_reference: https://public-api.securitize.io/docs/
+  openapi: https://public-api.securitize.io/doc/swagger-json
+  openapi_status: 404
+  openapi_note: >-
+    The production Swagger UI page loads but its swagger-ui-init.js returns "Not found" (404), so the production
+    reference renders empty. The sandbox host is the only place the spec is actually served.
+  control_panel: https://cp.securitize.io/
+  identity_app: https://id.securitize.io/
+  identity_api: https://sec-id-api.securitize.io/
+separation:
+  mechanism: distinct hostnames per environment (.sandbox. subdomain)
+  key_prefixes: none — keys are opaque keyId:keySecret pairs with no environment prefix
+  key_prefix_gap: >-
+    Because keys carry no environment marker, nothing in the credential itself prevents a production key being
+    used against a sandbox base URL or vice versa. A test/live key prefix is the standard mitigation.
+credentials:
+  self_serve: false
+  issuance: >-
+    Domains API keyId and keySecret, and Connect API issuerId/DomainID and OAuth secret, are all issued by the
+    Securitize customer success team on request. There is no developer signup that produces a sandbox key.
+  bug_bounty_credentials: >-
+    Securitize will issue restricted testing credentials for the sandbox control panel and identity app to
+    authorized bug bounty participants on request to the bug bounty contact.
+test_data:
+  magic_values: none published
+  test_investors: none published
+  test_wallets: none published
+  test_clock: none published
+  note: >-
+    No magic test identifiers, fixture investors, seeded tokens, or time-simulation tooling are documented on
+    either docs site. NOTHING has been invented here — this section records an absence.
+domain_and_token_ids:
+  how_to_find: >-
+    domainId and tokenId are read out of the Control Panel URL, which follows the pattern
+    cp.(env).securitize.io/(Domain ID)/(Token ID).
+  source: https://domain-api-docs.securitize.io/api/api-specs
+health_check:
+  operation: AppController_root
+  path: /v1/health
+  authenticated: true
+  probed:
+  - url: https://public-api.sandbox.securitize.io/v1/health
+    status: 401
+  - url: https://public-api.securitize.io/v1/health
+    status: 401
+  note: The health endpoint requires an API key, so it cannot be used as an unauthenticated liveness probe.
+gaps:
+- >-
+  Sandbox access requires a sales conversation. A developer cannot obtain a key, call a single operation, or
+  evaluate the API without first being onboarded by customer success.
+- >-
+  The production API reference is broken (spec 404) while the sandbox one works. Anyone landing on
+  public-api.securitize.io/docs/ sees an empty Swagger UI.
+x-evidence:
+  fetched: '2026-08-05'
+  probes:
+  - url: https://public-api.sandbox.securitize.io/doc/swagger-json
+    status: 200
+    bytes: 185500
+  - url: https://public-api.securitize.io/doc/swagger-json
+    status: 404
+  - url: https://public-api.securitize.io/docs/swagger-ui-init.js
+    status: 404

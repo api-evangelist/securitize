@@ -1,0 +1,22 @@
+# Securitize Connect API
+
+## Securitize Connect API
+
+- [Securitize iD](https://sec-connect-api-docs.securitize.io/master.md): Securitize iD provides a simple and robust RESTful API to integrate KYC/KYB/AML within your application.
+- [General information](https://sec-connect-api-docs.securitize.io/general-information.md): Advantages for issuers and investors
+- [Scope of Access](https://sec-connect-api-docs.securitize.io/scope-of-access.md): The degree of access to the information within Securitize iD may vary according to the agreement arrived to between Securitize iD and the third-party integrator
+- [User Interface & Landing page](https://sec-connect-api-docs.securitize.io/user-interface-and-landing-page.md): Integrating the Securitize iD button in the UI
+- [Accessing the APIs](https://sec-connect-api-docs.securitize.io/accessing-the-apis.md)
+- [Authentication](https://sec-connect-api-docs.securitize.io/authentication-1/authentication.md): The authentication process describe how to add a link to your website to Securitize D and how to retrieve the information provided after the login process and use it on Connect API
+- [Access Token](https://sec-connect-api-docs.securitize.io/authentication-1/access-token.md): How to get the Access Token after the login process and how to use it
+- [Refresh Access Token](https://sec-connect-api-docs.securitize.io/authentication-1/refresh-access-token.md): How to refresh the Access Token
+- [Application Configuration](https://sec-connect-api-docs.securitize.io/authentication-1/client-configuration.md): How to get Post Issuer information.
+- [Investor Information](https://sec-connect-api-docs.securitize.io/investor-information.md): Please see the responses example for New as well as Individual and Entity Investor.
+- [New Investor Example](https://sec-connect-api-docs.securitize.io/investor-information/new-investor-example.md): How to get information from an investor
+- [Individual Investor Example](https://sec-connect-api-docs.securitize.io/investor-information/individual-investor-example.md): How to get information from an investor (full response)
+- [Entity Investor Example](https://sec-connect-api-docs.securitize.io/investor-information/entity-investor-example.md): How to get information from an entity investor (full response)
+- [Investor Documents](https://sec-connect-api-docs.securitize.io/investor-documents.md): How to get documents from an investor
+- [Legal Signers](https://sec-connect-api-docs.securitize.io/legal-signers.md): How to get Legal Signers Information
+- [Verification Details](https://sec-connect-api-docs.securitize.io/verification-details.md): How to get investor verification details
+- [Wallets](https://sec-connect-api-docs.securitize.io/wallets.md)
+- [Whitelisting redirected URLs](https://sec-connect-api-docs.securitize.io/whitelisting/whitelisting-redirected-urls.md)

@@ -1,0 +1,51 @@
+generated: '2026-08-05'
+method: searched
+source: https://sec-connect-api-docs.securitize.io/authentication-1/authentication
+docs: https://sec-connect-api-docs.securitize.io/scope-of-access
+api: Securitize Connect API (Securitize iD)
+description: >-
+  The Securitize Connect API is an OAuth provider for Securitize iD. Scopes are passed as a space-delimited
+  `scope` query parameter on the authorize redirect and govern what investor data a partner may read once the
+  investor signs the data-share agreement. The docs state only three scopes are currently supported. The Domains
+  API is a separate surface and uses API-key auth with no scopes — see authentication/securitize-authentication.yml.
+schemes:
+- name: SecuritizeID OAuth
+  type: oauth2
+  flow: authorization-code-like
+  authorization_url: https://id.securitize.io/#/authorize
+  token_url: https://sec-id-api.securitize.io/v1/{clientId}/oauth2/authorize
+  refresh_url: https://sec-id-api.securitize.io/v1/{clientId}/oauth2/refresh
+  client_id_param: issuerId
+  redirect_param: redirecturl
+  redirect_allowlist_required: true
+  authorization_code_ttl: 5 minutes
+  source: https://sec-connect-api-docs.securitize.io/authentication-1/authentication
+scopes:
+- scope: info
+  description: >-
+    Basic investor information — the identity fields the investor agreed to share with the partner application.
+  sources:
+  - https://sec-connect-api-docs.securitize.io/authentication-1/authentication
+- scope: details
+  description: Extended investor detail, including entity and legal-signer information where applicable.
+  sources:
+  - https://sec-connect-api-docs.securitize.io/authentication-1/authentication
+- scope: verification
+  description: >-
+    Investor verification state and verification details — KYC/KYB/AML status and the supporting verification
+    records.
+  sources:
+  - https://sec-connect-api-docs.securitize.io/authentication-1/authentication
+  - https://sec-connect-api-docs.securitize.io/verification-details
+notes:
+- >-
+  Scope of access is additionally governed by the commercial agreement between Securitize iD and the third-party
+  integrator, not by the scope string alone (see the Scope of Access page).
+- >-
+  The three scopes are enumerated in prose in the authentication docs ("we currently only support
+  `info details verification`"). Securitize publishes no OpenAPI oauth2 securityScheme and no scopes reference
+  table, so there is no machine-readable source for this list.
+x-evidence:
+  fetched: '2026-08-05'
+  url: https://sec-connect-api-docs.securitize.io/authentication-1/authentication.md
+  http_status: 200

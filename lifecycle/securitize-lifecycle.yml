@@ -1,0 +1,61 @@
+generated: '2026-08-05'
+method: derived
+source:
+- openapi/securitize-domains-openapi-original.json
+- https://domain-api-docs.securitize.io/
+- https://sec-connect-api-docs.securitize.io/
+versioning:
+  scheme: uri-path
+  current: v1
+  evidence: every path in the Domains API and every documented Connect API endpoint is prefixed /v1/
+  spec_version_field: '3.0.0'
+  spec_version_note: >-
+    The OpenAPI info.version is "3.0.0", which mirrors the OpenAPI version rather than an API version. The
+    callable surface is v1.
+  policy_url: null
+  policy_documented: false
+deprecation:
+  policy_url: null
+  policy_documented: false
+  sunset_header: unknown
+  deprecation_header: unknown
+  deprecated_operations: []
+  evidence: >-
+    No operation in the OpenAPI carries deprecated: true, and neither docs site publishes a deprecation or sunset
+    policy. No Deprecation pointer is wired in apis.yml.
+sla:
+  url: null
+  uptime_target: null
+  documented: false
+status_page:
+  url: null
+  probed:
+  - url: https://status.securitize.io/
+    status: 404
+  - url: https://securitize.statuspage.io/
+    status: unresolved
+  evidence: >-
+    No status page found. No StatusPage pointer is wired in apis.yml. The API does expose an unauthenticated-path
+    health operation, GET /v1/health (AppController_root), but it returns 401 without an API key, so it cannot
+    serve as a public health signal.
+changelog:
+  url: null
+  documented: false
+  evidence: >-
+    Neither GitBook docs site publishes a changelog or release-notes page; the llms.txt index of each site lists
+    every page and no changelog appears. No ChangeLog pointer is wired.
+breaking_change_evidence:
+- finding: >-
+    The Connect API docs name https://sec-id-api.sandbox.securitize.io/swagger#/ as "the reference documentation"
+    for Securitize iD. That URL returned 404 on 2026-08-05, as did every /swagger-json, /openapi.json and
+    /api-json variant on both the sandbox and production Securitize iD hosts. The reference the docs point at has
+    been withdrawn without the docs being updated.
+  probed: '2026-08-05'
+  status: 404
+retirement:
+  documented: false
+gaps:
+- No published versioning policy, deprecation policy, sunset headers, SLA, status page, or changelog.
+- >-
+  For a regulated transfer agent and broker-dealer running securities issuance through this API, the absence of a
+  deprecation policy and a status page is the most consequential operational-transparency gap in this profile.

@@ -1,23 +1,212 @@
 aid: securitize
 name: Securitize
-description: 'Securitize is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  Securitize is a tokenization platform and SEC-registered financial services group that issues, manages, and
+  services digital securities representing real-world assets — tokenized U.S. Treasuries, private credit, private
+  equity, funds, and equities — for asset managers including BlackRock (BUIDL), Apollo (ACRED), Hamilton Lane,
+  KKR, and VanEck (VBILL). The company operates a registered transfer agent, broker-dealer (Securitize Markets),
+  alternative trading system, fund administration business, and an EU-approved investment firm, and it publishes
+  three developer-facing APIs: a Domain API covering the full securities lifecycle (investor onboarding, KYC/KYB,
+  accreditation, fundraising, issuance, token wallets, blockchain transactions, snapshots, and holder records), a
+  Connect API that acts as an OAuth provider for Securitize iD single sign-on and verified-identity sharing, and a
+  Webhook API for real-time investor event delivery. Securitize also runs a public, unauthenticated MCP server that
+  exposes its tokenized-asset catalog to AI agents.
+image: https://cdn.builder.io/api/v1/image/assets%2Fd39b51a544e84e2fbb2445f58c6c6f2c%2F0eeaf40c7ecd4ee0a05f030d32ae949e
 url: https://raw.githubusercontent.com/api-evangelist/securitize/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
-specificationVersion: '0.20'
+specificationVersion: '0.21'
 created: '2026-08-05'
 modified: '2026-08-05'
 tags:
-- Company
-apis: []
+- tokenization
+- digital-securities
+- real-world-assets
+- capital-markets
+- fund-administration
+- transfer-agent
+- kyc
+- aml
+- identity-verification
+- blockchain
+- broker-dealer
+- private-credit
+- mcp
+- webhooks
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- name: Securitize Domains API
+  description: >-
+    Comprehensive backend REST API giving domain operators (issuers, brokerage firms, secondary-market operators)
+    programmatic access to the entire digital-securities lifecycle: investor onboarding and management, KYC and
+    accreditation status, investor documents and legal signers, investment opportunities, pledges, funding and
+    transactions, issuances, token wallets, blockchain transaction preparation and signing, NAV, snapshots, holder
+    lists, Travel Rule investor registration, and webhook subscriptions. 87 paths / 125 operations, authenticated
+    with an API key in the Authorization header.
+  humanURL: https://domain-api-docs.securitize.io/
+  baseURL: https://public-api.securitize.io/
+  tags:
+  - tokenization
+  - digital-securities
+  - capital-markets
+  - kyc
+  - transfer-agent
+  - blockchain
+  - webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/securitize-domains-openapi-original.json
+  - type: Documentation
+    url: https://domain-api-docs.securitize.io/
+  - type: APIReference
+    url: https://public-api.sandbox.securitize.io/docs/
+  - type: GettingStarted
+    url: https://domain-api-docs.securitize.io/api/api-specs
+  - type: Authentication
+    url: https://domain-api-docs.securitize.io/api/authentication
+  - type: LLMsTxt
+    url: llms/securitize-domain-api-llms.txt
+  - type: Overlay
+    url: overlays/securitize-domains-overlay.yaml
+  - type: ErrorCatalog
+    url: errors/securitize-problem-types.yml
+  - type: DataModel
+    url: data-model/securitize-data-model.yml
+  - type: Webhooks
+    url: asyncapi/securitize-webhooks.yml
+- name: Securitize Connect API (Securitize iD)
+  description: >-
+    OAuth-based identity API that lets partners add "Log in with Securitize iD" to their own application and, with
+    investor consent, retrieve verified KYC/KYB/AML identity data — investor information, verification details,
+    investor documents, legal signers, and registered wallets. Scopes are limited to info, details, and
+    verification. Documented endpoint surface only; Securitize publishes no machine-readable specification for this
+    API and the Swagger reference its docs link to now returns 404.
+  humanURL: https://sec-connect-api-docs.securitize.io/
+  baseURL: https://sec-id-api.securitize.io/
+  tags:
+  - identity-verification
+  - kyc
+  - aml
+  - oauth
+  - single-sign-on
+  properties:
+  - type: Documentation
+    url: https://sec-connect-api-docs.securitize.io/
+  - type: GettingStarted
+    url: https://sec-connect-api-docs.securitize.io/accessing-the-apis
+  - type: Authentication
+    url: https://sec-connect-api-docs.securitize.io/authentication-1/authentication
+  - type: OAuthScopes
+    url: scopes/securitize-scopes.yml
+  - type: LLMsTxt
+    url: llms/securitize-connect-api-llms.txt
+  x-evidence:
+    fetched: '2026-08-05'
+    spec_probe: https://sec-id-api.sandbox.securitize.io/swagger
+    spec_probe_status: 404
+    note: >-
+      The Connect API docs link to a Securitize iD Swagger at
+      https://sec-id-api.sandbox.securitize.io/swagger#/ as "the reference documentation"; that path and every
+      /swagger-json, /openapi.json and /api-json variant on both the sandbox and production hosts returned 404 on
+      2026-08-05. No OpenAPI was authored on the provider's behalf.
+- name: Securitize MCP Server
+  description: >-
+    Public, unauthenticated Model Context Protocol server ("Securitize Connector") that gives AI assistants and
+    agents real-time, standardized access to the Securitize tokenized-asset catalog — listing assets, counting
+    them, searching by symbol or description, and retrieving asset detail and on-chain token information including
+    contract addresses and bridge details. Streamable HTTP transport, MCP protocol version 2025-06-18.
+  humanURL: https://securitize.io/learn/blog/Introducing-the-Securitize-MCP-Server-A-Gateway-to-Tokenized-Asset-Data
+  baseURL: https://mcp.securitize.io/mcp
+  tags:
+  - mcp
+  - agent-native
+  - tokenization
+  - real-world-assets
+  properties:
+  - type: MCPServer
+    url: mcp/securitize-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/securitize-tool-crosswalk.yml
 common:
 - type: Website
-  url: https://forgeglobal.com/securitize_stock/
+  url: https://securitize.io/
+- type: DeveloperPortal
+  url: https://securitize.io/apis
+- type: Documentation
+  url: https://domain-api-docs.securitize.io/
+- type: APIReference
+  url: https://public-api.sandbox.securitize.io/docs/
+- type: GettingStarted
+  url: https://domain-api-docs.securitize.io/api/api-specs
+- type: Postman
+  url: https://documenter.getpostman.com/view/16645978/UVsEVopd
+- type: Support
+  url: https://developersupport.securitize.io/hc/en-us
+- type: Blog
+  url: https://securitize.io/learn/blog
+- type: GitHubOrganization
+  url: https://github.com/securitize-io
+- type: SignUp
+  url: https://id.securitize.io/
+- type: Security
+  url: https://securitize.io/bug-bounty
+- type: VulnerabilityDisclosure
+  url: security/securitize-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/securitize-domain-security.yml
+- type: Authentication
+  url: authentication/securitize-authentication.yml
+- type: OAuthScopes
+  url: scopes/securitize-scopes.yml
+- type: Conformance
+  url: conformance/securitize-conformance.yml
+- type: Conventions
+  url: conventions/securitize-conventions.yml
+- type: Lifecycle
+  url: lifecycle/securitize-lifecycle.yml
+- type: ErrorCatalog
+  url: errors/securitize-problem-types.yml
+- type: DataModel
+  url: data-model/securitize-data-model.yml
+- type: Sandbox
+  url: sandbox/securitize-sandbox.yml
+- type: Packages
+  url: packages/securitize-packages.yml
+- type: MCPServer
+  url: mcp/securitize-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/securitize-tool-crosswalk.yml
+- type: Webhooks
+  url: asyncapi/securitize-webhooks.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: AgenticAccess
+  url: agentic-access/securitize-agentic-access.yml
+- type: Overlay
+  url: overlays/securitize-domains-overlay.yaml
+x-enrichment:
+  date: '2026-08-05'
+  status: enriched
+  artifacts_added: 26
+  pass: local-v1
+x-coverage:
+  state: covered
+  reason: null
+  detail: >-
+    Full contract discovery succeeded. The Securitize Domains API OpenAPI (3.0.0, 87 paths / 125 operations, 238
+    schemas) was harvested verbatim from the Swagger UI backing document at
+    https://public-api.sandbox.securitize.io/doc/swagger-json, and the public MCP server at
+    https://mcp.securitize.io/mcp answered tools/list anonymously with five real tools. The Connect API remains
+    documented-prose-only — its cited Securitize iD Swagger 404s — and is recorded as such rather than authored.
+  evidence:
+  - url: https://public-api.sandbox.securitize.io/doc/swagger-json
+    status: 200
+  - url: https://mcp.securitize.io/mcp
+    status: 200
+  - url: https://sec-id-api.sandbox.securitize.io/swagger
+    status: 404
+  checked: '2026-08-05'

@@ -1,0 +1,102 @@
+generated: '2026-08-05'
+method: derived
+source: openapi/securitize-domains-openapi-original.json
+format: nestjs-http-exception
+rfc9457: false
+description: >-
+  The Securitize Domains API does not use RFC 9457 problem+json. Its error envelope is the NestJS HttpException
+  shape — a JSON object with `message` and a numeric `statusCode`, plus `name` and a `data` payload on the
+  blockchain-id error. Only 6 of 125 operations declare any 4xx/5xx response at all; the other 119 document
+  success responses only, so the error contract for almost the whole API is undocumented and must be discovered at
+  runtime. The two schemas below are the ONLY error shapes the spec publishes.
+envelope:
+  primary:
+    schema: TrInvestorErrorResponseDto
+    fields:
+    - name: message
+      type: string
+      required: true
+    - name: statusCode
+      type: number
+      required: true
+  extended:
+    schema: BlockchainIdErrorResponseDto
+    used_by: InvestorsController_createInvestorBlockchainId (400)
+    fields:
+    - name: message
+      type: string
+      required: true
+    - name: statusCode
+      type: number
+      required: true
+    - name: name
+      type: string
+      required: true
+    - name: data
+      type: object
+      required: true
+      note: echoes CreateTrInvestorBlockchainIdResponseDto
+  content_type: application/json
+problems:
+- status: 400
+  title: Bad request
+  schema: TrInvestorErrorResponseDto
+  source_operations:
+  - openapi/securitize-domains-openapi-original.json#InvestorsController_createTrIndividualInvestor
+  - openapi/securitize-domains-openapi-original.json#InvestorsController_createTrEntityInvestor
+  remediation: >-
+    Travel Rule investor registration rejected the payload. Validate required identity fields before resubmitting.
+- status: 400
+  title: Bad request (blockchain id)
+  schema: BlockchainIdErrorResponseDto
+  source_operations:
+  - openapi/securitize-domains-openapi-original.json#InvestorsController_createInvestorBlockchainId
+  remediation: >-
+    Blockchain-id creation rejected the payload. The `data` member echoes the blockchain-id response shape and
+    should be inspected for the partial result.
+- status: 409
+  title: Conflict
+  schema: TrInvestorErrorResponseDto
+  source_operations:
+  - openapi/securitize-domains-openapi-original.json#InvestorsController_createTrIndividualInvestor
+  - openapi/securitize-domains-openapi-original.json#InvestorsController_createTrEntityInvestor
+  - openapi/securitize-domains-openapi-original.json#InvestorsController_createInvestorBlockchainId
+  remediation: >-
+    The Travel Rule investor or blockchain id already exists. Read the existing record with the matching GET
+    before creating. Note there is no idempotency key on these operations, so a retried POST returns 409 rather
+    than replaying the original result.
+observed:
+- status: 401
+  title: Unauthorized
+  observed_at:
+  - https://public-api.securitize.io/v1/health
+  - https://public-api.sandbox.securitize.io/v1/health
+  - https://public-api.sandbox.securitize.io/v1/webhooks/events
+  probed: '2026-08-05'
+  body: 'Unauthorized (text/plain)'
+  note: >-
+    Not declared in the spec. Every operation requires the API key, and an anonymous call returns a plain-text 401
+    rather than the JSON envelope above — an envelope inconsistency worth flagging to Securitize.
+coverage:
+  operations_total: 125
+  operations_with_any_4xx_or_5xx: 3
+  distinct_status_codes_declared:
+  - 400
+  - 409
+  status_codes_never_declared:
+  - 401
+  - 403
+  - 404
+  - 422
+  - 429
+  - 500
+gaps:
+- >-
+  122 of 125 operations declare no error response. An agent calling this API cannot know from the contract what a
+  failure looks like on any of them.
+- >-
+  No 401/403 is declared anywhere even though every operation is authenticated, and no 429 is declared even
+  though the API is a regulated multi-tenant platform.
+- >-
+  Errors carry no stable machine-readable code — only a free-text `message` and the HTTP status. There is nothing
+  for a client to branch on except string matching.

@@ -1,0 +1,62 @@
+generated: '2026-08-05'
+method: generated
+source: openapi/securitize-domains-openapi-original.json
+description: >-
+  Packaged Agent Skills for the Securitize APIs. Every operationId referenced in the Domains API skills was
+  verified verbatim against the harvested OpenAPI. The Connect API skill references documented HTTP endpoints
+  rather than operationIds, because Securitize publishes no OpenAPI for that API — the skill says so explicitly
+  rather than inventing ids.
+skills:
+- file: securitize-onboard-investor.md
+  name: Onboard an investor onto a Securitize domain
+  api: openapi/securitize-domains-openapi-original.json
+  operations:
+  - DomainsController_getDomains
+  - InvestorsController_addInvestor
+  - InvestorsController_getInvestor
+  - InvestorsController_sendInviteSecIdEmails
+  - KycController_getKycStatus
+  - AccreditationController_getAccreditationStatus
+  - LegalSignersController_createIndividualLegalSigner
+  - DocumentsController_createInvestorDocument
+- file: securitize-issue-and-settle-tokens.md
+  name: Fund an investment and issue digital securities on-chain
+  api: openapi/securitize-domains-openapi-original.json
+  operations:
+  - InvestmentController_createInvestment
+  - PledgedAmountController_updatePledgedAmount
+  - FundingAddressController_getFundingAddress
+  - SubscriptionAgreementStatusController_updateSubscriptionAgreementStatus
+  - TokenWalletsController_addTokenWallet
+  - IssuancesController_createIssuance
+  - BlockchainTransactionsController_addBlockchainTransactionData
+  - BlockchainTransactionsController_addBlockchainTransactionSign
+  - HoldersController_getHolders
+- file: securitize-travel-rule-and-webhooks.md
+  name: Register Travel Rule counterparties and subscribe to investor events
+  api: openapi/securitize-domains-openapi-original.json
+  operations:
+  - InvestorsController_createTrIndividualInvestor
+  - InvestorsController_createTrEntityInvestor
+  - InvestorsController_createInvestorBlockchainId
+  - EventsController_getEvents
+  - SubscriptionsController_createSubscription
+  - SettingsController_createSignature
+- file: securitize-connect-identity.md
+  name: Add Securitize iD sign-in and read verified investor identity
+  api: null
+  api_note: >-
+    No OpenAPI published for the Connect API; the Securitize iD Swagger its docs cite returned 404 on 2026-08-05.
+  operations:
+  - POST /v1/{clientId}/oauth2/authorize
+  - POST /v1/{clientId}/oauth2/refresh
+  - GET /v1/{clientId}/investor
+  - GET /v1/{clientId}/investor/verification
+  - GET /v1/{clientId}/investor/documents
+  - GET /v1/{clientId}/investor/signers
+  - GET /v1/{clientId}/investor/domain/wallets
+not_covered:
+- surface: Securitize MCP Server
+  reason: >-
+    The five MCP tools are self-describing and take at most one string argument; a skill would add nothing over
+    the live tools/list. See mcp/securitize-mcp.yml.

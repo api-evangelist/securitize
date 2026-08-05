@@ -1,0 +1,16 @@
+generated: '2026-08-05'
+method: derived
+source: openapi/securitize-domains-openapi-original.json
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: ApiKeyAuth
+  type: apiKey
+  in: header
+  parameter: Authorization
+  description: API Key Format as "apiKey &lt;key_id&gt;:&lt;key_secret&gt;"
+  sources:
+  - openapi/securitize-domains-openapi-original.json

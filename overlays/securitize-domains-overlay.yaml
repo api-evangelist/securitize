@@ -1,0 +1,89 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Securitize Domains API
+  version: 1.0.0
+extends: openapi/securitize-domains-openapi-original.json
+x-generated: '2026-08-05'
+x-method: generated
+x-source: openapi/securitize-domains-openapi-original.json
+x-note: >-
+  Captures API Evangelist enhancements over the harvested Securitize Domains API spec. The harvested document is
+  never mutated. The spec is a NestJS-emitted OpenAPI 3.0.0 with 125 operations and only ONE operation summary and
+  ONE operation description across all of them, no servers block, and no declared tags block — so the enhancements
+  below are chiefly the missing document-level metadata (servers, tag declarations, contact/licence, security
+  documentation) plus pointers at the artifacts derived in this repo.
+actions:
+- target: $.info
+  update:
+    description: >-
+      The Securitize Domains API provides programmatic access to the Securitize platform for issuers, brokerage
+      firms and secondary-market operators. It covers the entire life cycle of digital securities: investor
+      onboarding, KYC/KYB and accreditation, investor documents and legal signers, investment opportunities,
+      pledges, funding and transactions, issuance and redemption, token wallets, blockchain transaction
+      preparation and signing, NAV, snapshots, holder records, FATF Travel Rule registration, and webhook
+      subscriptions.
+    x-apievangelist-harvested-from: https://public-api.sandbox.securitize.io/doc/swagger-json
+    x-apievangelist-harvested-on: '2026-08-05'
+    x-apievangelist-api-version: v1
+    x-apievangelist-conventions: conventions/securitize-conventions.yml
+    x-apievangelist-errors: errors/securitize-problem-types.yml
+    x-apievangelist-data-model: data-model/securitize-data-model.yml
+    x-apievangelist-lifecycle: lifecycle/securitize-lifecycle.yml
+    x-apievangelist-sandbox: sandbox/securitize-sandbox.yml
+    contact:
+      name: Securitize Developer Support
+      url: https://developersupport.securitize.io/hc/en-us
+    termsOfService: https://securitize.io/apis
+- target: $
+  update:
+    servers:
+    - url: https://public-api.securitize.io
+      description: Production
+    - url: https://public-api.sandbox.securitize.io
+      description: Sandbox
+    tags:
+    - name: Domains
+      description: >-
+        Domain-scoped operations covering investors, compliance status, documents, investments, issuance, tokens,
+        wallets, blockchain transactions, snapshots and holders. 104 of 125 operations.
+    - name: Travel Rule
+      description: FATF Travel Rule investor registration and blockchain-id issuance for partners.
+      externalDocs:
+        url: https://domain-api-docs.securitize.io/guide/tr-api-for-partners
+    - name: Webhooks
+      description: Event catalog, subscription management and delivery signature settings.
+      externalDocs:
+        url: https://securitize.io/apis
+    - name: APAC
+      description: Region-specific bank deposit file reconciliation and pledged-amount reporting.
+    - name: Health Check
+      description: Service liveness. Requires an API key.
+    externalDocs:
+      description: Securitize Domains API documentation
+      url: https://domain-api-docs.securitize.io/
+- target: $.components.securitySchemes.ApiKeyAuth
+  update:
+    x-apievangelist-issuance: >-
+      keyId and keySecret are issued by Securitize customer success. There is no self-serve key. The key inherits
+      the permissions of a specific Control Panel user; there are no per-key scopes.
+    x-apievangelist-docs: https://domain-api-docs.securitize.io/api/authentication
+- target: $.paths['/v1/health'].get
+  update:
+    summary: Service health
+    description: >-
+      Liveness check. NOTE: this operation is NOT anonymous — an unauthenticated call returns 401 Unauthorized
+      (verified 2026-08-05 on both the production and sandbox hosts), so it cannot be used as a public status
+      signal.
+- target: $.paths['/v1/webhooks/events'].get
+  update:
+    summary: List subscribable webhook event types
+    description: >-
+      Returns the catalog of event types available for subscription, each with the property names its payload
+      carries. Requires an API key, so the event catalog is not publicly discoverable.
+x-apievangelist-gaps:
+- 124 of 125 operations carry no summary and no description.
+- No tags block is declared at the document level, although every operation is tagged.
+- No servers block; the callable hosts had to be recovered from the docs and the Swagger UI configuration.
+- 122 of 125 operations declare no 4xx/5xx response, and 401 is never declared despite universal authentication.
+- No examples anywhere in the document.
+- No idempotency key on any write operation, including issuance and blockchain transaction submission.

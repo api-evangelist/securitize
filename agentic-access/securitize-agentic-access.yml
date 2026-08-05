@@ -1,0 +1,1650 @@
+generated: '2026-08-05'
+method: generated
+source: openapi/securitize-domains-openapi-original.json
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 125
+  by_action_class:
+    connected: 61
+    acting: 64
+  by_consequence:
+    read: 61
+    safety-critical: 64
+  human_in_the_loop_required: 64
+operations:
+- path: /v1/health
+  method: get
+  operationId: AppController_root
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/list
+  method: get
+  operationId: DomainsController_getDomains
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/currencies/list
+  method: get
+  operationId: CurrenciesController_getCurrencies
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/custodians/list
+  method: get
+  operationId: CustodiansController_getCustodians
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/custodians/detail
+  method: post
+  operationId: CustodiansController_addCustodian
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/investors/list
+  method: get
+  operationId: InvestorsController_getInvestors
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/investors/{externalId}
+  method: get
+  operationId: InvestorsController_getInvestor
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/investors/{externalId}
+  method: patch
+  operationId: InvestorsController_editInvestor
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/investors/{externalId}
+  method: delete
+  operationId: InvestorsController_deleteInvestor
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/investors/detail
+  method: post
+  operationId: InvestorsController_addInvestor
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/investors/bulk
+  method: post
+  operationId: InvestorsController_addInvestors
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/investors/send-secid-email
+  method: post
+  operationId: InvestorsController_sendInviteSecIdEmails
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/investors/{externalId}/accreditation/status
+  method: get
+  operationId: AccreditationController_getAccreditationStatus
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/investors/{externalId}/accreditation/status
+  method: put
+  operationId: AccreditationController_updateAccreditationStatus
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/investors/{externalId}/accreditation/send-email
+  method: post
+  operationId: AccreditationController_sendAccreditationEmail
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/investors/{externalId}/documents/list
+  method: get
+  operationId: DocumentsController_getInvestorDocuments
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/investors/{externalId}/documents/detail
+  method: get
+  operationId: DocumentsController_getInvestorDocument
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/investors/{externalId}/documents/detail
+  method: post
+  operationId: DocumentsController_createInvestorDocument
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/investors/{externalId}/documents/detail
+  method: delete
+  operationId: DocumentsController_deleteInvestorDocument
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/investors/{externalId}/investment
+  method: get
+  operationId: InvestmentController_getInvestment
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/investors/{externalId}/investment
+  method: post
+  operationId: InvestmentController_createInvestment
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/investors/{externalId}/investment/funded-amount
+  method: get
+  operationId: FundedAmountController_getFundedAmount
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/investors/{externalId}/investment/funding-address
+  method: get
+  operationId: FundingAddressController_getFundingAddress
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/investors/{externalId}/investment/pledged-amount
+  method: get
+  operationId: PledgedAmountController_getPledgedAmount
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/investors/{externalId}/investment/pledged-amount
+  method: put
+  operationId: PledgedAmountController_updatePledgedAmount
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/investors/{externalId}/investment/subscription-agreement-status
+  method: get
+  operationId: SubscriptionAgreementStatusController_getSubscriptionAgreementStatus
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/investors/{externalId}/investment/subscription-agreement-status
+  method: put
+  operationId: SubscriptionAgreementStatusController_updateSubscriptionAgreementStatus
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/investors/{externalId}/investment/transactions/list
+  method: get
+  operationId: TransactionsController_getTransactions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/investors/{externalId}/investment/transactions/detail
+  method: post
+  operationId: TransactionsController_createTransaction
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/investors/{externalId}/investment/transactions/detail
+  method: patch
+  operationId: TransactionsController_updateTransaction
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/investors/{externalId}/investment/transactions/detail
+  method: delete
+  operationId: TransactionsController_deleteTransaction
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/investors/{externalId}/issuances/list
+  method: get
+  operationId: IssuancesController_getIssuances
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/investors/{externalId}/issuances/detail
+  method: post
+  operationId: IssuancesController_createIssuance
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/investors/{externalId}/issuances/detail
+  method: delete
+  operationId: IssuancesController_deleteIssuance
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/investors/{externalId}/kyc/status
+  method: get
+  operationId: KycController_getKycStatus
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/investors/{externalId}/kyc/status
+  method: put
+  operationId: KycController_updateKycStatus
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/investors/{externalId}/qualification/status
+  method: get
+  operationId: QualificationController_getQualificationStatus
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/investors/{externalId}/qualification/status
+  method: put
+  operationId: QualificationController_updateQualificationStatus
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/investors/{externalId}/token-info
+  method: get
+  operationId: TokenInfoController_getTokenInfo
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/investors/{externalId}/token-info
+  method: patch
+  operationId: TokenInfoController_updateTokenInfo
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/investors/{externalId}/token-wallets/list
+  method: get
+  operationId: TokenWalletsController_getTokenWallets
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/investors/{externalId}/token-wallets/detail
+  method: post
+  operationId: TokenWalletsController_addTokenWallet
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/investors/{externalId}/token-wallets/detail
+  method: patch
+  operationId: TokenWalletsController_updateTokenWallet
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/investors/{externalId}/token-wallets/detail
+  method: delete
+  operationId: TokenWalletsController_deleteTokenWallet
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/investors/{externalId}/labels/list
+  method: get
+  operationId: LabelsController_getLabels
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/investors/{externalId}/labels/detail
+  method: post
+  operationId: LabelsController_addLabel
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/investors/{externalId}/labels/detail
+  method: delete
+  operationId: LabelsController_deleteLabel
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/investors/{externalId}/legal-signers/list
+  method: get
+  operationId: LegalSignersController_getLegalSigners
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/investors/{externalId}/legal-signers/detail
+  method: get
+  operationId: LegalSignersController_getLegalSigner
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/investors/{externalId}/legal-signers/detail
+  method: delete
+  operationId: LegalSignersController_deleteLegalSigner
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/investors/{externalId}/legal-signers/individual
+  method: post
+  operationId: LegalSignersController_createIndividualLegalSigner
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/investors/{externalId}/legal-signers/entity
+  method: post
+  operationId: LegalSignersController_createEntityLegalSigner
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/investors/{externalId}/transfer-tbe
+  method: post
+  operationId: TransferTbeController_createTransferTbeTransaction
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/investors/{externalId}/token-qualification/status
+  method: get
+  operationId: TokenQualificationController_getTokenQualificationStatus
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/investors/{externalId}/token-qualification/status
+  method: put
+  operationId: TokenQualificationController_updateTokenQualificationStatus
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/tokens/list
+  method: get
+  operationId: TokensController_getTokens
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/tokens/{tokenId}
+  method: get
+  operationId: TokensController_getToken
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/tokens/{tokenId}
+  method: patch
+  operationId: TokensController_updateToken
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/tokens/{tokenId}/nav
+  method: post
+  operationId: TokensController_setNav
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/tokens/{tokenId}/blockchain-transactions/list
+  method: get
+  operationId: BlockchainTransactionsController_getBlockchainTransactions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/tokens/{tokenId}/blockchain-transactions/detail
+  method: delete
+  operationId: BlockchainTransactionsController_deleteBlockchainTransaction
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/tokens/{tokenId}/blockchain-transactions/detail
+  method: get
+  operationId: BlockchainTransactionsController_getTransaction
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/tokens/{tokenId}/blockchain-transactions/prepare
+  method: post
+  operationId: BlockchainTransactionsController_addBlockchainTransactionData
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/tokens/{tokenId}/blockchain-transactions/send
+  method: post
+  operationId: BlockchainTransactionsController_addBlockchainTransactionSign
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/tokens/{tokenId}/blockchain-transactions/status
+  method: put
+  operationId: BlockchainTransactionsController_updateTransactionStatus
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/tokens/{tokenId}/blockchain-transactions/procedures/lost-shares
+  method: post
+  operationId: ProceduresController_createLostSharesTransactions
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/tokens/{tokenId}/blockchain-transactions/procedures/clawback
+  method: post
+  operationId: ProceduresController_createClawbackTransactions
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/tokens/{tokenId}/blockchain-transactions/procedures/destroy
+  method: post
+  operationId: ProceduresController_createDestroyTransaction
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/tokens/{tokenId}/blockchain-transactions/procedures/hold-trading
+  method: post
+  operationId: ProceduresController_createHoldTradingTransaction
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/tokens/{tokenId}/blockchain-transactions/procedures/destroy-tbe
+  method: post
+  operationId: ProceduresController_createDestroyTbeTransaction
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/tokens/{tokenId}/blockchain-transactions/procedures/internal-transfer-tbe
+  method: post
+  operationId: ProceduresController_createInternalTransferTbeTransaction
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/tokens/{tokenId}/documents/list
+  method: get
+  operationId: DocumentsController_getTokenDocuments
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/tokens/{tokenId}/documents/detail
+  method: get
+  operationId: DocumentsController_getTokenDocument
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/tokens/{tokenId}/documents/detail
+  method: post
+  operationId: DocumentsController_addTokenDocument
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/tokens/{tokenId}/documents/detail
+  method: patch
+  operationId: DocumentsController_updateTokenDocument
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/tokens/{tokenId}/documents/detail
+  method: delete
+  operationId: DocumentsController_deleteTokenDocument
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/tokens/{tokenId}/holders/list
+  method: get
+  operationId: HoldersController_getHolders
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/tokens/{tokenId}/rounds/list
+  method: get
+  operationId: RoundsController_getRounds
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/tokens/{tokenId}/rounds/detail
+  method: get
+  operationId: RoundsController_getRound
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/tokens/{tokenId}/rounds/detail
+  method: patch
+  operationId: RoundsController_updateRound
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/tokens/{tokenId}/outreach/notifications/send
+  method: post
+  operationId: NotificationsController_sendNotifications
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/tokens/{tokenId}/fundraise/investors/list
+  method: get
+  operationId: FundraiseController_getFundraiseInvestors
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/tokens/{tokenId}/token-transactions/list
+  method: get
+  operationId: TokenTransactionsController_getTokenTransactions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/tokens/{tokenId}/token-transactions/detail
+  method: get
+  operationId: TokenTransactionsController_getTokenTransaction
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/questions/list
+  method: get
+  operationId: QuestionsController_getQuestions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/configurations/main-currency
+  method: get
+  operationId: ConfigurationsController_getMainCurrency
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/configurations/general
+  method: get
+  operationId: GeneralController_getGeneral
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/configurations/general/investors-area
+  method: patch
+  operationId: GeneralController_updateInvestorsArea
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/configurations/jurisdictions
+  method: get
+  operationId: JurisdictionsController_getJurisdictions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/opportunities/list
+  method: get
+  operationId: OpportunitiesController_getOpportunities
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/opportunities/detail
+  method: get
+  operationId: OpportunitiesController_getOpportunity
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/opportunities/detail
+  method: patch
+  operationId: OpportunitiesController_updateOpportunity
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/opportunities/contents/detail
+  method: patch
+  operationId: OpportunitiesController_updateOpportunityContent
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/opportunities/documents/detail
+  method: get
+  operationId: DocumentsController_getOpportunityDocument
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/opportunities/documents/detail
+  method: post
+  operationId: DocumentsController_createOpportunityDocument
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/opportunities/documents/detail
+  method: patch
+  operationId: DocumentsController_updateOpportunityDocument
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/opportunities/documents/detail
+  method: delete
+  operationId: DocumentsController_deleteOpportunityDocument
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/snapshots/list
+  method: get
+  operationId: SnapshotsController_getSnapshots
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/snapshots/detail
+  method: get
+  operationId: SnapshotsController_getSnapshot
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/domains/{domainId}/snapshots/detail
+  method: post
+  operationId: SnapshotsController_addSnapshot
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/domains/{domainId}/snapshots/records/list
+  method: get
+  operationId: SnapshotsController_getSnapshotRecords
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/tr/domains/{domainId}/investors/individual
+  method: get
+  operationId: InvestorsController_getTrIndividualInvestor
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/tr/domains/{domainId}/investors/individual
+  method: post
+  operationId: InvestorsController_createTrIndividualInvestor
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/tr/domains/{domainId}/investors/entity
+  method: get
+  operationId: InvestorsController_getTrEntityInvestor
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/tr/domains/{domainId}/investors/entity
+  method: post
+  operationId: InvestorsController_createTrEntityInvestor
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/tr/domains/{domainId}/investors/blockchain-id
+  method: get
+  operationId: InvestorsController_getInvestorBlockchainId
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/tr/domains/{domainId}/investors/blockchain-id
+  method: post
+  operationId: InvestorsController_createInvestorBlockchainId
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/tr/domains/{domainId}/investors/{securitizeId}
+  method: get
+  operationId: InvestorsController_getTrInvestor
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/apac/domains/{domainId}/tokens/{tokenId}/bank-deposit-files/detail
+  method: post
+  operationId: BankDepositFilesController_createBankDepositFile
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/apac/domains/{domainId}/tokens/{tokenId}/bank-deposit-files/detail
+  method: get
+  operationId: BankDepositFilesController_getBankDepositFile
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/apac/domains/{domainId}/tokens/{tokenId}/bank-deposit-files/detail
+  method: delete
+  operationId: BankDepositFilesController_deleteBankDepositFile
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/apac/domains/{domainId}/tokens/{tokenId}/bank-deposit-files/list
+  method: get
+  operationId: BankDepositFilesController_getBankDepositFiles
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/apac/domains/{domainId}/tokens/{tokenId}/bank-deposit-files/records
+  method: get
+  operationId: BankDepositFilesController_getBankDepositFileRecords
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/apac/domains/{domainId}/tokens/{tokenId}/investment-requests/total-pledged-amounts
+  method: get
+  operationId: InvestmentRequestsController_getTotalPledgedAmounts
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/webhooks/events
+  method: get
+  operationId: EventsController_getEvents
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/webhooks/subscriptions
+  method: get
+  operationId: SubscriptionsController_getSubscriptions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/webhooks/subscriptions
+  method: post
+  operationId: SubscriptionsController_createSubscription
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/webhooks/subscriptions/{subscriptionId}
+  method: get
+  operationId: SubscriptionsController_getSubscription
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/webhooks/subscriptions/{subscriptionId}
+  method: patch
+  operationId: SubscriptionsController_updateSubscription
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/webhooks/subscriptions/{subscriptionId}
+  method: delete
+  operationId: SubscriptionsController_deleteSubscription
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/webhooks/settings/signature
+  method: post
+  operationId: SettingsController_createSignature
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /v1/operators/list
+  method: get
+  operationId: OperatorsController_getOperators
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/operators/detail
+  method: get
+  operationId: OperatorsController_getOperator
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/list
+  method: get
+  operationId: OrganizationsController_getOrganizations
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/detail
+  method: get
+  operationId: OrganizationsController_getOrganization
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none

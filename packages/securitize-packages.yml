@@ -1,0 +1,71 @@
+generated: '2026-08-05'
+method: searched
+source: https://registry.npmjs.org/-/v1/search?text=securitize
+description: >-
+  Securitize publishes first-party packages under the @securitize npm scope, but they are BLOCKCHAIN packages —
+  Solana bridge program SDKs — not API client libraries. There is no first-party client library for the Domains
+  API, the Connect API, or the MCP server in any registry probed. Integrators call all three surfaces over raw
+  HTTP, or via the two published Postman collections.
+packages:
+- language: typescript
+  registry: npm
+  name: '@securitize/solana-bridge-sdk'
+  version: 0.4.0
+  url: https://www.npmjs.com/package/@securitize/solana-bridge-sdk
+  install: npm install @securitize/solana-bridge-sdk
+  official: true
+  scope: blockchain
+  description: Securitize Bridge Solana program SDK
+  evidence: >-
+    npm maintainers include alexsecuritize, services_securitize and leonardo.rossi.securitize on the @securitize
+    scope.
+- language: typescript
+  registry: npm
+  name: '@securitize/solana-usdc-bridge-sdk'
+  version: 0.4.0
+  url: https://www.npmjs.com/package/@securitize/solana-usdc-bridge-sdk
+  install: npm install @securitize/solana-usdc-bridge-sdk
+  official: true
+  scope: blockchain
+  description: Securitize USDC CCTP Bridge Solana program SDK
+  evidence: same @securitize scope maintainers
+registries_probed:
+- registry: npm
+  query: securitize
+  result: 2 first-party packages (@securitize scope), 0 API client libraries
+- registry: pypi
+  query: securitize / securitize-sdk
+  result: 404
+- registry: pkg.go.dev
+  result: none
+- registry: rubygems
+  result: none
+- registry: packagist
+  result: none
+- registry: crates.io
+  result: none
+- registry: maven-central
+  result: none
+- registry: nuget
+  result: none
+excluded:
+- name: '@securitize/easysui'
+  reason: >-
+    Published under the @securitize npm scope but its repository is github.com/panosui/easysui — a generic Sui
+    TypeScript SDK, not a Securitize product. Not counted as first-party.
+- name: securitize-securitize-ui-kit
+  reason: Unscoped 1.0.0 placeholder with a default README, pointing at a private Bitbucket repo. Not usable.
+- name: rwa-cli
+  reason: Third-party RWA market CLI, not published by Securitize.
+- name: '@devprotocol/protocol'
+  reason: Dev Protocol — matched only on the word "securitize" in its description.
+source_repositories:
+  github_org: https://github.com/securitize-io
+  note: >-
+    11 public repos, all smart-contract / blockchain work (DSToken and the DS Protocol interfaces, SUI DSToken,
+    on/off-ramp contracts, vault registrar, a dApp sample, a Fireblocks Solana adapter). No API client SDK repo.
+gaps:
+- >-
+  A 125-operation REST API with no client library in any language. A generated TypeScript and Python client from
+  the published OpenAPI would cost Securitize very little and is the single largest developer-ergonomics gap in
+  this profile.

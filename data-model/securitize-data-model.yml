@@ -1,0 +1,266 @@
+generated: '2026-08-05'
+method: derived
+source: openapi/securitize-domains-openapi-original.json
+description: >-
+  Entity-relationship graph derived from the Securitize Domains API OpenAPI — 87 paths, 125 operations, 238
+  component schemas. The model is strictly hierarchical: an Organization owns Domains, a Domain owns Tokens and
+  Investors, and almost every resource is addressed through {domainId} (112 operations) with {tokenId} (34) and
+  {externalId} (46) narrowing it further. Relationships were read from path structure and from id-reference
+  fields on the component schemas.
+identifiers:
+- field: domainId
+  type: string
+  scope: tenant root — appears in 112 of 125 operations
+  discovery: read from the Control Panel URL cp.(env).securitize.io/(Domain ID)/(Token ID)
+- field: tokenId
+  type: string
+  scope: security/token within a domain — 34 path params, 25 schema references
+  discovery: read from the Control Panel URL
+- field: externalId
+  type: string
+  scope: investor key — 46 path params
+  note: the domain operator's OWN identifier for the investor, not a Securitize-minted id
+- field: issuerId
+  type: string
+  note: also the OAuth client id on the Connect API (passed as issuerId on the authorize redirect)
+- field: securitizeIdProfileId
+  type: string
+  note: the join key between a Domains API investor and a Securitize iD identity
+- field: blockchainId
+  type: string
+  note: Travel Rule blockchain identifier for an investor
+entities:
+- name: Organization
+  operations: [OrganizationsController_getOrganizations, OrganizationsController_getOrganization]
+  relationships:
+  - has_many: Domain
+    via: domainId
+- name: Operator
+  operations: [OperatorsController_getOperators, OperatorsController_getOperator]
+  relationships:
+  - belongs_to: Organization
+    via: organizationId
+- name: Domain
+  operations: [DomainsController_getDomains, GeneralController_getGeneral, GeneralController_updateInvestorsArea]
+  relationships:
+  - has_many: Token
+    via: tokenId
+  - has_many: Investor
+    via: externalId
+  - has_many: Opportunity
+  - has_many: Custodian
+  - has_many: Currency
+  - has_many: Question
+  - has_one: JurisdictionSet
+    via: JurisdictionsController_getJurisdictions
+  - has_one: MainCurrency
+    via: ConfigurationsController_getMainCurrency
+- name: Investor
+  schema: AddDomainInvestor
+  operations:
+  - InvestorsController_getInvestors
+  - InvestorsController_getInvestor
+  - InvestorsController_addInvestor
+  - InvestorsController_addInvestors
+  - InvestorsController_editInvestor
+  - InvestorsController_deleteInvestor
+  relationships:
+  - belongs_to: Domain
+    via: domainId
+  - has_one: KycStatus
+    via: externalId
+  - has_one: AccreditationStatus
+    via: externalId
+  - has_one: QualificationStatus
+    via: externalId
+  - has_one: TokenQualificationStatus
+    via: externalId + tokenId
+  - has_many: InvestorDocument
+    via: investorDocumentId
+  - has_many: LegalSigner
+    via: externalId
+  - has_many: TokenWallet
+    via: tokenWalletAddress
+  - has_many: Label
+  - has_one: Investment
+  - has_many: Issuance
+  - has_one: SecuritizeIdProfile
+    via: securitizeIdProfileId
+- name: LegalSigner
+  schema: LegalSigner
+  variants: [individual, entity]
+  operations:
+  - LegalSignersController_getLegalSigners
+  - LegalSignersController_getLegalSigner
+  - LegalSignersController_createIndividualLegalSigner
+  - LegalSignersController_createEntityLegalSigner
+  - LegalSignersController_deleteLegalSigner
+  relationships:
+  - belongs_to: Investor
+    via: externalId
+  - has_many: Document
+    via: documentId
+- name: Investment
+  operations:
+  - InvestmentController_getInvestment
+  - InvestmentController_createInvestment
+  relationships:
+  - belongs_to: Investor
+    via: externalId
+  - has_one: PledgedAmount
+  - has_one: FundedAmount
+  - has_one: FundingAddress
+  - has_one: SubscriptionAgreementStatus
+  - has_many: Transaction
+- name: Transaction
+  operations:
+  - TransactionsController_getTransactions
+  - TransactionsController_createTransaction
+  - TransactionsController_updateTransaction
+  - TransactionsController_deleteTransaction
+  relationships:
+  - belongs_to: Investment
+  - references: Currency
+- name: Opportunity
+  operations:
+  - OpportunitiesController_getOpportunities
+  - OpportunitiesController_getOpportunity
+  - OpportunitiesController_updateOpportunity
+  - OpportunitiesController_updateOpportunityContent
+  relationships:
+  - belongs_to: Domain
+    via: domainId
+  - has_many: OpportunityDocument
+    schema: DomainOpportunityDocument
+- name: Token
+  operations:
+  - TokensController_getTokens
+  - TokensController_getToken
+  - TokensController_updateToken
+  - TokensController_setNav
+  relationships:
+  - belongs_to: Domain
+    via: domainId
+  - has_many: Round
+    via: roundId
+  - has_many: TokenDocument
+  - has_many: Holder
+  - has_many: Snapshot
+  - has_many: BlockchainTransaction
+  - has_many: TokenTransaction
+  - has_many: Issuance
+  - has_one: TokenCalculatorData
+- name: Round
+  schema: UpdateDomainRoundBody
+  operations: [RoundsController_getRounds, RoundsController_getRound, RoundsController_updateRound]
+  relationships:
+  - belongs_to: Token
+    via: tokenId
+- name: Issuance
+  operations: [IssuancesController_getIssuances, IssuancesController_createIssuance, IssuancesController_deleteIssuance]
+  relationships:
+  - belongs_to: Investor
+    via: externalId
+  - references: Token
+    via: tokenId
+- name: TokenWallet
+  operations:
+  - TokenWalletsController_getTokenWallets
+  - TokenWalletsController_addTokenWallet
+  - TokenWalletsController_updateTokenWallet
+  - TokenWalletsController_deleteTokenWallet
+  relationships:
+  - belongs_to: Investor
+    via: externalId
+  - references: Token
+    via: tokenId
+- name: BlockchainTransaction
+  operations:
+  - BlockchainTransactionsController_getBlockchainTransactions
+  - BlockchainTransactionsController_getTransaction
+  - BlockchainTransactionsController_addBlockchainTransactionData
+  - BlockchainTransactionsController_addBlockchainTransactionSign
+  - BlockchainTransactionsController_updateTransactionStatus
+  - BlockchainTransactionsController_deleteBlockchainTransaction
+  relationships:
+  - belongs_to: Token
+    via: tokenId
+  - references: TokenWallet
+  procedures:
+  - ProceduresController_createClawbackTransactions
+  - ProceduresController_createDestroyTransaction
+  - ProceduresController_createDestroyTbeTransaction
+  - ProceduresController_createHoldTradingTransaction
+  - ProceduresController_createInternalTransferTbeTransaction
+  - ProceduresController_createLostSharesTransactions
+  lifecycle: prepare (build unsigned data) -> send (submit signature) -> status (update state)
+- name: Snapshot
+  schemas: [DomainSnapshotRecordInvestor, DomainSnapshotRecordWallet, DomainSnapshotRecordPayoutWallet]
+  operations:
+  - SnapshotsController_getSnapshots
+  - SnapshotsController_getSnapshot
+  - SnapshotsController_addSnapshot
+  - SnapshotsController_getSnapshotRecords
+  relationships:
+  - belongs_to: Domain
+  - has_many: SnapshotRecord
+- name: Holder
+  operations: [HoldersController_getHolders]
+  relationships:
+  - belongs_to: Token
+    via: tokenId
+- name: TravelRuleInvestor
+  operations:
+  - InvestorsController_getTrInvestor
+  - InvestorsController_getTrIndividualInvestor
+  - InvestorsController_createTrIndividualInvestor
+  - InvestorsController_getTrEntityInvestor
+  - InvestorsController_createTrEntityInvestor
+  - InvestorsController_getInvestorBlockchainId
+  - InvestorsController_createInvestorBlockchainId
+  keyed_by: securitizeId
+  relationships:
+  - belongs_to: Domain
+    via: domainId
+  - has_one: BlockchainId
+    via: blockchainId
+  note: >-
+    A separate /v1/tr/ namespace for FATF Travel Rule partners, keyed by securitizeId rather than by the
+    operator's externalId.
+- name: WebhookSubscription
+  schema: WebhookSubscriptionResponseDto
+  operations:
+  - SubscriptionsController_getSubscriptions
+  - SubscriptionsController_createSubscription
+  - SubscriptionsController_getSubscription
+  - SubscriptionsController_updateSubscription
+  - SubscriptionsController_deleteSubscription
+  relationships:
+  - belongs_to: Domain
+    via: domainId
+  - references: WebhookEvent
+    via: eventType
+- name: BankDepositFile
+  namespace: /v1/apac/
+  operations:
+  - BankDepositFilesController_getBankDepositFiles
+  - BankDepositFilesController_getBankDepositFile
+  - BankDepositFilesController_createBankDepositFile
+  - BankDepositFilesController_deleteBankDepositFile
+  - BankDepositFilesController_getBankDepositFileRecords
+  relationships:
+  - belongs_to: Token
+    via: domainId + tokenId
+  note: Region-specific APAC surface for bank deposit reconciliation.
+cross_api_joins:
+- from: Domains API Investor.securitizeIdProfileId
+  to: Connect API Securitize iD investor
+  note: >-
+    The Connect API returns investor identity for the logged-in Securitize iD holder; the Domains API carries the
+    profile id on its own investor record. This is the only documented join between the two APIs.
+counts:
+  paths: 87
+  operations: 125
+  component_schemas: 238
+  entities_modelled: 20
+render: null

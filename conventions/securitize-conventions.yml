@@ -1,0 +1,106 @@
+generated: '2026-08-05'
+method: derived
+source:
+- openapi/securitize-domains-openapi-original.json
+- https://domain-api-docs.securitize.io/api/authentication
+- https://sec-connect-api-docs.securitize.io/authentication-1/authentication
+description: >-
+  Cross-cutting request/response semantics for the Securitize APIs, derived from the published Domains API
+  OpenAPI and the GitBook docs for both the Domains and Connect APIs.
+authentication:
+  domains_api:
+    style: api-key
+    header: Authorization
+    format: 'apiKey <keyId>:<keySecret>'
+    issuance: keyId and keySecret are issued by Securitize customer success; there is no self-serve key.
+    scoping: >-
+      An API key inherits the permissions of a specific Control Panel user. Whatever that user can do in CP, the
+      key can do through the Domains API. There are no per-key scopes.
+    docs: https://domain-api-docs.securitize.io/api/authentication
+  connect_api:
+    style: oauth2
+    header: 'Authorization: Bearer <accessToken>'
+    authorize: https://id.securitize.io/#/authorize
+    token: POST https://sec-id-api.securitize.io/v1/{clientId}/oauth2/authorize
+    refresh: POST https://sec-id-api.securitize.io/v1/{clientId}/oauth2/refresh
+    authorization_code_ttl: 5 minutes
+    redirect_allowlist: required — redirectUrls must be whitelisted by Securitize
+    scopes: scopes/securitize-scopes.yml
+    docs: https://sec-connect-api-docs.securitize.io/authentication-1/authentication
+idempotency:
+  supported: false
+  evidence: >-
+    No Idempotency-Key header, parameter, or extension appears anywhere in the 185KB OpenAPI, and neither docs
+    site mentions idempotency. Retried POSTs on the Travel Rule endpoints return 409 Conflict rather than
+    replaying the original response.
+  note: >-
+    No `Idempotency` pointer is wired in apis.yml. This API mints issuances, blockchain transactions and
+    investment transactions — the operations where a duplicate write is most expensive — and a retry-safe key
+    would be the highest-value single addition to its contract.
+pagination:
+  style: page-number
+  parameters:
+  - name: page
+    in: query
+    used_by_operations: 16
+  - name: limit
+    in: query
+    used_by_operations: 16
+  ordering:
+  - name: orderField
+    in: query
+    note: enum per resource, e.g. InvestorsOrderField
+  - name: orderDirection
+    in: query
+  search:
+  - name: q
+    in: query
+    note: free-text search within a resource collection
+  cursor_support: false
+  response_envelope: >-
+    List endpoints return a resource-specific response DTO; the spec does not define one shared page envelope
+    across collections.
+filtering:
+  style: typed query parameters per resource
+  examples:
+  - fromCreatedAt / toCreatedAt
+  - fromBirthDate / toBirthDate
+  - countryCodes, stateCode, taxCountryCode
+  - investorTypes, labels, documentType, documentNumber
+  - jsonFilter (structured filter passed as a JSON string, 3 operations)
+resource_addressing:
+  path_scoping: >-
+    Nearly every operation is scoped by {domainId} (112 operations) and often {tokenId} (34) and {externalId}
+    (46). domainId and tokenId are read from the Control Panel URL, which follows the pattern
+    cp.(env).securitize.io/(Domain ID)/(Token ID).
+  investor_key: externalId — the domain-operator's own identifier for an investor, not a Securitize id.
+  collection_convention: >-
+    Collections live at /list and single records at /detail, rather than at the collection root with an id
+    segment. e.g. GET /v1/domains/{domainId}/investors/list vs GET .../investors/{externalId}.
+versioning:
+  style: uri-path
+  current: v1
+  header_negotiation: false
+  see: lifecycle/securitize-lifecycle.yml
+request_tracing:
+  request_id_header: none documented
+  evidence: no x-request-id, request-id or correlation header appears in the spec or the docs
+error_envelope:
+  format: nestjs-http-exception
+  fields: [message, statusCode]
+  see: errors/securitize-problem-types.yml
+rate_limiting:
+  documented: false
+  headers: none documented
+  evidence: no rate-limit headers, 429 responses, or rate-limit documentation found on either docs site
+webhooks:
+  supported: true
+  signature: >-
+    Subscriptions carry a nonce and there is a dedicated POST /v1/webhooks/settings/signature operation for
+    signature configuration.
+  see: asyncapi/securitize-webhooks.yml
+content_types:
+  request: application/json
+  response: application/json
+environments:
+  see: sandbox/securitize-sandbox.yml

@@ -1,0 +1,16 @@
+# Securitize Domains API
+
+## Securitize Domains API
+
+- [Overview](https://domain-api-docs.securitize.io/master.md)
+- [Domains](https://domain-api-docs.securitize.io/core-concepts/domains.md)
+- [Identity Providers/Securitize iD](https://domain-api-docs.securitize.io/core-concepts/identity-providers-securitize-id.md)
+- [Documentation](https://domain-api-docs.securitize.io/api/api-specs.md)
+- [Authentication & Authorization](https://domain-api-docs.securitize.io/api/authentication.md)
+- [API for Domain Operators](https://domain-api-docs.securitize.io/guide/api-for-domain-operators.md)
+- [Onboarding](https://domain-api-docs.securitize.io/guide/api-for-domain-operators/onboarding.md)
+- [Fundraising](https://domain-api-docs.securitize.io/guide/api-for-domain-operators/fundraising.md)
+- [Token Configuration](https://domain-api-docs.securitize.io/guide/api-for-domain-operators/token-configuration.md)
+- [Token Holders](https://domain-api-docs.securitize.io/guide/api-for-domain-operators/token-holders.md)
+- [Travel Rule API for Partners](https://domain-api-docs.securitize.io/guide/tr-api-for-partners.md)
+- [Investor Registration](https://domain-api-docs.securitize.io/guide/tr-api-for-partners/investor-registration.md)
