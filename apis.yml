@@ -39,52 +39,13 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 apis:
-- name: Securitize Domains API
-  description: >-
-    Comprehensive backend REST API giving domain operators (issuers, brokerage firms, secondary-market operators)
-    programmatic access to the entire digital-securities lifecycle: investor onboarding and management, KYC and
-    accreditation status, investor documents and legal signers, investment opportunities, pledges, funding and
-    transactions, issuances, token wallets, blockchain transaction preparation and signing, NAV, snapshots, holder
-    lists, Travel Rule investor registration, and webhook subscriptions. 87 paths / 125 operations, authenticated
-    with an API key in the Authorization header.
-  humanURL: https://domain-api-docs.securitize.io/
-  baseURL: https://public-api.securitize.io/
-  tags:
-  - tokenization
-  - digital-securities
-  - capital-markets
-  - kyc
-  - transfer-agent
-  - blockchain
-  - webhooks
-  properties:
-  - type: OpenAPI
-    url: openapi/securitize-domains-openapi-original.json
-  - type: Documentation
-    url: https://domain-api-docs.securitize.io/
-  - type: APIReference
-    url: https://public-api.sandbox.securitize.io/docs/
-  - type: GettingStarted
-    url: https://domain-api-docs.securitize.io/api/api-specs
-  - type: Authentication
-    url: https://domain-api-docs.securitize.io/api/authentication
-  - type: LLMsTxt
-    url: llms/securitize-domain-api-llms.txt
-  - type: Overlay
-    url: overlays/securitize-domains-overlay.yaml
-  - type: ErrorCatalog
-    url: errors/securitize-problem-types.yml
-  - type: DataModel
-    url: data-model/securitize-data-model.yml
-  - type: Webhooks
-    url: asyncapi/securitize-webhooks.yml
 - name: Securitize Connect API (Securitize iD)
   description: >-
-    OAuth-based identity API that lets partners add "Log in with Securitize iD" to their own application and, with
-    investor consent, retrieve verified KYC/KYB/AML identity data — investor information, verification details,
-    investor documents, legal signers, and registered wallets. Scopes are limited to info, details, and
-    verification. Documented endpoint surface only; Securitize publishes no machine-readable specification for this
-    API and the Swagger reference its docs link to now returns 404.
+    OAuth-based identity API that lets partners add "Log in with Securitize iD" to their own application
+    and, with investor consent, retrieve verified KYC/KYB/AML identity data — investor information, verification
+    details, investor documents, legal signers, and registered wallets. Scopes are limited to info, details,
+    and verification. Documented endpoint surface only; Securitize publishes no machine-readable specification
+    for this API and the Swagger reference its docs link to now returns 404.
   humanURL: https://sec-connect-api-docs.securitize.io/
   baseURL: https://sec-id-api.securitize.io/
   tags:
@@ -109,17 +70,19 @@ apis:
     spec_probe: https://sec-id-api.sandbox.securitize.io/swagger
     spec_probe_status: 404
     note: >-
-      The Connect API docs link to a Securitize iD Swagger at
-      https://sec-id-api.sandbox.securitize.io/swagger#/ as "the reference documentation"; that path and every
-      /swagger-json, /openapi.json and /api-json variant on both the sandbox and production hosts returned 404 on
-      2026-08-05. No OpenAPI was authored on the provider's behalf.
+      The Connect API docs link to a Securitize iD Swagger at https://sec-id-api.sandbox.securitize.io/swagger#/
+      as "the reference documentation"; that path and every /swagger-json, /openapi.json and /api-json
+      variant on both the sandbox and production hosts returned 404 on 2026-08-05. No OpenAPI was authored
+      on the provider's behalf.
 - name: Securitize MCP Server
   description: >-
-    Public, unauthenticated Model Context Protocol server ("Securitize Connector") that gives AI assistants and
-    agents real-time, standardized access to the Securitize tokenized-asset catalog — listing assets, counting
-    them, searching by symbol or description, and retrieving asset detail and on-chain token information including
-    contract addresses and bridge details. Streamable HTTP transport, MCP protocol version 2025-06-18.
-  humanURL: https://securitize.io/learn/blog/Introducing-the-Securitize-MCP-Server-A-Gateway-to-Tokenized-Asset-Data
+    Public, unauthenticated Model Context Protocol server ("Securitize Connector") that gives AI assistants
+    and agents real-time, standardized access to the Securitize tokenized-asset catalog — listing assets,
+    counting them, searching by symbol or description, and retrieving asset detail and on-chain token
+    information including contract addresses and bridge details. Streamable HTTP transport, MCP protocol
+    version 2025-06-18.
+  humanURL: >-
+    https://securitize.io/learn/blog/Introducing-the-Securitize-MCP-Server-A-Gateway-to-Tokenized-Asset-Data
   baseURL: https://mcp.securitize.io/mcp
   tags:
   - mcp
@@ -131,6 +94,136 @@ apis:
     url: mcp/securitize-mcp.yml
   - type: ToolCrosswalk
     url: mcp/securitize-tool-crosswalk.yml
+- aid: securitize:securitize-apac-api
+  name: Securitize APAC API
+  description: The APAC API from Securitize — 4 operation(s) for apac.
+  humanURL: https://domain-api-docs.securitize.io/
+  baseURL: https://public-api.securitize.io/
+  tags:
+  - APAC
+  properties:
+  - type: OpenAPI
+    url: openapi/securitize-apac-api-openapi.yml
+  - type: Documentation
+    url: https://domain-api-docs.securitize.io/
+  - type: APIReference
+    url: https://public-api.sandbox.securitize.io/docs/
+  - type: GettingStarted
+    url: https://domain-api-docs.securitize.io/api/api-specs
+  - type: Authentication
+    url: https://domain-api-docs.securitize.io/api/authentication
+  - type: LLMsTxt
+    url: llms/securitize-domain-api-llms.txt
+  - type: ErrorCatalog
+    url: errors/securitize-problem-types.yml
+  - type: DataModel
+    url: data-model/securitize-data-model.yml
+  - type: Webhooks
+    url: asyncapi/securitize-webhooks.yml
+- aid: securitize:securitize-domains-api
+  name: Securitize Domains API
+  description: The Domains API from Securitize — 74 operation(s) for domains.
+  humanURL: https://domain-api-docs.securitize.io/
+  baseURL: https://public-api.securitize.io/
+  tags:
+  - Domains
+  properties:
+  - type: OpenAPI
+    url: openapi/securitize-domains-api-openapi.yml
+  - type: Documentation
+    url: https://domain-api-docs.securitize.io/
+  - type: APIReference
+    url: https://public-api.sandbox.securitize.io/docs/
+  - type: GettingStarted
+    url: https://domain-api-docs.securitize.io/api/api-specs
+  - type: Authentication
+    url: https://domain-api-docs.securitize.io/api/authentication
+  - type: LLMsTxt
+    url: llms/securitize-domain-api-llms.txt
+  - type: ErrorCatalog
+    url: errors/securitize-problem-types.yml
+  - type: DataModel
+    url: data-model/securitize-data-model.yml
+  - type: Webhooks
+    url: asyncapi/securitize-webhooks.yml
+- aid: securitize:securitize-health-check-api
+  name: Securitize Health Check API
+  description: The Health Check API from Securitize — 1 operation(s) for health check.
+  humanURL: https://domain-api-docs.securitize.io/
+  baseURL: https://public-api.securitize.io/
+  tags:
+  - Health Check
+  properties:
+  - type: OpenAPI
+    url: openapi/securitize-health-check-api-openapi.yml
+  - type: Documentation
+    url: https://domain-api-docs.securitize.io/
+  - type: APIReference
+    url: https://public-api.sandbox.securitize.io/docs/
+  - type: GettingStarted
+    url: https://domain-api-docs.securitize.io/api/api-specs
+  - type: Authentication
+    url: https://domain-api-docs.securitize.io/api/authentication
+  - type: LLMsTxt
+    url: llms/securitize-domain-api-llms.txt
+  - type: ErrorCatalog
+    url: errors/securitize-problem-types.yml
+  - type: DataModel
+    url: data-model/securitize-data-model.yml
+  - type: Webhooks
+    url: asyncapi/securitize-webhooks.yml
+- aid: securitize:securitize-travel-rule-api
+  name: Securitize Travel Rule API
+  description: The Travel Rule API from Securitize — 4 operation(s) for travel rule.
+  humanURL: https://domain-api-docs.securitize.io/
+  baseURL: https://public-api.securitize.io/
+  tags:
+  - Travel Rule
+  properties:
+  - type: OpenAPI
+    url: openapi/securitize-travel-rule-api-openapi.yml
+  - type: Documentation
+    url: https://domain-api-docs.securitize.io/
+  - type: APIReference
+    url: https://public-api.sandbox.securitize.io/docs/
+  - type: GettingStarted
+    url: https://domain-api-docs.securitize.io/api/api-specs
+  - type: Authentication
+    url: https://domain-api-docs.securitize.io/api/authentication
+  - type: LLMsTxt
+    url: llms/securitize-domain-api-llms.txt
+  - type: ErrorCatalog
+    url: errors/securitize-problem-types.yml
+  - type: DataModel
+    url: data-model/securitize-data-model.yml
+  - type: Webhooks
+    url: asyncapi/securitize-webhooks.yml
+- aid: securitize:securitize-webhooks-api
+  name: Securitize Webhooks API
+  description: The Webhooks API from Securitize — 4 operation(s) for webhooks.
+  humanURL: https://domain-api-docs.securitize.io/
+  baseURL: https://public-api.securitize.io/
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/securitize-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://domain-api-docs.securitize.io/
+  - type: APIReference
+    url: https://public-api.sandbox.securitize.io/docs/
+  - type: GettingStarted
+    url: https://domain-api-docs.securitize.io/api/api-specs
+  - type: Authentication
+    url: https://domain-api-docs.securitize.io/api/authentication
+  - type: LLMsTxt
+    url: llms/securitize-domain-api-llms.txt
+  - type: ErrorCatalog
+    url: errors/securitize-problem-types.yml
+  - type: DataModel
+    url: data-model/securitize-data-model.yml
+  - type: Webhooks
+    url: asyncapi/securitize-webhooks.yml
 common:
 - type: Website
   url: https://securitize.io/
