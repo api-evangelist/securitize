@@ -1,0 +1,3879 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Securitize Domains API",
+    "version": "3.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Health Check",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AppController_root",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/health"
+          },
+          "docs": "For Health check"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Domains",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "DomainsController_getDomains",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/list",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Allowed values:  1, 6, 9, 12, 15, or 999"
+              },
+              {
+                "name": "domainIds",
+                "value": "",
+                "type": "query",
+                "description": "comma-separated values"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tokenName",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dashboardUrl",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "isDemo",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "orderField",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "orderDirection",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "CurrenciesController_getCurrencies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/currencies/list",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "CustodiansController_getCustodians",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/custodians/list",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "CustodiansController_addCustodian",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/domains/:domainId/custodians/detail",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "InvestorsController_getInvestors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/list",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "countryCodes",
+                "value": "",
+                "type": "query",
+                "description": "comma-separated values"
+              },
+              {
+                "name": "investorTypes",
+                "value": "",
+                "type": "query",
+                "description": "comma-separated values"
+              },
+              {
+                "name": "orderField",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "documentType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "labels",
+                "value": "",
+                "type": "query",
+                "description": "comma-separated values"
+              },
+              {
+                "name": "jsonFilter",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "kycStatuses",
+                "value": "",
+                "type": "query",
+                "description": "comma-separated values"
+              },
+              {
+                "name": "registrationSource",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "walletRegistrationStatus",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "hasSecuritizeId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fullName",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "stateCode",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "walletOwnerType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "walletOwnerName",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fromCreatedAt",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "toCreatedAt",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "orderDirection",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "birthDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tokenWalletAddress",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "documentNumber",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "taxId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "taxCountryCode",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fromBirthDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "toBirthDate",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "InvestorsController_getInvestor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "InvestorsController_editInvestor",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "InvestorsController_deleteInvestor",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "InvestorsController_addInvestor",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/detail",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "InvestorsController_addInvestors",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/bulk",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "InvestorsController_sendInviteSecIdEmails",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/send-secid-email",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "AccreditationController_getAccreditationStatus",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/accreditation/status",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "AccreditationController_updateAccreditationStatus",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/accreditation/status",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "AccreditationController_sendAccreditationEmail",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/accreditation/send-email",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "DocumentsController_getInvestorDocuments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/documents/list",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "DocumentsController_getInvestorDocument",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/documents/detail",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "investorDocumentId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "origin",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "DocumentsController_createInvestorDocument",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/documents/detail",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "DocumentsController_deleteInvestorDocument",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/documents/detail",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "InvestmentController_getInvestment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/investment",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "roundId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "InvestmentController_createInvestment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/investment",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "FundedAmountController_getFundedAmount",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/investment/funded-amount",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "roundId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "FundingAddressController_getFundingAddress",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/investment/funding-address",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "roundId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "PledgedAmountController_getPledgedAmount",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/investment/pledged-amount",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "roundId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "PledgedAmountController_updatePledgedAmount",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/investment/pledged-amount",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "SubscriptionAgreementStatusController_getSubscriptionAgreementStatus",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/investment/subscription-agreement-status",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "roundId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "SubscriptionAgreementStatusController_updateSubscriptionAgreementStatus",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/investment/subscription-agreement-status",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "TransactionsController_getTransactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/investment/transactions/list",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "roundId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "TransactionsController_createTransaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/investment/transactions/detail",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "TransactionsController_updateTransaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/investment/transactions/detail",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "TransactionsController_deleteTransaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/investment/transactions/detail",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "IssuancesController_getIssuances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/issuances/list",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "IssuancesController_createIssuance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/issuances/detail",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "IssuancesController_deleteIssuance",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/issuances/detail",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "KycController_getKycStatus",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/kyc/status",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "KycController_updateKycStatus",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/kyc/status",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "QualificationController_getQualificationStatus",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/qualification/status",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "QualificationController_updateQualificationStatus",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/qualification/status",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "TokenInfoController_getTokenInfo",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/token-info",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "TokenInfoController_updateTokenInfo",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/token-info",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "TokenWalletsController_getTokenWallets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/token-wallets/list",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "TokenWalletsController_addTokenWallet",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/token-wallets/detail",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "TokenWalletsController_updateTokenWallet",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/token-wallets/detail",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "TokenWalletsController_deleteTokenWallet",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/token-wallets/detail",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "LabelsController_getLabels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/labels/list",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "LabelsController_addLabel",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/labels/detail",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "LabelsController_deleteLabel",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/labels/detail",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "LegalSignersController_getLegalSigners",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/legal-signers/list",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "LegalSignersController_getLegalSigner",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/legal-signers/detail",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "legalSignerId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "LegalSignersController_deleteLegalSigner",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/legal-signers/detail",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "LegalSignersController_createIndividualLegalSigner",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/legal-signers/individual",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "LegalSignersController_createEntityLegalSigner",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/legal-signers/entity",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "TransferTbeController_createTransferTbeTransaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/transfer-tbe",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "TokenQualificationController_getTokenQualificationStatus",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/token-qualification/status",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "TokenQualificationController_updateTokenQualificationStatus",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/v1/domains/:domainId/investors/:externalId/token-qualification/status",
+            "params": [
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "TokensController_getTokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/tokens/list",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "orderField",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "orderDirection",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "TokensController_getToken",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/tokens/:tokenId",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "TokensController_updateToken",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/v1/domains/:domainId/tokens/:tokenId",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "Set the NAV of a token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/domains/:domainId/tokens/:tokenId/nav",
+            "headers": [
+              {
+                "name": "gw-operator-external-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set the NAV of a token"
+        },
+        {
+          "info": {
+            "name": "BlockchainTransactionsController_getBlockchainTransactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/tokens/:tokenId/blockchain-transactions/list",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "BlockchainTransactionsController_getTransaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/tokens/:tokenId/blockchain-transactions/detail",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "signatureTransactionId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "BlockchainTransactionsController_deleteBlockchainTransaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v1/domains/:domainId/tokens/:tokenId/blockchain-transactions/detail",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "BlockchainTransactionsController_addBlockchainTransactionData",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/domains/:domainId/tokens/:tokenId/blockchain-transactions/prepare",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "BlockchainTransactionsController_addBlockchainTransactionSign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/domains/:domainId/tokens/:tokenId/blockchain-transactions/send",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "BlockchainTransactionsController_updateTransactionStatus",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/v1/domains/:domainId/tokens/:tokenId/blockchain-transactions/status",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "ProceduresController_createLostSharesTransactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/domains/:domainId/tokens/:tokenId/blockchain-transactions/procedures/lost-shares",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "ProceduresController_createClawbackTransactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/domains/:domainId/tokens/:tokenId/blockchain-transactions/procedures/clawback",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "ProceduresController_createDestroyTransaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/domains/:domainId/tokens/:tokenId/blockchain-transactions/procedures/destroy",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "ProceduresController_createHoldTradingTransaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/domains/:domainId/tokens/:tokenId/blockchain-transactions/procedures/hold-trading",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "ProceduresController_createDestroyTbeTransaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/domains/:domainId/tokens/:tokenId/blockchain-transactions/procedures/destroy-tbe",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "ProceduresController_createInternalTransferTbeTransaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/domains/:domainId/tokens/:tokenId/blockchain-transactions/procedures/internal-transfer-tbe",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "DocumentsController_getTokenDocuments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/tokens/:tokenId/documents/list",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "orderField",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "orderDirection",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "DocumentsController_getTokenDocument",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/tokens/:tokenId/documents/detail",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenDocumentId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "DocumentsController_addTokenDocument",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/domains/:domainId/tokens/:tokenId/documents/detail",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "DocumentsController_updateTokenDocument",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/v1/domains/:domainId/tokens/:tokenId/documents/detail",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "DocumentsController_deleteTokenDocument",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v1/domains/:domainId/tokens/:tokenId/documents/detail",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "HoldersController_getHolders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/tokens/:tokenId/holders/list",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "countryCodes",
+                "value": "",
+                "type": "query",
+                "description": "comma-separated values"
+              },
+              {
+                "name": "investorTypes",
+                "value": "",
+                "type": "query",
+                "description": "comma-separated values"
+              },
+              {
+                "name": "orderField",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "documentType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "labels",
+                "value": "",
+                "type": "query",
+                "description": "comma-separated values"
+              },
+              {
+                "name": "jsonFilter",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "holderTypeView",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "custodianId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fromTotalTokens",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "toTotalTokens",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fromPercentage",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "toPercentage",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "isLocked",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fullName",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "stateCode",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "walletOwnerType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "walletOwnerName",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fromCreatedAt",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "toCreatedAt",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "orderDirection",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "birthDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tokenWalletAddress",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "documentNumber",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "taxId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "taxCountryCode",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fromBirthDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "toBirthDate",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "RoundsController_getRounds",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/tokens/:tokenId/rounds/list",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "orderField",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "orderDirection",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "RoundsController_getRound",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/tokens/:tokenId/rounds/detail",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "roundId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "RoundsController_updateRound",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/v1/domains/:domainId/tokens/:tokenId/rounds/detail",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "NotificationsController_sendNotifications",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/domains/:domainId/tokens/:tokenId/outreach/notifications/send",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "FundraiseController_getFundraiseInvestors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/tokens/:tokenId/fundraise/investors/list",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "countryCodes",
+                "value": "",
+                "type": "query",
+                "description": "comma-separated values"
+              },
+              {
+                "name": "investorTypes",
+                "value": "",
+                "type": "query",
+                "description": "comma-separated values"
+              },
+              {
+                "name": "orderField",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "documentType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "labels",
+                "value": "",
+                "type": "query",
+                "description": "comma-separated values"
+              },
+              {
+                "name": "jsonFilter",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "subscriptionAgreementStatuses",
+                "value": "",
+                "type": "query",
+                "description": "comma-separated values, only works when `roundId` specified"
+              },
+              {
+                "name": "investorStatuses",
+                "value": "",
+                "type": "query",
+                "description": "comma-separated values, only works when `roundId` specified"
+              },
+              {
+                "name": "tokenStatus",
+                "value": "",
+                "type": "query",
+                "description": "only works when `roundId` specified"
+              },
+              {
+                "name": "roundId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fromAmountPledged",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "toAmountPledged",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fromAmountFunded",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "toAmountFunded",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fullName",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "stateCode",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "walletOwnerType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "walletOwnerName",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fromCreatedAt",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "toCreatedAt",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "orderDirection",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "birthDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tokenWalletAddress",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "documentNumber",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "taxId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "taxCountryCode",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fromBirthDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "toBirthDate",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "TokenTransactionsController_getTokenTransactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/tokens/:tokenId/token-transactions/list",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "processType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "investorCountry",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ethTxId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "TokenTransactionsController_getTokenTransaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/tokens/:tokenId/token-transactions/detail",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenTransactionId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "QuestionsController_getQuestions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/questions/list",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "ConfigurationsController_getMainCurrency",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/configurations/main-currency",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "GeneralController_getGeneral",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/configurations/general",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "GeneralController_updateInvestorsArea",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/v1/domains/:domainId/configurations/general/investors-area",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "JurisdictionsController_getJurisdictions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/configurations/jurisdictions",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "OpportunitiesController_getOpportunities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/opportunities/list",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "OpportunitiesController_getOpportunity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/opportunities/detail",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "opportunityId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "OpportunitiesController_updateOpportunity",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/v1/domains/:domainId/opportunities/detail",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "OpportunitiesController_updateOpportunityContent",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/v1/domains/:domainId/opportunities/contents/detail",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "DocumentsController_getOpportunityDocument",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/opportunities/documents/detail",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "opportunityId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "documentId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "DocumentsController_createOpportunityDocument",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/domains/:domainId/opportunities/documents/detail",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "DocumentsController_updateOpportunityDocument",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/v1/domains/:domainId/opportunities/documents/detail",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "DocumentsController_deleteOpportunityDocument",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v1/domains/:domainId/opportunities/documents/detail",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "SnapshotsController_getSnapshots",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/snapshots/list",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "orderDirection",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "orderField",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fromCreatedAt",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "toCreatedAt",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "SnapshotsController_getSnapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/snapshots/detail",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "SnapshotsController_addSnapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/domains/:domainId/snapshots/detail",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "SnapshotsController_getSnapshotRecords",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/domains/:domainId/snapshots/records/list",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "orderDirection",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "orderField",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "OperatorsController_getOperators",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/operators/list",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "query",
+                "description": "usable only to operator with `authorizationLevel`: \"megaadmin\" and \"superadmin\""
+              },
+              {
+                "name": "authorization",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "orderField",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "orderDirection",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "OperatorsController_getOperator",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/operators/detail",
+            "params": [
+              {
+                "name": "operatorExternalId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "OrganizationsController_getOrganizations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/organizations/list",
+            "params": [
+              {
+                "name": "q",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "orderField",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "orderDirection",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "OrganizationsController_getOrganization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/organizations/detail",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Travel Rule",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "InvestorsController_getTrIndividualInvestor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/tr/domains/:domainId/investors/individual",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "firstName",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "middleName",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "lastName",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "birthdate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "stateCode",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "documentType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "documentNumber",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "taxCountryCode",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "taxId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "taxCountryCode2",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "taxId2",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "taxCountryCode3",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "taxId3",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "InvestorsController_createTrIndividualInvestor",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/tr/domains/:domainId/investors/individual",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "InvestorsController_getTrEntityInvestor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/tr/domains/:domainId/investors/entity",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "taxId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "InvestorsController_createTrEntityInvestor",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/tr/domains/:domainId/investors/entity",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "InvestorsController_getInvestorBlockchainId",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/tr/domains/:domainId/investors/blockchain-id",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "externalId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "walletAddress",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "InvestorsController_createInvestorBlockchainId",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/tr/domains/:domainId/investors/blockchain-id",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "InvestorsController_getTrInvestor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/tr/domains/:domainId/investors/:securitizeId",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "securitizeId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "APAC",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "BankDepositFilesController_getBankDepositFile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/apac/domains/:domainId/tokens/:tokenId/bank-deposit-files/detail",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "bankDepositFileId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "BankDepositFilesController_createBankDepositFile",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/apac/domains/:domainId/tokens/:tokenId/bank-deposit-files/detail",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "BankDepositFilesController_deleteBankDepositFile",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v1/apac/domains/:domainId/tokens/:tokenId/bank-deposit-files/detail",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "BankDepositFilesController_getBankDepositFiles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/apac/domains/:domainId/tokens/:tokenId/bank-deposit-files/list",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "paymentYear",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "paymentMonth",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "BankDepositFilesController_getBankDepositFileRecords",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/apac/domains/:domainId/tokens/:tokenId/bank-deposit-files/records",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "bankDepositFileId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "InvestmentRequestsController_getTotalPledgedAmounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/apac/domains/:domainId/tokens/:tokenId/investment-requests/total-pledged-amounts",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "EventsController_getEvents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/webhooks/events"
+          }
+        },
+        {
+          "info": {
+            "name": "SubscriptionsController_getSubscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/webhooks/subscriptions",
+            "params": [
+              {
+                "name": "domainId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "SubscriptionsController_createSubscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/webhooks/subscriptions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "SubscriptionsController_getSubscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/webhooks/subscriptions/:subscriptionId",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "SubscriptionsController_updateSubscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/v1/webhooks/subscriptions/:subscriptionId",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "SubscriptionsController_deleteSubscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v1/webhooks/subscriptions/:subscriptionId",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "SettingsController_createSignature",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/webhooks/settings/signature"
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,853 @@
+{
+  "item": [
+    {
+      "id": "d6397cca-9275-43af-9c95-58d43352ffc7",
+      "name": "APAC",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b82a4c16-f336-4d55-b5f3-d639252331d1",
+          "name": "Bank Deposit Files Controller create Bank Deposit File",
+          "request": {
+            "name": "Bank Deposit Files Controller create Bank Deposit File",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "apac",
+                "domains",
+                ":domainId",
+                "tokens",
+                ":tokenId",
+                "bank-deposit-files",
+                "detail"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domainId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tokenId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paymentYear\": \"<number>\",\n  \"paymentMonth\": \"<number>\",\n  \"isInterestPayment\": \"<boolean>\",\n  \"interestType\": \"<string>\",\n  \"isRedemptionPayment\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "02ee3b31-26d2-4387-9f18-2a41a6b1848a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "apac",
+                    "domains",
+                    ":domainId",
+                    "tokens",
+                    ":tokenId",
+                    "bank-deposit-files",
+                    "detail"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domainId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tokenId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentYear\": \"<number>\",\n  \"paymentMonth\": \"<number>\",\n  \"isInterestPayment\": \"<boolean>\",\n  \"interestType\": \"<string>\",\n  \"isRedemptionPayment\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"currency\": \"USD\",\n  \"status\": \"failure\",\n  \"interestType\": \"cash-and-point\",\n  \"bankDepositFileId\": 1834.1054537410207,\n  \"domainId\": \"string\",\n  \"tokenId\": \"string\",\n  \"paymentYear\": 3955.225152783577,\n  \"paymentMonth\": 8563.288134438752,\n  \"createdBy\": \"string\",\n  \"isInterestPayment\": false,\n  \"isRedemptionPayment\": false,\n  \"createdAt\": \"string\",\n  \"updatedAt\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7b78c5d9-bc54-4a89-884c-8708ef3c59bb",
+          "name": "Bank Deposit Files Controller get Bank Deposit File",
+          "request": {
+            "name": "Bank Deposit Files Controller get Bank Deposit File",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "apac",
+                "domains",
+                ":domainId",
+                "tokens",
+                ":tokenId",
+                "bank-deposit-files",
+                "detail"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "bankDepositFileId",
+                  "value": "<number>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domainId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tokenId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3542ffde-f7c4-4871-92d7-5c59c0cf6414",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "apac",
+                    "domains",
+                    ":domainId",
+                    "tokens",
+                    ":tokenId",
+                    "bank-deposit-files",
+                    "detail"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bankDepositFileId",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domainId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tokenId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"currency\": \"USD\",\n  \"status\": \"failure\",\n  \"interestType\": \"cash-and-point\",\n  \"bankDepositFileId\": 1834.1054537410207,\n  \"domainId\": \"string\",\n  \"tokenId\": \"string\",\n  \"paymentYear\": 3955.225152783577,\n  \"paymentMonth\": 8563.288134438752,\n  \"createdBy\": \"string\",\n  \"isInterestPayment\": false,\n  \"isRedemptionPayment\": false,\n  \"createdAt\": \"string\",\n  \"updatedAt\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7b1de025-2aff-4c12-a8dc-6bc10b3a4f2e",
+          "name": "Bank Deposit Files Controller delete Bank Deposit File",
+          "request": {
+            "name": "Bank Deposit Files Controller delete Bank Deposit File",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "apac",
+                "domains",
+                ":domainId",
+                "tokens",
+                ":tokenId",
+                "bank-deposit-files",
+                "detail"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domainId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tokenId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bankDepositFileId\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6176e1cf-ab8e-45f7-ab6f-bd2fdc1e86f6",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "apac",
+                    "domains",
+                    ":domainId",
+                    "tokens",
+                    ":tokenId",
+                    "bank-deposit-files",
+                    "detail"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domainId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tokenId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bankDepositFileId\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ff6ecd15-1bd2-4cb6-b55d-628d41ef12a8",
+          "name": "Bank Deposit Files Controller get Bank Deposit Files",
+          "request": {
+            "name": "Bank Deposit Files Controller get Bank Deposit Files",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "apac",
+                "domains",
+                ":domainId",
+                "tokens",
+                ":tokenId",
+                "bank-deposit-files",
+                "list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "paymentYear",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "paymentMonth",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<number>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domainId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tokenId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "23efedc0-526a-45ff-b5c3-8e3f73b44ff7",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "apac",
+                    "domains",
+                    ":domainId",
+                    "tokens",
+                    ":tokenId",
+                    "bank-deposit-files",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "paymentYear",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "paymentMonth",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domainId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tokenId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"totalItems\": 3872.4636913342115,\n  \"data\": [\n    {\n      \"currency\": \"JPY\",\n      \"status\": \"processing\",\n      \"interestType\": \"cash-only\",\n      \"bankDepositFileId\": 2905.2969249362313,\n      \"domainId\": \"string\",\n      \"tokenId\": \"string\",\n      \"paymentYear\": 8199.488298867662,\n      \"paymentMonth\": 4573.1695468391235,\n      \"createdBy\": \"string\",\n      \"isInterestPayment\": false,\n      \"isRedemptionPayment\": true,\n      \"createdAt\": \"string\",\n      \"updatedAt\": \"string\"\n    },\n    {\n      \"currency\": \"USD\",\n      \"status\": \"failure\",\n      \"interestType\": \"cash-and-point\",\n      \"bankDepositFileId\": 7336.549711964645,\n      \"domainId\": \"string\",\n      \"tokenId\": \"string\",\n      \"paymentYear\": 9040.057610425052,\n      \"paymentMonth\": 282.59941659712354,\n      \"createdBy\": \"string\",\n      \"isInterestPayment\": false,\n      \"isRedemptionPayment\": true,\n      \"createdAt\": \"string\",\n      \"updatedAt\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "605694f5-de3e-4d66-ad7e-4c7e81309ce7",
+          "name": "Bank Deposit Files Controller get Bank Deposit File Records",
+          "request": {
+            "name": "Bank Deposit Files Controller get Bank Deposit File Records",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "apac",
+                "domains",
+                ":domainId",
+                "tokens",
+                ":tokenId",
+                "bank-deposit-files",
+                "records"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "bankDepositFileId",
+                  "value": "<number>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domainId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tokenId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8b08bfeb-e019-4fc3-b163-034c90c808fb",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "apac",
+                    "domains",
+                    ":domainId",
+                    "tokens",
+                    ":tokenId",
+                    "bank-deposit-files",
+                    "records"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bankDepositFileId",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domainId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tokenId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"records\": [\n    [\n      \"string\",\n      \"string\"\n    ],\n    [\n      \"string\",\n      \"string\"\n    ]\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f78f293c-14be-447b-b365-405fe15b0ada",
+          "name": "Investment Requests Controller get Total Pledged Amounts",
+          "request": {
+            "name": "Investment Requests Controller get Total Pledged Amounts",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "apac",
+                "domains",
+                ":domainId",
+                "tokens",
+                ":tokenId",
+                "investment-requests",
+                "total-pledged-amounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domainId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tokenId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "34e12530-154c-4070-b4d2-720bc61bf0aa",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "apac",
+                    "domains",
+                    ":domainId",
+                    "tokens",
+                    ":tokenId",
+                    "investment-requests",
+                    "total-pledged-amounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domainId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tokenId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"appliedPledgedAmount\": 4984.281874952733,\n  \"confirmedPledgedAmount\": 8565.41409056698\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "494b863e-a0c7-46ef-a7da-1dff04751af9",
+    "name": "Securitize Domains APAC API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

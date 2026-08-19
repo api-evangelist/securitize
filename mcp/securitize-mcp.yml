@@ -71,11 +71,18 @@ oauth_discovery:
 x-evidence:
   fetched: '2026-08-05'
   url: https://mcp.securitize.io/mcp
-  method: 'POST {"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+  method: POST {"jsonrpc":"2.0","id":1,"method":"tools/list"}
   http_status: 200
   content_type: text/event-stream
-  note: >-
-    tools/list and initialize both answered anonymously — no OAuth challenge, no invalid_token. The five tools and
-    their input schemas below are the live server response, saved verbatim to
-    mcp/securitize-mcp-tools-list.json. GET https://mcp.securitize.io/ returns 404 and GET /mcp returns 406;
-    the endpoint is POST-only streamable HTTP.
+  note: tools/list and initialize both answered anonymously — no OAuth challenge, no invalid_token. The
+    five tools and their input schemas below are the live server response, saved verbatim to mcp/securitize-mcp-tools-list.json.
+    GET https://mcp.securitize.io/ returns 404 and GET /mcp returns 406; the endpoint is POST-only streamable
+    HTTP.
+deployment:
+  mode: remote
+  endpoint: https://mcp.securitize.io/mcp
+  verified: probed
+  probe: live
+  tools: 5
+  checked: '2026-08-12'
+  source: catalog MCP census

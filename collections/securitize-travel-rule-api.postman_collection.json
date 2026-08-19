@@ -1,0 +1,1410 @@
+{
+  "item": [
+    {
+      "id": "2d69a38b-8550-4691-b601-a20127cf0697",
+      "name": "Travel Rule",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "eafb7a5d-0a4f-4f61-bf4d-512a97c44bc4",
+          "name": "Investors Controller get Tr Individual Investor",
+          "request": {
+            "name": "Investors Controller get Tr Individual Investor",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "tr",
+                "domains",
+                ":domainId",
+                "investors",
+                "individual"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "firstName",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "middleName",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "lastName",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "email",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "birthdate",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "countryCode",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "stateCode",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "documentType",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "documentNumber",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "taxCountryCode",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "taxId",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "taxCountryCode2",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "taxId2",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "taxCountryCode3",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "taxId3",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domainId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b0a61de7-fc03-4894-b71b-7d573f0a5a6c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "tr",
+                    "domains",
+                    ":domainId",
+                    "investors",
+                    "individual"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "firstName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "middleName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lastName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "birthdate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "countryCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "stateCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "documentType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "documentNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "taxCountryCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "taxId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "taxCountryCode2",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "taxId2",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "taxCountryCode3",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "taxId3",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domainId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"conflict\",\n  \"externalIds\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "398f60aa-566b-491e-88f1-8ec54414a9b5",
+          "name": "Investors Controller create Tr Individual Investor",
+          "request": {
+            "name": "Investors Controller create Tr Individual Investor",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "tr",
+                "domains",
+                ":domainId",
+                "investors",
+                "individual"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domainId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"email\": \"<string>\",\n  \"birthdate\": \"<string>\",\n  \"countryCode\": \"<string>\",\n  \"middleName\": \"<string>\",\n  \"stateCode\": \"<string>\",\n  \"city\": \"<string>\",\n  \"zipCode\": \"<string>\",\n  \"address\": \"<string>\",\n  \"addressAdditionalInfo\": \"<string>\",\n  \"documentType\": \"<string>\",\n  \"documentNumber\": \"<string>\",\n  \"taxCountryCode\": \"<string>\",\n  \"taxId\": \"<string>\",\n  \"taxCountryCode2\": \"<string>\",\n  \"taxId2\": \"<string>\",\n  \"taxCountryCode3\": \"<string>\",\n  \"taxId3\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9907f539-3226-43f8-bb1e-b30250a72bea",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "tr",
+                    "domains",
+                    ":domainId",
+                    "investors",
+                    "individual"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domainId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"email\": \"<string>\",\n  \"birthdate\": \"<string>\",\n  \"countryCode\": \"<string>\",\n  \"middleName\": \"<string>\",\n  \"stateCode\": \"<string>\",\n  \"city\": \"<string>\",\n  \"zipCode\": \"<string>\",\n  \"address\": \"<string>\",\n  \"addressAdditionalInfo\": \"<string>\",\n  \"documentType\": \"<string>\",\n  \"documentNumber\": \"<string>\",\n  \"taxCountryCode\": \"<string>\",\n  \"taxId\": \"<string>\",\n  \"taxCountryCode2\": \"<string>\",\n  \"taxId2\": \"<string>\",\n  \"taxCountryCode3\": \"<string>\",\n  \"taxId3\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"externalId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b2af1ef6-e66d-4a73-879e-e30a9ce7e1ab",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "tr",
+                    "domains",
+                    ":domainId",
+                    "investors",
+                    "individual"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domainId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"email\": \"<string>\",\n  \"birthdate\": \"<string>\",\n  \"countryCode\": \"<string>\",\n  \"middleName\": \"<string>\",\n  \"stateCode\": \"<string>\",\n  \"city\": \"<string>\",\n  \"zipCode\": \"<string>\",\n  \"address\": \"<string>\",\n  \"addressAdditionalInfo\": \"<string>\",\n  \"documentType\": \"<string>\",\n  \"documentNumber\": \"<string>\",\n  \"taxCountryCode\": \"<string>\",\n  \"taxId\": \"<string>\",\n  \"taxCountryCode2\": \"<string>\",\n  \"taxId2\": \"<string>\",\n  \"taxCountryCode3\": \"<string>\",\n  \"taxId3\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"statusCode\": 8338.90480452541\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "78185b24-9769-4f8c-814e-9f0484765aa4",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "tr",
+                    "domains",
+                    ":domainId",
+                    "investors",
+                    "individual"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domainId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"email\": \"<string>\",\n  \"birthdate\": \"<string>\",\n  \"countryCode\": \"<string>\",\n  \"middleName\": \"<string>\",\n  \"stateCode\": \"<string>\",\n  \"city\": \"<string>\",\n  \"zipCode\": \"<string>\",\n  \"address\": \"<string>\",\n  \"addressAdditionalInfo\": \"<string>\",\n  \"documentType\": \"<string>\",\n  \"documentNumber\": \"<string>\",\n  \"taxCountryCode\": \"<string>\",\n  \"taxId\": \"<string>\",\n  \"taxCountryCode2\": \"<string>\",\n  \"taxId2\": \"<string>\",\n  \"taxCountryCode3\": \"<string>\",\n  \"taxId3\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"statusCode\": 8338.90480452541\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b2a85940-145f-4b7e-a9b2-91952a5e7cbb",
+          "name": "Investors Controller get Tr Entity Investor",
+          "request": {
+            "name": "Investors Controller get Tr Entity Investor",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "tr",
+                "domains",
+                ":domainId",
+                "investors",
+                "entity"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "email",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "countryCode",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "taxId",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domainId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "91156ce9-30a5-4430-ae45-878b3bee5bd0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "tr",
+                    "domains",
+                    ":domainId",
+                    "investors",
+                    "entity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "countryCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "taxId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domainId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"mismatch\",\n  \"externalIds\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7ff1f876-4ef9-48de-ba24-55b6ceb184c6",
+          "name": "Investors Controller create Tr Entity Investor",
+          "request": {
+            "name": "Investors Controller create Tr Entity Investor",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "tr",
+                "domains",
+                ":domainId",
+                "investors",
+                "entity"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domainId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"legalSigners\": [\n    {\n      \"signerType\": \"individual\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"birthdate\": \"<string>\",\n      \"street\": \"<string>\",\n      \"streetNumber\": \"<string>\",\n      \"city\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"zipCode\": \"<string>\",\n      \"email\": \"<string>\",\n      \"middleName\": \"<string>\",\n      \"state\": \"<string>\"\n    },\n    {\n      \"signerType\": \"individual\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"birthdate\": \"<string>\",\n      \"street\": \"<string>\",\n      \"streetNumber\": \"<string>\",\n      \"city\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"zipCode\": \"<string>\",\n      \"email\": \"<string>\",\n      \"middleName\": \"<string>\",\n      \"state\": \"<string>\"\n    }\n  ],\n  \"email\": \"<string>\",\n  \"entityName\": \"<string>\",\n  \"countryCode\": \"<string>\",\n  \"taxId\": \"<string>\",\n  \"entityDba\": \"<string>\",\n  \"stateCode\": \"<string>\",\n  \"city\": \"<string>\",\n  \"zipCode\": \"<string>\",\n  \"address\": \"<string>\",\n  \"addressAdditionalInfo\": \"<string>\",\n  \"entityType\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e14d3848-8942-440c-aae6-b00f6631b4b2",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "tr",
+                    "domains",
+                    ":domainId",
+                    "investors",
+                    "entity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domainId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"legalSigners\": [\n    {\n      \"signerType\": \"individual\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"birthdate\": \"<string>\",\n      \"street\": \"<string>\",\n      \"streetNumber\": \"<string>\",\n      \"city\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"zipCode\": \"<string>\",\n      \"email\": \"<string>\",\n      \"middleName\": \"<string>\",\n      \"state\": \"<string>\"\n    },\n    {\n      \"signerType\": \"individual\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"birthdate\": \"<string>\",\n      \"street\": \"<string>\",\n      \"streetNumber\": \"<string>\",\n      \"city\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"zipCode\": \"<string>\",\n      \"email\": \"<string>\",\n      \"middleName\": \"<string>\",\n      \"state\": \"<string>\"\n    }\n  ],\n  \"email\": \"<string>\",\n  \"entityName\": \"<string>\",\n  \"countryCode\": \"<string>\",\n  \"taxId\": \"<string>\",\n  \"entityDba\": \"<string>\",\n  \"stateCode\": \"<string>\",\n  \"city\": \"<string>\",\n  \"zipCode\": \"<string>\",\n  \"address\": \"<string>\",\n  \"addressAdditionalInfo\": \"<string>\",\n  \"entityType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"externalId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8e5fa93f-a931-460a-af79-763cd37d5ad4",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "tr",
+                    "domains",
+                    ":domainId",
+                    "investors",
+                    "entity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domainId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"legalSigners\": [\n    {\n      \"signerType\": \"individual\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"birthdate\": \"<string>\",\n      \"street\": \"<string>\",\n      \"streetNumber\": \"<string>\",\n      \"city\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"zipCode\": \"<string>\",\n      \"email\": \"<string>\",\n      \"middleName\": \"<string>\",\n      \"state\": \"<string>\"\n    },\n    {\n      \"signerType\": \"individual\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"birthdate\": \"<string>\",\n      \"street\": \"<string>\",\n      \"streetNumber\": \"<string>\",\n      \"city\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"zipCode\": \"<string>\",\n      \"email\": \"<string>\",\n      \"middleName\": \"<string>\",\n      \"state\": \"<string>\"\n    }\n  ],\n  \"email\": \"<string>\",\n  \"entityName\": \"<string>\",\n  \"countryCode\": \"<string>\",\n  \"taxId\": \"<string>\",\n  \"entityDba\": \"<string>\",\n  \"stateCode\": \"<string>\",\n  \"city\": \"<string>\",\n  \"zipCode\": \"<string>\",\n  \"address\": \"<string>\",\n  \"addressAdditionalInfo\": \"<string>\",\n  \"entityType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"statusCode\": 8338.90480452541\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0245533d-45a4-4138-8026-349cbe1807d0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "tr",
+                    "domains",
+                    ":domainId",
+                    "investors",
+                    "entity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domainId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"legalSigners\": [\n    {\n      \"signerType\": \"individual\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"birthdate\": \"<string>\",\n      \"street\": \"<string>\",\n      \"streetNumber\": \"<string>\",\n      \"city\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"zipCode\": \"<string>\",\n      \"email\": \"<string>\",\n      \"middleName\": \"<string>\",\n      \"state\": \"<string>\"\n    },\n    {\n      \"signerType\": \"individual\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"birthdate\": \"<string>\",\n      \"street\": \"<string>\",\n      \"streetNumber\": \"<string>\",\n      \"city\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"zipCode\": \"<string>\",\n      \"email\": \"<string>\",\n      \"middleName\": \"<string>\",\n      \"state\": \"<string>\"\n    }\n  ],\n  \"email\": \"<string>\",\n  \"entityName\": \"<string>\",\n  \"countryCode\": \"<string>\",\n  \"taxId\": \"<string>\",\n  \"entityDba\": \"<string>\",\n  \"stateCode\": \"<string>\",\n  \"city\": \"<string>\",\n  \"zipCode\": \"<string>\",\n  \"address\": \"<string>\",\n  \"addressAdditionalInfo\": \"<string>\",\n  \"entityType\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"statusCode\": 8338.90480452541\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2c9e3349-f8e9-4a3b-a592-aa523d23ba45",
+          "name": "Investors Controller get Investor Blockchain Id",
+          "request": {
+            "name": "Investors Controller get Investor Blockchain Id",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "tr",
+                "domains",
+                ":domainId",
+                "investors",
+                "blockchain-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "externalId",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "tokenId",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "walletAddress",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domainId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "aeed9acd-a327-4272-8989-49d37463dbd7",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "tr",
+                    "domains",
+                    ":domainId",
+                    "investors",
+                    "blockchain-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "externalId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tokenId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "walletAddress",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domainId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"conflict\",\n  \"blockchainId\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cb8203c8-c115-43f3-ade9-7eb9b710c7db",
+          "name": "Investors Controller create Investor Blockchain Id",
+          "request": {
+            "name": "Investors Controller create Investor Blockchain Id",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "tr",
+                "domains",
+                ":domainId",
+                "investors",
+                "blockchain-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domainId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"externalId\": \"<string>\",\n  \"tokenId\": \"<string>\",\n  \"walletAddress\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1c4dda10-2598-48af-94da-c301c2534140",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "tr",
+                    "domains",
+                    ":domainId",
+                    "investors",
+                    "blockchain-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domainId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"externalId\": \"<string>\",\n  \"tokenId\": \"<string>\",\n  \"walletAddress\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"blockchainId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "920c40ac-c443-46fc-8dde-f3d66531ba62",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "tr",
+                    "domains",
+                    ":domainId",
+                    "investors",
+                    "blockchain-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domainId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"externalId\": \"<string>\",\n  \"tokenId\": \"<string>\",\n  \"walletAddress\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"data\": {\n    \"blockchainId\": \"string\"\n  },\n  \"statusCode\": 3789.049782903343,\n  \"name\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e294b79e-cfc7-42d6-b7a0-2fce82a5ea56",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "tr",
+                    "domains",
+                    ":domainId",
+                    "investors",
+                    "blockchain-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domainId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"externalId\": \"<string>\",\n  \"tokenId\": \"<string>\",\n  \"walletAddress\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"statusCode\": 8338.90480452541\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b57cb6ae-11f3-4795-81df-524519e502e2",
+          "name": "Investors Controller get Tr Investor",
+          "request": {
+            "name": "Investors Controller get Tr Investor",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "tr",
+                "domains",
+                ":domainId",
+                "investors",
+                ":securitizeId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "domainId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "securitizeId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f4e989f0-0795-4f8a-bf0b-2b54b8f38445",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "tr",
+                    "domains",
+                    ":domainId",
+                    "investors",
+                    ":securitizeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "domainId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "securitizeId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"match\",\n  \"externalId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a2c907c0-2c39-4539-b3cb-9216d806e8f9",
+    "name": "Securitize Domains Travel Rule API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

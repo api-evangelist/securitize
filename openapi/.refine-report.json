@@ -1,0 +1,29 @@
+{
+  "provider": "securitize",
+  "sources": [
+    "securitize-apac-api-openapi.yml",
+    "securitize-domains-api-openapi.yml",
+    "securitize-health-check-api-openapi.yml",
+    "securitize-travel-rule-api-openapi.yml",
+    "securitize-webhooks-api-openapi.yml"
+  ],
+  "outputs": [
+    "securitize-apac-api-openapi.yml",
+    "securitize-domains-api-openapi.yml",
+    "securitize-health-check-api-openapi.yml",
+    "securitize-travel-rule-api-openapi.yml",
+    "securitize-webhooks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "securitize-apac-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "securitize-domains-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "securitize-health-check-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "securitize-travel-rule-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "securitize-webhooks-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": []
+}

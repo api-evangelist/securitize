@@ -1,0 +1,316 @@
+openapi: 3.2.0
+info:
+  version: 3.0.0
+  title: Securitize Domains APAC API
+security:
+- ApiKeyAuth: []
+tags:
+- name: APAC
+paths:
+  /v1/apac/domains/{domainId}/tokens/{tokenId}/bank-deposit-files/detail:
+    post:
+      operationId: BankDepositFilesController_createBankDepositFile
+      parameters:
+      - name: domainId
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: tokenId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBankDepositFileBodyDto'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankDepositFileResponseDto'
+      tags:
+      - APAC
+    get:
+      operationId: BankDepositFilesController_getBankDepositFile
+      parameters:
+      - name: domainId
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: tokenId
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: bankDepositFileId
+        required: true
+        in: query
+        schema:
+          type: number
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankDepositFileResponseDto'
+      tags:
+      - APAC
+    delete:
+      operationId: BankDepositFilesController_deleteBankDepositFile
+      parameters:
+      - name: domainId
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: tokenId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteBankDepositFileBodyDto'
+      responses:
+        '200':
+          description: ''
+      tags:
+      - APAC
+  /v1/apac/domains/{domainId}/tokens/{tokenId}/bank-deposit-files/list:
+    get:
+      operationId: BankDepositFilesController_getBankDepositFiles
+      parameters:
+      - name: domainId
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: tokenId
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: paymentYear
+        required: false
+        in: query
+        schema:
+          type: number
+      - name: paymentMonth
+        required: false
+        in: query
+        schema:
+          minimum: 1
+          maximum: 12
+          type: number
+      - name: page
+        required: false
+        in: query
+        schema:
+          type: number
+      - name: limit
+        required: false
+        in: query
+        schema:
+          type: number
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetBankDepositFilesResponseDto'
+      tags:
+      - APAC
+  /v1/apac/domains/{domainId}/tokens/{tokenId}/bank-deposit-files/records:
+    get:
+      operationId: BankDepositFilesController_getBankDepositFileRecords
+      parameters:
+      - name: domainId
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: tokenId
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: bankDepositFileId
+        required: true
+        in: query
+        schema:
+          type: number
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetBankDepositFileRecordsResponseDto'
+      tags:
+      - APAC
+  /v1/apac/domains/{domainId}/tokens/{tokenId}/investment-requests/total-pledged-amounts:
+    get:
+      operationId: InvestmentRequestsController_getTotalPledgedAmounts
+      parameters:
+      - name: domainId
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: tokenId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTotalPledgedAmountsResponseDto'
+      tags:
+      - APAC
+components:
+  schemas:
+    Currency:
+      type: string
+      enum:
+      - JPY
+      - USD
+    DeleteBankDepositFileBodyDto:
+      type: object
+      properties:
+        bankDepositFileId:
+          type: number
+      required:
+      - bankDepositFileId
+    BankDepositFileStatus:
+      type: string
+      enum:
+      - processing
+      - success
+      - failure
+    BankDepositFileResponseDto:
+      type: object
+      properties:
+        currency:
+          $ref: '#/components/schemas/Currency'
+        status:
+          $ref: '#/components/schemas/BankDepositFileStatus'
+        interestType:
+          $ref: '#/components/schemas/InterestType'
+        bankDepositFileId:
+          type: number
+        domainId:
+          type: string
+        tokenId:
+          type: string
+        paymentYear:
+          type: number
+        paymentMonth:
+          type: number
+        createdBy:
+          type: string
+        isInterestPayment:
+          type: boolean
+        isRedemptionPayment:
+          type: boolean
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      required:
+      - currency
+      - status
+      - interestType
+      - bankDepositFileId
+      - domainId
+      - tokenId
+      - paymentYear
+      - paymentMonth
+      - createdBy
+      - isInterestPayment
+      - isRedemptionPayment
+      - createdAt
+      - updatedAt
+    CreateBankDepositFileBodyDto:
+      type: object
+      properties:
+        paymentYear:
+          type: number
+        paymentMonth:
+          type: number
+          minimum: 1
+          maximum: 12
+        isInterestPayment:
+          type: boolean
+        interestType:
+          type: string
+          enum:
+          - cash-only
+          - cash-and-point
+        isRedemptionPayment:
+          type: boolean
+      required:
+      - paymentYear
+      - paymentMonth
+      - isInterestPayment
+      - interestType
+      - isRedemptionPayment
+    GetBankDepositFileRecordsResponseDto:
+      type: object
+      properties:
+        records:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+      required:
+      - records
+    GetTotalPledgedAmountsResponseDto:
+      type: object
+      properties:
+        appliedPledgedAmount:
+          type: number
+        confirmedPledgedAmount:
+          type: number
+      required:
+      - appliedPledgedAmount
+      - confirmedPledgedAmount
+    GetBankDepositFilesResponseDto:
+      type: object
+      properties:
+        totalItems:
+          type: number
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/BankDepositFileResponseDto'
+      required:
+      - totalItems
+      - data
+    InterestType:
+      type: string
+      enum:
+      - cash-only
+      - cash-and-point
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: API Key Format as "apiKey &lt;key_id&gt;:&lt;key_secret&gt;"
