@@ -19,6 +19,21 @@ specificationVersion: '0.23'
 created: '2026-08-05'
 modified: '2026-08-05'
 tags:
+- Tokenization
+- Digital Securities
+- Real World Assets
+- Capital Markets
+- Fund Administration
+- Transfer Agent
+- KYC
+- AML
+- Identity Verification
+- Blockchain
+- Broker-Dealer
+- Private Credit
+- MCP
+- Webhook
+tags_raw:
 - tokenization
 - digital-securities
 - real-world-assets
@@ -49,6 +64,12 @@ apis:
   humanURL: https://sec-connect-api-docs.securitize.io/
   baseURL: https://sec-id-api.securitize.io/
   tags:
+  - Identity Verification
+  - KYC
+  - AML
+  - Authentication
+  - Single Sign-On
+  tags_raw:
   - identity-verification
   - kyc
   - aml
@@ -85,6 +106,11 @@ apis:
     https://securitize.io/learn/blog/Introducing-the-Securitize-MCP-Server-A-Gateway-to-Tokenized-Asset-Data
   baseURL: https://mcp.securitize.io/mcp
   tags:
+  - MCP
+  - agent-native
+  - Tokenization
+  - Real World Assets
+  tags_raw:
   - mcp
   - agent-native
   - tokenization
@@ -204,6 +230,8 @@ apis:
   humanURL: https://domain-api-docs.securitize.io/
   baseURL: https://public-api.securitize.io/
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
