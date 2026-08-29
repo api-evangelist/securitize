@@ -11,6 +11,18 @@ description: >-
   Connect API that acts as an OAuth provider for Securitize iD single sign-on and verified-identity sharing, and a
   Webhook API for real-time investor event delivery. Securitize also runs a public, unauthenticated MCP server that
   exposes its tokenized-asset catalog to AI agents.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://cdn.builder.io/api/v1/image/assets%2Fd39b51a544e84e2fbb2445f58c6c6f2c%2F0eeaf40c7ecd4ee0a05f030d32ae949e
 url: https://raw.githubusercontent.com/api-evangelist/securitize/refs/heads/main/apis.yml
 x-type: company
