@@ -31,18 +31,18 @@ specificationVersion: '0.23'
 created: '2026-08-05'
 modified: '2026-08-05'
 tags:
-- Tokenization
-- Digital Securities
-- Real World Assets
-- Capital Markets
-- Fund Administration
-- Transfer Agent
-- KYC
+- tokenization
+- digital-securities
+- real-world-assets
+- capital-markets
+- fund-administration
+- transfer-agent
+- kyc
 - AML
 - Identity Verification
 - Blockchain
-- Broker-Dealer
-- Private Credit
+- broker-dealer
+- private-credit
 - MCP
 - Webhook
 tags_raw:
@@ -77,10 +77,10 @@ apis:
   baseURL: https://sec-id-api.securitize.io/
   tags:
   - Identity Verification
-  - KYC
+  - kyc
   - AML
   - Authentication
-  - Single Sign-On
+  - single-sign-on
   tags_raw:
   - identity-verification
   - kyc
@@ -120,8 +120,8 @@ apis:
   tags:
   - MCP
   - agent-native
-  - Tokenization
-  - Real World Assets
+  - tokenization
+  - real-world-assets
   tags_raw:
   - mcp
   - agent-native
