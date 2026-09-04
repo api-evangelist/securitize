@@ -23,6 +23,22 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  probe_state: covered
+  source:
+  - authentication
+  - scopes
+  - security
+  - sandbox
+  generated: '2026-09-03'
+  method: derived
 image: https://cdn.builder.io/api/v1/image/assets%2Fd39b51a544e84e2fbb2445f58c6c6f2c%2F0eeaf40c7ecd4ee0a05f030d32ae949e
 url: https://raw.githubusercontent.com/api-evangelist/securitize/refs/heads/main/apis.yml
 x-type: company
