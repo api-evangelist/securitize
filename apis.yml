@@ -96,7 +96,7 @@ apis:
   - KYC
   - AML
   - Authentication
-  - Single Sign-On
+  - SSO
   tags_raw:
   - identity-verification
   - kyc
@@ -154,6 +154,8 @@ apis:
   humanURL: https://domain-api-docs.securitize.io/
   baseURL: https://public-api.securitize.io/
   tags:
+  - Asia Pacific
+  tags_raw:
   - APAC
   properties:
   - type: OpenAPI
