@@ -1,11 +1,7 @@
 {
   "provider": "securitize",
   "sources": [
-    "securitize-apac-api-openapi.yml",
-    "securitize-domains-api-openapi.yml",
-    "securitize-health-check-api-openapi.yml",
-    "securitize-travel-rule-api-openapi.yml",
-    "securitize-webhooks-api-openapi.yml"
+    "_original/securitize-domains-openapi-original.json"
   ],
   "outputs": [
     "securitize-apac-api-openapi.yml",
@@ -18,12 +14,20 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "securitize-apac-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
-    "securitize-domains-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
-    "securitize-health-check-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
-    "securitize-travel-rule-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
-    "securitize-webhooks-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "securitize-domains-openapi-original.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "securitize-domains-openapi-original.json: declared missing tag: APAC",
+    "securitize-domains-openapi-original.json: declared missing tag: Domains",
+    "securitize-domains-openapi-original.json: declared missing tag: Health Check",
+    "securitize-domains-openapi-original.json: declared missing tag: Travel Rule",
+    "securitize-domains-openapi-original.json: declared missing tag: Webhooks",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "securitize-apac-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "securitize-domains-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "securitize-health-check-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "securitize-travel-rule-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "securitize-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

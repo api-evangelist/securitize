@@ -22,6 +22,8 @@ paths:
                   $ref: '#/components/schemas/WebhookEventDto'
       tags:
       - Webhooks
+      summary: Events controller get events
+      x-summary-source: derived
   /v1/webhooks/subscriptions:
     get:
       operationId: SubscriptionsController_getSubscriptions
@@ -42,6 +44,8 @@ paths:
                   $ref: '#/components/schemas/WebhookSubscriptionResponseDto'
       tags:
       - Webhooks
+      summary: Subscriptions controller get subscriptions
+      x-summary-source: derived
     post:
       operationId: SubscriptionsController_createSubscription
       parameters: []
@@ -60,6 +64,8 @@ paths:
                 $ref: '#/components/schemas/WebhookSubscriptionResponseDto'
       tags:
       - Webhooks
+      summary: Subscriptions controller create subscription
+      x-summary-source: derived
   /v1/webhooks/subscriptions/{subscriptionId}:
     get:
       operationId: SubscriptionsController_getSubscription
@@ -78,6 +84,8 @@ paths:
                 $ref: '#/components/schemas/WebhookSubscriptionResponseDto'
       tags:
       - Webhooks
+      summary: Subscriptions controller get subscription
+      x-summary-source: derived
     patch:
       operationId: SubscriptionsController_updateSubscription
       parameters:
@@ -101,6 +109,8 @@ paths:
                 $ref: '#/components/schemas/WebhookSubscriptionResponseDto'
       tags:
       - Webhooks
+      summary: Subscriptions controller update subscription
+      x-summary-source: derived
     delete:
       operationId: SubscriptionsController_deleteSubscription
       parameters:
@@ -114,6 +124,8 @@ paths:
           description: ''
       tags:
       - Webhooks
+      summary: Subscriptions controller delete subscription
+      x-summary-source: derived
   /v1/webhooks/settings/signature:
     post:
       operationId: SettingsController_createSignature
@@ -127,8 +139,51 @@ paths:
                 $ref: '#/components/schemas/WebhookSignatureResponseDto'
       tags:
       - Webhooks
+      summary: Settings controller create signature
+      x-summary-source: derived
 components:
   schemas:
+    WebhookEventDto:
+      type: object
+      properties:
+        eventType:
+          type: string
+        properties:
+          type: array
+          items:
+            type: string
+      required:
+      - eventType
+      - properties
+    UpdateWebhookSubscriptionBodyDto:
+      type: object
+      properties:
+        payloadUrl:
+          type: string
+        isActive:
+          type: boolean
+    WebhookSubscriptionResponseDto:
+      type: object
+      properties:
+        id:
+          type: string
+        domainId:
+          type: string
+        eventType:
+          type: string
+        nonce:
+          type: number
+        payloadUrl:
+          type: string
+        isActive:
+          type: boolean
+      required:
+      - id
+      - domainId
+      - eventType
+      - nonce
+      - payloadUrl
+      - isActive
     WebhookSignatureResponseDto:
       type: object
       properties:
@@ -152,47 +207,6 @@ components:
       - domainId
       - eventType
       - payloadUrl
-    WebhookSubscriptionResponseDto:
-      type: object
-      properties:
-        id:
-          type: string
-        domainId:
-          type: string
-        eventType:
-          type: string
-        nonce:
-          type: number
-        payloadUrl:
-          type: string
-        isActive:
-          type: boolean
-      required:
-      - id
-      - domainId
-      - eventType
-      - nonce
-      - payloadUrl
-      - isActive
-    UpdateWebhookSubscriptionBodyDto:
-      type: object
-      properties:
-        payloadUrl:
-          type: string
-        isActive:
-          type: boolean
-    WebhookEventDto:
-      type: object
-      properties:
-        eventType:
-          type: string
-        properties:
-          type: array
-          items:
-            type: string
-      required:
-      - eventType
-      - properties
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

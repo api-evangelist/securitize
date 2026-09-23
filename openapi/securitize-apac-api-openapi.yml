@@ -36,6 +36,8 @@ paths:
                 $ref: '#/components/schemas/BankDepositFileResponseDto'
       tags:
       - APAC
+      summary: Bank deposit files controller create bank deposit file
+      x-summary-source: derived
     get:
       operationId: BankDepositFilesController_getBankDepositFile
       parameters:
@@ -63,6 +65,8 @@ paths:
                 $ref: '#/components/schemas/BankDepositFileResponseDto'
       tags:
       - APAC
+      summary: Bank deposit files controller get bank deposit file
+      x-summary-source: derived
     delete:
       operationId: BankDepositFilesController_deleteBankDepositFile
       parameters:
@@ -87,6 +91,8 @@ paths:
           description: ''
       tags:
       - APAC
+      summary: Bank deposit files controller delete bank deposit file
+      x-summary-source: derived
   /v1/apac/domains/{domainId}/tokens/{tokenId}/bank-deposit-files/list:
     get:
       operationId: BankDepositFilesController_getBankDepositFiles
@@ -132,6 +138,8 @@ paths:
                 $ref: '#/components/schemas/GetBankDepositFilesResponseDto'
       tags:
       - APAC
+      summary: Bank deposit files controller get bank deposit files
+      x-summary-source: derived
   /v1/apac/domains/{domainId}/tokens/{tokenId}/bank-deposit-files/records:
     get:
       operationId: BankDepositFilesController_getBankDepositFileRecords
@@ -160,6 +168,8 @@ paths:
                 $ref: '#/components/schemas/GetBankDepositFileRecordsResponseDto'
       tags:
       - APAC
+      summary: Bank deposit files controller get bank deposit file records
+      x-summary-source: derived
   /v1/apac/domains/{domainId}/tokens/{tokenId}/investment-requests/total-pledged-amounts:
     get:
       operationId: InvestmentRequestsController_getTotalPledgedAmounts
@@ -183,13 +193,78 @@ paths:
                 $ref: '#/components/schemas/GetTotalPledgedAmountsResponseDto'
       tags:
       - APAC
+      summary: Investment requests controller get total pledged amounts
+      x-summary-source: derived
 components:
   schemas:
-    Currency:
+    InterestType:
       type: string
       enum:
-      - JPY
-      - USD
+      - cash-only
+      - cash-and-point
+    GetBankDepositFilesResponseDto:
+      type: object
+      properties:
+        totalItems:
+          type: number
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/BankDepositFileResponseDto'
+      required:
+      - totalItems
+      - data
+    GetBankDepositFileRecordsResponseDto:
+      type: object
+      properties:
+        records:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+      required:
+      - records
+    GetTotalPledgedAmountsResponseDto:
+      type: object
+      properties:
+        appliedPledgedAmount:
+          type: number
+        confirmedPledgedAmount:
+          type: number
+      required:
+      - appliedPledgedAmount
+      - confirmedPledgedAmount
+    CreateBankDepositFileBodyDto:
+      type: object
+      properties:
+        paymentYear:
+          type: number
+        paymentMonth:
+          type: number
+          minimum: 1
+          maximum: 12
+        isInterestPayment:
+          type: boolean
+        interestType:
+          type: string
+          enum:
+          - cash-only
+          - cash-and-point
+        isRedemptionPayment:
+          type: boolean
+      required:
+      - paymentYear
+      - paymentMonth
+      - isInterestPayment
+      - interestType
+      - isRedemptionPayment
+    BankDepositFileStatus:
+      type: string
+      enum:
+      - processing
+      - success
+      - failure
     DeleteBankDepositFileBodyDto:
       type: object
       properties:
@@ -197,12 +272,6 @@ components:
           type: number
       required:
       - bankDepositFileId
-    BankDepositFileStatus:
-      type: string
-      enum:
-      - processing
-      - success
-      - failure
     BankDepositFileResponseDto:
       type: object
       properties:
@@ -246,68 +315,11 @@ components:
       - isRedemptionPayment
       - createdAt
       - updatedAt
-    CreateBankDepositFileBodyDto:
-      type: object
-      properties:
-        paymentYear:
-          type: number
-        paymentMonth:
-          type: number
-          minimum: 1
-          maximum: 12
-        isInterestPayment:
-          type: boolean
-        interestType:
-          type: string
-          enum:
-          - cash-only
-          - cash-and-point
-        isRedemptionPayment:
-          type: boolean
-      required:
-      - paymentYear
-      - paymentMonth
-      - isInterestPayment
-      - interestType
-      - isRedemptionPayment
-    GetBankDepositFileRecordsResponseDto:
-      type: object
-      properties:
-        records:
-          type: array
-          items:
-            type: array
-            items:
-              type: string
-      required:
-      - records
-    GetTotalPledgedAmountsResponseDto:
-      type: object
-      properties:
-        appliedPledgedAmount:
-          type: number
-        confirmedPledgedAmount:
-          type: number
-      required:
-      - appliedPledgedAmount
-      - confirmedPledgedAmount
-    GetBankDepositFilesResponseDto:
-      type: object
-      properties:
-        totalItems:
-          type: number
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/BankDepositFileResponseDto'
-      required:
-      - totalItems
-      - data
-    InterestType:
+    Currency:
       type: string
       enum:
-      - cash-only
-      - cash-and-point
+      - JPY
+      - USD
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

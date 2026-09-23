@@ -435,6 +435,8 @@ paths:
                 $ref: '#/components/schemas/SearchTrInvestorResponseDto'
       tags:
       - Travel Rule
+      summary: Investors controller get tr individual investor
+      x-summary-source: derived
     post:
       operationId: InvestorsController_createTrIndividualInvestor
       parameters:
@@ -470,6 +472,8 @@ paths:
                 $ref: '#/components/schemas/TrInvestorErrorResponseDto'
       tags:
       - Travel Rule
+      summary: Investors controller create tr individual investor
+      x-summary-source: derived
   /v1/tr/domains/{domainId}/investors/entity:
     get:
       operationId: InvestorsController_getTrEntityInvestor
@@ -753,6 +757,8 @@ paths:
                 $ref: '#/components/schemas/SearchTrInvestorResponseDto'
       tags:
       - Travel Rule
+      summary: Investors controller get tr entity investor
+      x-summary-source: derived
     post:
       operationId: InvestorsController_createTrEntityInvestor
       parameters:
@@ -788,6 +794,8 @@ paths:
                 $ref: '#/components/schemas/TrInvestorErrorResponseDto'
       tags:
       - Travel Rule
+      summary: Investors controller create tr entity investor
+      x-summary-source: derived
   /v1/tr/domains/{domainId}/investors/blockchain-id:
     get:
       operationId: InvestorsController_getInvestorBlockchainId
@@ -821,6 +829,8 @@ paths:
                 $ref: '#/components/schemas/GetTrInvestorBlockchainIdResponseDto'
       tags:
       - Travel Rule
+      summary: Investors controller get investor blockchain id
+      x-summary-source: derived
     post:
       operationId: InvestorsController_createInvestorBlockchainId
       parameters:
@@ -856,6 +866,8 @@ paths:
                 $ref: '#/components/schemas/TrInvestorErrorResponseDto'
       tags:
       - Travel Rule
+      summary: Investors controller create investor blockchain id
+      x-summary-source: derived
   /v1/tr/domains/{domainId}/investors/{securitizeId}:
     get:
       operationId: InvestorsController_getTrInvestor
@@ -879,8 +891,82 @@ paths:
                 $ref: '#/components/schemas/GetTrInvestorResponseDto'
       tags:
       - Travel Rule
+      summary: Investors controller get tr investor
+      x-summary-source: derived
 components:
   schemas:
+    BlockchainIdErrorResponseDto:
+      type: object
+      properties:
+        message:
+          type: string
+        data:
+          $ref: '#/components/schemas/CreateTrInvestorBlockchainIdResponseDto'
+        statusCode:
+          type: number
+        name:
+          type: string
+      required:
+      - message
+      - data
+      - statusCode
+      - name
+    CreateTrInvestorBlockchainIdResponseDto:
+      type: object
+      properties:
+        blockchainId:
+          type: string
+      required:
+      - blockchainId
+    GetTrInvestorBlockchainIdResponseDto:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - ok
+          - conflict
+        blockchainId:
+          type:
+          - string
+          - 'null'
+      required:
+      - type
+    GetTrInvestorResponseDto:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - match
+          - mismatch
+        externalId:
+          type: string
+      required:
+      - type
+    CreateTrInvestorBlockchainIdBodyDto:
+      type: object
+      properties:
+        externalId:
+          type: string
+        tokenId:
+          type: string
+        walletAddress:
+          type: string
+      required:
+      - externalId
+      - tokenId
+      - walletAddress
+    TrInvestorErrorResponseDto:
+      type: object
+      properties:
+        message:
+          type: string
+        statusCode:
+          type: number
+      required:
+      - message
+      - statusCode
     CreateTrIndividualLegalSignerBodyDto:
       type: object
       properties:
@@ -1242,498 +1328,6 @@ components:
       - countryCode
       - zipCode
       - email
-    TrInvestorErrorResponseDto:
-      type: object
-      properties:
-        message:
-          type: string
-        statusCode:
-          type: number
-      required:
-      - message
-      - statusCode
-    CreateTrInvestorBlockchainIdResponseDto:
-      type: object
-      properties:
-        blockchainId:
-          type: string
-      required:
-      - blockchainId
-    GetTrInvestorBlockchainIdResponseDto:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - ok
-          - conflict
-        blockchainId:
-          type:
-          - string
-          - 'null'
-      required:
-      - type
-    CreateTrEntityLegalSignerBodyDto:
-      type: object
-      properties:
-        signerType:
-          enum:
-          - individual
-          - entity
-          type: string
-          default: entity
-        legalName:
-          type: string
-        businessName:
-          type: string
-        entityType:
-          type: string
-          enum:
-          - revocable-trust
-          - irrevocable-trust
-          - limited-general-partnership
-          - llc
-          - corporation
-          - other
-        taxId:
-          type: string
-        email:
-          type: string
-      required:
-      - signerType
-      - legalName
-      - businessName
-      - entityType
-      - taxId
-      - email
-    BlockchainIdErrorResponseDto:
-      type: object
-      properties:
-        message:
-          type: string
-        data:
-          $ref: '#/components/schemas/CreateTrInvestorBlockchainIdResponseDto'
-        statusCode:
-          type: number
-        name:
-          type: string
-      required:
-      - message
-      - data
-      - statusCode
-      - name
-    CreateTrInvestorBlockchainIdBodyDto:
-      type: object
-      properties:
-        externalId:
-          type: string
-        tokenId:
-          type: string
-        walletAddress:
-          type: string
-      required:
-      - externalId
-      - tokenId
-      - walletAddress
-    CreateTrEntityInvestorBodyDto:
-      type: object
-      properties:
-        legalSigners:
-          type: array
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/CreateTrIndividualLegalSignerBodyDto'
-            - $ref: '#/components/schemas/CreateTrEntityLegalSignerBodyDto'
-        email:
-          type: string
-        entityName:
-          type: string
-        entityDba:
-          type: string
-        countryCode:
-          type: string
-          enum:
-          - AD
-          - AE
-          - AF
-          - AG
-          - AI
-          - AL
-          - AM
-          - AO
-          - AQ
-          - AR
-          - AS
-          - AT
-          - AU
-          - AW
-          - AX
-          - AZ
-          - BA
-          - BB
-          - BD
-          - BE
-          - BF
-          - BG
-          - BH
-          - BI
-          - BJ
-          - BL
-          - BM
-          - BN
-          - BO
-          - BQ
-          - BR
-          - BS
-          - BT
-          - BV
-          - BW
-          - BY
-          - BZ
-          - CA
-          - CC
-          - CD
-          - CF
-          - CG
-          - CH
-          - CI
-          - CK
-          - CL
-          - CM
-          - CN
-          - CO
-          - CR
-          - CU
-          - CV
-          - CW
-          - CX
-          - CY
-          - CZ
-          - DE
-          - DJ
-          - DK
-          - DM
-          - DO
-          - DZ
-          - EC
-          - EE
-          - EG
-          - EH
-          - ER
-          - ES
-          - ET
-          - FI
-          - FJ
-          - FK
-          - FM
-          - FO
-          - FR
-          - GA
-          - GB
-          - GD
-          - GE
-          - GF
-          - GG
-          - GH
-          - GI
-          - GL
-          - GM
-          - GN
-          - GP
-          - GQ
-          - GR
-          - GS
-          - GT
-          - GU
-          - GW
-          - GY
-          - HK
-          - HM
-          - HN
-          - HR
-          - HT
-          - HU
-          - ID
-          - IE
-          - IL
-          - IM
-          - IN
-          - IO
-          - IQ
-          - IR
-          - IS
-          - IT
-          - JE
-          - JM
-          - JO
-          - JP
-          - KE
-          - KG
-          - KH
-          - KI
-          - KM
-          - KN
-          - KP
-          - KR
-          - KW
-          - KY
-          - KZ
-          - LA
-          - LB
-          - LC
-          - LI
-          - LK
-          - LR
-          - LS
-          - LT
-          - LU
-          - LV
-          - LY
-          - MA
-          - MC
-          - MD
-          - ME
-          - MF
-          - MG
-          - MH
-          - MK
-          - ML
-          - MM
-          - MN
-          - MO
-          - MP
-          - MQ
-          - MR
-          - MS
-          - MT
-          - MU
-          - MV
-          - MW
-          - MX
-          - MY
-          - MZ
-          - NA
-          - NC
-          - NE
-          - NF
-          - NG
-          - NI
-          - NL
-          - 'NO'
-          - NP
-          - NR
-          - NU
-          - NZ
-          - OM
-          - PA
-          - PE
-          - PF
-          - PG
-          - PH
-          - PK
-          - PL
-          - PM
-          - PN
-          - PR
-          - PS
-          - PT
-          - PW
-          - PY
-          - QA
-          - RE
-          - RO
-          - RS
-          - RU
-          - RW
-          - SA
-          - SB
-          - SC
-          - SD
-          - SE
-          - SG
-          - SH
-          - SI
-          - SJ
-          - SK
-          - SL
-          - SM
-          - SN
-          - SO
-          - SR
-          - SS
-          - ST
-          - SV
-          - SX
-          - SY
-          - SZ
-          - TC
-          - TD
-          - TF
-          - TG
-          - TH
-          - TJ
-          - TK
-          - TL
-          - TM
-          - TN
-          - TO
-          - TR
-          - TT
-          - TV
-          - TW
-          - TZ
-          - UA
-          - UG
-          - UM
-          - US
-          - UY
-          - UZ
-          - VA
-          - VC
-          - VE
-          - VG
-          - VI
-          - VN
-          - VU
-          - WF
-          - WS
-          - YE
-          - YT
-          - ZA
-          - ZM
-          - ZW
-        stateCode:
-          type: string
-          enum:
-          - AL
-          - AK
-          - AZ
-          - AR
-          - CA
-          - CO
-          - CT
-          - DE
-          - DC
-          - FL
-          - GA
-          - HI
-          - ID
-          - IL
-          - IN
-          - IA
-          - KS
-          - KY
-          - LA
-          - ME
-          - MT
-          - NE
-          - NV
-          - NH
-          - NJ
-          - NM
-          - NY
-          - NC
-          - ND
-          - OH
-          - OK
-          - OR
-          - MD
-          - MA
-          - MI
-          - MN
-          - MS
-          - MO
-          - PA
-          - RI
-          - SC
-          - SD
-          - TN
-          - TX
-          - UT
-          - VT
-          - VA
-          - WA
-          - WV
-          - WI
-          - WY
-          - AS
-          - GU
-          - MP
-          - PR
-          - VI
-          - UM
-          - FM
-          - MH
-          - PW
-          - AA
-          - AE
-          - AP
-          - CM
-          - CZ
-          - NB
-          - PI
-          - TT
-        city:
-          type: string
-        zipCode:
-          type: string
-          minLength: 0
-          maxLength: 10
-        address:
-          type: string
-        addressAdditionalInfo:
-          type: string
-        taxId:
-          type: string
-        entityType:
-          type: string
-          enum:
-          - revocable-trust
-          - irrevocable-trust
-          - limited-general-partnership
-          - llc
-          - corporation
-          - other
-      required:
-      - legalSigners
-      - email
-      - entityName
-      - countryCode
-      - taxId
-    SearchTrInvestorResponseDto:
-      type: object
-      properties:
-        type:
-          enum:
-          - match
-          - mismatch
-          - conflict
-          type: string
-        externalIds:
-          type: array
-          items:
-            type: string
-      required:
-      - type
-    CreateTrInvestorResponseDto:
-      type: object
-      properties:
-        externalId:
-          type: string
-      required:
-      - externalId
-    GetTrInvestorResponseDto:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - match
-          - mismatch
-        externalId:
-          type: string
-      required:
-      - type
     CreateTrIndividualInvestorBodyDto:
       type: object
       properties:
@@ -2118,6 +1712,426 @@ components:
       - email
       - birthdate
       - countryCode
+    CreateTrEntityInvestorBodyDto:
+      type: object
+      properties:
+        legalSigners:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/CreateTrIndividualLegalSignerBodyDto'
+            - $ref: '#/components/schemas/CreateTrEntityLegalSignerBodyDto'
+        email:
+          type: string
+        entityName:
+          type: string
+        entityDba:
+          type: string
+        countryCode:
+          type: string
+          enum:
+          - AD
+          - AE
+          - AF
+          - AG
+          - AI
+          - AL
+          - AM
+          - AO
+          - AQ
+          - AR
+          - AS
+          - AT
+          - AU
+          - AW
+          - AX
+          - AZ
+          - BA
+          - BB
+          - BD
+          - BE
+          - BF
+          - BG
+          - BH
+          - BI
+          - BJ
+          - BL
+          - BM
+          - BN
+          - BO
+          - BQ
+          - BR
+          - BS
+          - BT
+          - BV
+          - BW
+          - BY
+          - BZ
+          - CA
+          - CC
+          - CD
+          - CF
+          - CG
+          - CH
+          - CI
+          - CK
+          - CL
+          - CM
+          - CN
+          - CO
+          - CR
+          - CU
+          - CV
+          - CW
+          - CX
+          - CY
+          - CZ
+          - DE
+          - DJ
+          - DK
+          - DM
+          - DO
+          - DZ
+          - EC
+          - EE
+          - EG
+          - EH
+          - ER
+          - ES
+          - ET
+          - FI
+          - FJ
+          - FK
+          - FM
+          - FO
+          - FR
+          - GA
+          - GB
+          - GD
+          - GE
+          - GF
+          - GG
+          - GH
+          - GI
+          - GL
+          - GM
+          - GN
+          - GP
+          - GQ
+          - GR
+          - GS
+          - GT
+          - GU
+          - GW
+          - GY
+          - HK
+          - HM
+          - HN
+          - HR
+          - HT
+          - HU
+          - ID
+          - IE
+          - IL
+          - IM
+          - IN
+          - IO
+          - IQ
+          - IR
+          - IS
+          - IT
+          - JE
+          - JM
+          - JO
+          - JP
+          - KE
+          - KG
+          - KH
+          - KI
+          - KM
+          - KN
+          - KP
+          - KR
+          - KW
+          - KY
+          - KZ
+          - LA
+          - LB
+          - LC
+          - LI
+          - LK
+          - LR
+          - LS
+          - LT
+          - LU
+          - LV
+          - LY
+          - MA
+          - MC
+          - MD
+          - ME
+          - MF
+          - MG
+          - MH
+          - MK
+          - ML
+          - MM
+          - MN
+          - MO
+          - MP
+          - MQ
+          - MR
+          - MS
+          - MT
+          - MU
+          - MV
+          - MW
+          - MX
+          - MY
+          - MZ
+          - NA
+          - NC
+          - NE
+          - NF
+          - NG
+          - NI
+          - NL
+          - 'NO'
+          - NP
+          - NR
+          - NU
+          - NZ
+          - OM
+          - PA
+          - PE
+          - PF
+          - PG
+          - PH
+          - PK
+          - PL
+          - PM
+          - PN
+          - PR
+          - PS
+          - PT
+          - PW
+          - PY
+          - QA
+          - RE
+          - RO
+          - RS
+          - RU
+          - RW
+          - SA
+          - SB
+          - SC
+          - SD
+          - SE
+          - SG
+          - SH
+          - SI
+          - SJ
+          - SK
+          - SL
+          - SM
+          - SN
+          - SO
+          - SR
+          - SS
+          - ST
+          - SV
+          - SX
+          - SY
+          - SZ
+          - TC
+          - TD
+          - TF
+          - TG
+          - TH
+          - TJ
+          - TK
+          - TL
+          - TM
+          - TN
+          - TO
+          - TR
+          - TT
+          - TV
+          - TW
+          - TZ
+          - UA
+          - UG
+          - UM
+          - US
+          - UY
+          - UZ
+          - VA
+          - VC
+          - VE
+          - VG
+          - VI
+          - VN
+          - VU
+          - WF
+          - WS
+          - YE
+          - YT
+          - ZA
+          - ZM
+          - ZW
+        stateCode:
+          type: string
+          enum:
+          - AL
+          - AK
+          - AZ
+          - AR
+          - CA
+          - CO
+          - CT
+          - DE
+          - DC
+          - FL
+          - GA
+          - HI
+          - ID
+          - IL
+          - IN
+          - IA
+          - KS
+          - KY
+          - LA
+          - ME
+          - MT
+          - NE
+          - NV
+          - NH
+          - NJ
+          - NM
+          - NY
+          - NC
+          - ND
+          - OH
+          - OK
+          - OR
+          - MD
+          - MA
+          - MI
+          - MN
+          - MS
+          - MO
+          - PA
+          - RI
+          - SC
+          - SD
+          - TN
+          - TX
+          - UT
+          - VT
+          - VA
+          - WA
+          - WV
+          - WI
+          - WY
+          - AS
+          - GU
+          - MP
+          - PR
+          - VI
+          - UM
+          - FM
+          - MH
+          - PW
+          - AA
+          - AE
+          - AP
+          - CM
+          - CZ
+          - NB
+          - PI
+          - TT
+        city:
+          type: string
+        zipCode:
+          type: string
+          minLength: 0
+          maxLength: 10
+        address:
+          type: string
+        addressAdditionalInfo:
+          type: string
+        taxId:
+          type: string
+        entityType:
+          type: string
+          enum:
+          - revocable-trust
+          - irrevocable-trust
+          - limited-general-partnership
+          - llc
+          - corporation
+          - other
+      required:
+      - legalSigners
+      - email
+      - entityName
+      - countryCode
+      - taxId
+    CreateTrEntityLegalSignerBodyDto:
+      type: object
+      properties:
+        signerType:
+          enum:
+          - individual
+          - entity
+          type: string
+          default: entity
+        legalName:
+          type: string
+        businessName:
+          type: string
+        entityType:
+          type: string
+          enum:
+          - revocable-trust
+          - irrevocable-trust
+          - limited-general-partnership
+          - llc
+          - corporation
+          - other
+        taxId:
+          type: string
+        email:
+          type: string
+      required:
+      - signerType
+      - legalName
+      - businessName
+      - entityType
+      - taxId
+      - email
+    CreateTrInvestorResponseDto:
+      type: object
+      properties:
+        externalId:
+          type: string
+      required:
+      - externalId
+    SearchTrInvestorResponseDto:
+      type: object
+      properties:
+        type:
+          enum:
+          - match
+          - mismatch
+          - conflict
+          type: string
+        externalIds:
+          type: array
+          items:
+            type: string
+      required:
+      - type
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
