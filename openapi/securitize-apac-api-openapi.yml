@@ -197,44 +197,12 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    InterestType:
+    BankDepositFileStatus:
       type: string
       enum:
-      - cash-only
-      - cash-and-point
-    GetBankDepositFilesResponseDto:
-      type: object
-      properties:
-        totalItems:
-          type: number
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/BankDepositFileResponseDto'
-      required:
-      - totalItems
-      - data
-    GetBankDepositFileRecordsResponseDto:
-      type: object
-      properties:
-        records:
-          type: array
-          items:
-            type: array
-            items:
-              type: string
-      required:
-      - records
-    GetTotalPledgedAmountsResponseDto:
-      type: object
-      properties:
-        appliedPledgedAmount:
-          type: number
-        confirmedPledgedAmount:
-          type: number
-      required:
-      - appliedPledgedAmount
-      - confirmedPledgedAmount
+      - processing
+      - success
+      - failure
     CreateBankDepositFileBodyDto:
       type: object
       properties:
@@ -259,12 +227,6 @@ components:
       - isInterestPayment
       - interestType
       - isRedemptionPayment
-    BankDepositFileStatus:
-      type: string
-      enum:
-      - processing
-      - success
-      - failure
     DeleteBankDepositFileBodyDto:
       type: object
       properties:
@@ -272,6 +234,39 @@ components:
           type: number
       required:
       - bankDepositFileId
+    GetBankDepositFilesResponseDto:
+      type: object
+      properties:
+        totalItems:
+          type: number
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/BankDepositFileResponseDto'
+      required:
+      - totalItems
+      - data
+    Currency:
+      type: string
+      enum:
+      - JPY
+      - USD
+    GetBankDepositFileRecordsResponseDto:
+      type: object
+      properties:
+        records:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+      required:
+      - records
+    InterestType:
+      type: string
+      enum:
+      - cash-only
+      - cash-and-point
     BankDepositFileResponseDto:
       type: object
       properties:
@@ -315,11 +310,16 @@ components:
       - isRedemptionPayment
       - createdAt
       - updatedAt
-    Currency:
-      type: string
-      enum:
-      - JPY
-      - USD
+    GetTotalPledgedAmountsResponseDto:
+      type: object
+      properties:
+        appliedPledgedAmount:
+          type: number
+        confirmedPledgedAmount:
+          type: number
+      required:
+      - appliedPledgedAmount
+      - confirmedPledgedAmount
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

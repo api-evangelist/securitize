@@ -135,7 +135,7 @@ apis:
   baseURL: https://mcp.securitize.io/mcp
   tags:
   - MCP
-  - agent-native
+  - Agent-Native
   - Tokenization
   - Real World Assets
   tags_raw:
