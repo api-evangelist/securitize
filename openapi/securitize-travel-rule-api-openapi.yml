@@ -895,29 +895,19 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    BlockchainIdErrorResponseDto:
+    CreateTrInvestorBlockchainIdBodyDto:
       type: object
       properties:
-        message:
+        externalId:
           type: string
-        data:
-          $ref: '#/components/schemas/CreateTrInvestorBlockchainIdResponseDto'
-        statusCode:
-          type: number
-        name:
+        tokenId:
+          type: string
+        walletAddress:
           type: string
       required:
-      - message
-      - data
-      - statusCode
-      - name
-    CreateTrInvestorBlockchainIdResponseDto:
-      type: object
-      properties:
-        blockchainId:
-          type: string
-      required:
-      - blockchainId
+      - externalId
+      - tokenId
+      - walletAddress
     CreateTrIndividualInvestorBodyDto:
       type: object
       properties:
@@ -1335,6 +1325,13 @@ components:
       - entityType
       - taxId
       - email
+    CreateTrInvestorBlockchainIdResponseDto:
+      type: object
+      properties:
+        blockchainId:
+          type: string
+      required:
+      - blockchainId
     GetTrInvestorResponseDto:
       type: object
       properties:
@@ -1345,6 +1342,36 @@ components:
           - mismatch
         externalId:
           type: string
+      required:
+      - type
+    BlockchainIdErrorResponseDto:
+      type: object
+      properties:
+        message:
+          type: string
+        data:
+          $ref: '#/components/schemas/CreateTrInvestorBlockchainIdResponseDto'
+        statusCode:
+          type: number
+        name:
+          type: string
+      required:
+      - message
+      - data
+      - statusCode
+      - name
+    GetTrInvestorBlockchainIdResponseDto:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - ok
+          - conflict
+        blockchainId:
+          type:
+          - string
+          - 'null'
       required:
       - type
     CreateTrIndividualLegalSignerBodyDto:
@@ -1718,48 +1745,6 @@ components:
       required:
       - message
       - statusCode
-    GetTrInvestorBlockchainIdResponseDto:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - ok
-          - conflict
-        blockchainId:
-          type:
-          - string
-          - 'null'
-      required:
-      - type
-    CreateTrInvestorBlockchainIdBodyDto:
-      type: object
-      properties:
-        externalId:
-          type: string
-        tokenId:
-          type: string
-        walletAddress:
-          type: string
-      required:
-      - externalId
-      - tokenId
-      - walletAddress
-    SearchTrInvestorResponseDto:
-      type: object
-      properties:
-        type:
-          enum:
-          - match
-          - mismatch
-          - conflict
-          type: string
-        externalIds:
-          type: array
-          items:
-            type: string
-      required:
-      - type
     CreateTrInvestorResponseDto:
       type: object
       properties:
@@ -2132,6 +2117,21 @@ components:
       - entityName
       - countryCode
       - taxId
+    SearchTrInvestorResponseDto:
+      type: object
+      properties:
+        type:
+          enum:
+          - match
+          - mismatch
+          - conflict
+          type: string
+        externalIds:
+          type: array
+          items:
+            type: string
+      required:
+      - type
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

@@ -3823,7 +3823,41 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    GetOperatorsResponseDto:
+    GetDomainInvestorTokenInfoResponseDto:
+      type: object
+      properties:
+        tokensHeld:
+          type:
+          - number
+          - 'null'
+        tokensTreasury:
+          type:
+          - number
+          - 'null'
+        roundTokensAssigned:
+          type:
+          - number
+          - 'null'
+        bonusTokens:
+          type:
+          - number
+          - 'null'
+        roundBonusTokensAssigned:
+          type:
+          - number
+          - 'null'
+        roundBonusTokens:
+          type:
+          - number
+          - 'null'
+      required:
+      - tokensHeld
+      - tokensTreasury
+      - roundTokensAssigned
+      - bonusTokens
+      - roundBonusTokensAssigned
+      - roundBonusTokens
+    GetDomainTokenDocumentsResponseDto:
       type: object
       properties:
         totalItems:
@@ -3831,26 +3865,146 @@ components:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/TransformedOperatorDto'
+            $ref: '#/components/schemas/DomainTokenDocumentDataDto'
       required:
       - totalItems
       - data
-    GetDomainRoundResponseDto:
+    UpdateDomainTokenDocumentBodyDto:
       type: object
       properties:
-        jurisdictionalExceptionsData:
-          type: array
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/MinInvestmentJurisdictionalException'
-            - $ref: '#/components/schemas/DocusignJurisdictionalException'
-        roundId:
+        tokenDocumentId:
           type: number
-        issuerId:
+        name:
           type: string
+        title:
+          type: string
+        type:
+          type: string
+          enum:
+          - pdf
+          - doc
+          - ppt
+          - url
+          - other
+        url:
+          type: string
+        category:
+          type: string
+          enum:
+          - basic
+          - investor-only
+      required:
+      - tokenDocumentId
+    GetDomainInvestorFundingAddressResponseDto:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - crypto
+          - fiat
+        currencyIdentifier:
+          type: string
+        wireTransferInstructions:
+          type: string
+        address:
+          type: string
+      required:
+      - type
+      - currencyIdentifier
+    DomainInvestorLabelBodyDto:
+      type: object
+      properties:
+        label:
+          type: string
+      required:
+      - label
+    CreateDomainInvestorDocumentBodyDto:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/UserDocumentType'
+        file:
+          type: string
+          description: file must be base64 encoded
+        documentFace:
+          type: string
+          enum:
+          - front
+          - back
+        documentNumber:
+          type: string
+        documentTitle:
+          type: string
+        showToInvestor:
+          type: boolean
+          default: false
+        contentType:
+          type: string
+          enum:
+          - image/png
+          - image/jpeg
+          - application/pdf
         tokenId:
           type: string
+      required:
+      - type
+      - file
+      - documentFace
+      - contentType
+    LegalSignerBodyDocumentDto:
+      type: object
+      properties:
+        file:
+          type: string
+          description: file must be base64 encoded
+        contentType:
+          type: string
+          enum:
+          - image/png
+          - image/jpeg
+          - application/pdf
+        fileName:
+          type: string
+      required:
+      - file
+      - contentType
+      - fileName
+    GetDomainInvestorKycStatusResponseDto:
+      type: object
+      properties:
+        kycStatus:
+          type: string
+          enum:
+          - none
+          - processing
+          - updates-required
+          - manual-review
+          - verified
+          - rejected
+          - expired
+        kycStatusChangingDate:
+          type: string
+        hasReport:
+          type: boolean
+      required:
+      - kycStatus
+      - kycStatusChangingDate
+      - hasReport
+    DomainRoundDataDto:
+      type: object
+      properties:
+        roundId:
+          type: number
         name:
+          type: string
+        status:
+          type: string
+          enum:
+          - planned
+          - active
+          - done
+        issuanceDate:
           type: string
         createdAt:
           type: string
@@ -3862,216 +4016,485 @@ components:
           type:
           - string
           - 'null'
-        minInvestmentCrypto:
-          type:
-          - number
-          - 'null'
         minInvestmentFiat:
           type:
           - number
           - 'null'
-        investmentTermsAndConditions:
+        minInvestmentCrypto:
           type:
-          - string
-          - 'null'
-        status:
-          type: string
-          enum:
-          - planned
-          - active
-          - done
-        issuanceDate:
-          type: string
-        subscriptionAgreementDocusignId:
-          type:
-          - string
-          - 'null'
-        subscriptionAgreementCustodianDocusignId:
-          type:
-          - string
-          - 'null'
-        isTokenCalculatorVisible:
-          type: boolean
-        tokenCalculatorData:
-          $ref: '#/components/schemas/TokenCalculatorData'
-        json:
-          type:
-          - string
+          - number
           - 'null'
       required:
-      - jurisdictionalExceptionsData
       - roundId
-      - issuerId
-      - tokenId
       - name
+      - status
+      - issuanceDate
       - createdAt
       - updatedAt
       - startsAt
       - endsAt
-      - minInvestmentCrypto
       - minInvestmentFiat
-      - investmentTermsAndConditions
-      - status
-      - issuanceDate
-      - subscriptionAgreementDocusignId
-      - isTokenCalculatorVisible
-      - json
-    CreateDomainInvestorEntityLegalSignerBodyDto:
+      - minInvestmentCrypto
+    DomainSnapshotRecordPayoutWallet:
       type: object
       properties:
-        email:
-          type: string
-        document:
-          $ref: '#/components/schemas/EntityLegalSignerBodyDocumentDto'
-        legalName:
-          type: string
-        businessName:
-          type: string
-        entityType:
-          type: string
-          enum:
-          - revocable-trust
-          - irrevocable-trust
-          - limited-general-partnership
-          - llc
-          - corporation
-          - other
-        taxId:
-          type: string
-      required:
-      - email
-      - document
-      - legalName
-      - businessName
-      - entityType
-      - taxId
-    Content:
-      type: object
-      properties:
-        contentId:
-          type: number
-        opportunityId:
-          type: number
-        attributeType:
-          type: string
-          enum:
-          - text
-          - video
-          - image
-        title:
-          type: string
-        content:
-          type: string
-        resource:
-          type:
-          - string
-          - 'null'
-        order:
-          type: number
-        alignment:
-          type: string
-        createdAt:
-          type: string
-        updatedAt:
-          type: string
-      required:
-      - contentId
-      - opportunityId
-      - attributeType
-      - title
-      - content
-      - order
-      - alignment
-      - createdAt
-      - updatedAt
-    GetDomainInvestorQualificationStatusResponseDto:
-      type: object
-      properties:
-        qualificationStatus:
-          type: string
-          enum:
-          - not-verified
-          - pending
-          - qualified
-          - rejected
-          - not-qualified
-          - not-qualified-but-can-invest
-          - not-applicable
-      required:
-      - qualificationStatus
-    SignatureDto:
-      type: object
-      properties:
-        s:
-          type: string
-        r:
-          type: string
-        v:
-          type: string
-      required:
-      - s
-      - r
-      - v
-    GetOperatorResponseDto:
-      type: object
-      properties:
-        authorizations:
-          type: array
-          items:
-            $ref: '#/components/schemas/Authorization'
-        authorizationLevel:
-          $ref: '#/components/schemas/AuthorizationLevel'
-        operatorExternalId:
-          type: string
-        name:
-          type: string
-        email:
-          type: string
-        enabled:
-          type: boolean
-        domainIds:
-          type: array
-          items:
-            type: string
-        createdAt:
-          type: string
-        updatedAt:
-          type: string
-        lastLoginAt:
-          type:
-          - string
-          - 'null'
-        lastLoginIp:
-          type:
-          - string
-          - 'null'
-        brokerDealerGroupId:
+        payoutWalletId:
           type:
           - number
           - 'null'
-        organizationId:
+        address:
           type:
           - string
           - 'null'
-        isViewOnly:
+      required:
+      - payoutWalletId
+      - address
+    GetDomainInvestorsResponseDto:
+      type: object
+      properties:
+        totalItems:
+          type: number
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DomainInvestorDataDto'
+      required:
+      - totalItems
+      - data
+    AuthorizationLevel:
+      type: string
+      enum:
+      - basic
+      - admin
+      - superadmin
+      - megaadmin
+      - brokerdealer
+    CreateDomainTokenInternalTransferTbeTransactionsBodyDto:
+      type: object
+      properties:
+        senderExternalId:
+          type: string
+        receiverExternalId:
+          type: string
+        tokenAmount:
+          type: number
+        reason:
+          type: string
+      required:
+      - senderExternalId
+      - receiverExternalId
+      - tokenAmount
+      - reason
+    DeleteDomainOpportunityDocumentBodyDto:
+      type: object
+      properties:
+        opportunityId:
+          type: number
+        documentId:
+          type: number
+      required:
+      - opportunityId
+      - documentId
+    UserDto:
+      type: object
+      properties:
+        id:
+          type: string
+        fullName:
+          type: string
+      required:
+      - id
+      - fullName
+    AddDomainSnapshotBodyDto:
+      type: object
+      properties:
+        tokenId:
+          type: string
+        name:
+          type: string
+      required:
+      - tokenId
+      - name
+    DeleteDomainTokenDocumentBodyDto:
+      type: object
+      properties:
+        tokenDocumentId:
+          type: number
+      required:
+      - tokenDocumentId
+    GetDomainInvestorDocumentsResponseDto:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/UserDocumentType'
+        investorDocumentId:
+          type: string
+        createdAt:
+          type: string
+        documentFace:
+          type: string
+        documentTitle:
+          type: string
+        documentNumber:
           type:
-          - boolean
+          - string
+          - 'null'
+        imageUrl:
+          type: string
+        thumbnailUrl:
+          type: string
+        contentType:
+          type: string
+        showToInvestor:
+          type: boolean
+        origin:
+          type: string
+          enum:
+          - securitize-id
+          - internal
+        tokenId:
+          type:
+          - string
           - 'null'
       required:
-      - authorizations
-      - authorizationLevel
-      - operatorExternalId
+      - type
+      - investorDocumentId
+      - createdAt
+      - documentFace
+      - documentTitle
+      - documentNumber
+      - imageUrl
+      - thumbnailUrl
+      - contentType
+      - showToInvestor
+      - origin
+      - tokenId
+    Images:
+      type: object
+      properties:
+        logo:
+          type:
+          - string
+          - 'null'
+        logoSquare:
+          type:
+          - string
+          - 'null'
+        logoDark:
+          type:
+          - string
+          - 'null'
+        logoFullName:
+          type:
+          - string
+          - 'null'
+        favicon:
+          type:
+          - string
+          - 'null'
+    SocialLinks:
+      type: object
+      properties:
+        telegram:
+          $ref: '#/components/schemas/SocialLink'
+        twitter:
+          $ref: '#/components/schemas/SocialLink'
+        medium:
+          $ref: '#/components/schemas/SocialLink'
+        facebook:
+          $ref: '#/components/schemas/SocialLink'
+        whatsapp:
+          $ref: '#/components/schemas/SocialLink'
+        supportEmail:
+          type: string
+      required:
+      - telegram
+      - twitter
+      - medium
+      - facebook
+      - whatsapp
+    GetDomainTokenResponseDto:
+      type: object
+      properties:
+        tokenValue:
+          type:
+          - number
+          - 'null'
+        decimals:
+          type: number
+        tokenName:
+          type: string
+        tokenDescription:
+          type: string
+        isTokenRepresentsDebt:
+          type: boolean
+        isDeployed:
+          type: boolean
+        tokenIconUrl:
+          type: string
+        tokenVideoUrl:
+          type: string
+        enableFundraise:
+          type: boolean
+        enableTokenLifecycleManagement:
+          type: boolean
+        isInvestorPays:
+          type: boolean
+      required:
+      - tokenValue
+      - decimals
+      - tokenName
+      - tokenDescription
+      - isTokenRepresentsDebt
+      - isDeployed
+      - tokenIconUrl
+      - enableFundraise
+      - enableTokenLifecycleManagement
+      - isInvestorPays
+    DomainSnapshotRecordWallet:
+      type: object
+      properties:
+        tokenWalletId:
+          type:
+          - number
+          - 'null'
+        address:
+          type:
+          - string
+          - 'null'
+      required:
+      - tokenWalletId
+      - address
+    DomainTokenFundraiseInvestorsDatumDto:
+      type: object
+      properties:
+        kycStatus:
+          type: string
+          enum:
+          - none
+          - processing
+          - updates-required
+          - manual-review
+          - verified
+          - rejected
+          - expired
+        amountFunded:
+          type:
+          - number
+          - 'null'
+        amountPledged:
+          type:
+          - number
+          - 'null'
+        bonusTokens:
+          type: number
+        tokensAssigned:
+          type: number
+        tokenStatus:
+          type: string
+          enum:
+          - issued
+          - not-issued
+        subscriptionAgreementStatus:
+          type: string
+          enum:
+          - none
+          - requested
+          - sent
+          - signed
+          - confirmed
+          - rejected
+          - pre-signed
+        roundIds:
+          type: array
+          items:
+            type: number
+        investorStatus:
+          type: string
+          enum:
+          - pending-kyc
+          - pending-accreditation
+          - pending-investor-signature
+          - pending-issuer-signature
+          - pending-funding
+          - ready
+          - 'true'
+          - 'false'
+        externalId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        name:
+          type:
+          - string
+          - 'null'
+        email:
+          type: string
+        entityName:
+          type:
+          - string
+          - 'null'
+        countryCode:
+          type: string
+        stateCode:
+          type:
+          - string
+          - 'null'
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+        labels:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        investorType:
+          type: string
+          enum:
+          - individual
+          - entity
+          - custodian-wallet-manager
+          - fbo-individual
+          - fbo-entity
+          - omnibus
+        jsonOpen:
+          type:
+          - string
+          - 'null'
+        jsonPrivate:
+          type:
+          - string
+          - 'null'
+        birthdate:
+          type:
+          - string
+          - 'null'
+      required:
+      - kycStatus
+      - amountFunded
+      - amountPledged
+      - bonusTokens
+      - tokensAssigned
+      - roundIds
+      - externalId
+      - firstName
+      - lastName
       - name
       - email
-      - enabled
-      - domainIds
+      - entityName
+      - countryCode
+      - stateCode
       - createdAt
       - updatedAt
-      - lastLoginAt
-      - lastLoginIp
-      - brokerDealerGroupId
-      - organizationId
-      - isViewOnly
+      - labels
+      - investorType
+      - jsonOpen
+      - jsonPrivate
+      - birthdate
+    GetDomainTokenTransactionsResponseDatumOwnerDto:
+      type: object
+      properties:
+        externalId:
+          type: string
+        investorName:
+          type: string
+        investorCountry:
+          type: string
+        investorUSState:
+          type:
+          - string
+          - 'null'
+        investorWalletAddress:
+          type:
+          - string
+          - 'null'
+        investorBalanceAfterTransaction:
+          type:
+          - number
+          - 'null'
+        walletBalanceAfterTransaction:
+          type:
+          - number
+          - 'null'
+        walletType:
+          type: string
+          enum:
+          - onchain
+          - drs
+          - bonus
+      required:
+      - externalId
+      - investorName
+      - investorCountry
+      - investorUSState
+      - investorWalletAddress
+      - investorBalanceAfterTransaction
+      - walletBalanceAfterTransaction
+      - walletType
+    EntityLegalSignerBodyDocumentDto:
+      type: object
+      properties:
+        file:
+          type: string
+          description: file must be base64 encoded
+        contentType:
+          enum:
+          - image/png
+          - image/jpeg
+          - application/pdf
+          type: string
+        fileName:
+          type: string
+        docType:
+          type: string
+          enum:
+          - document-or-certificate-of-trust
+          - list-of-trustees
+          - certificate-of-formation
+          - partnership-agreement
+          - lp-list-and-authorised-signers-list
+          - articles-of-organization
+          - articles-of-corporation
+          - operating-agreement
+          - members-and-authorised-signers-list
+          - by-laws
+          - shareholders-list-and-authorised-signers-list
+          - other
+      required:
+      - file
+      - contentType
+      - fileName
+      - docType
+    GetDomainMainCurrencyResponseDto:
+      type: object
+      properties:
+        identifier:
+          type: string
+      required:
+      - identifier
+    IndividualName:
+      type: object
+      properties:
+        firstName:
+          type:
+          - string
+          - 'null'
+        middleName:
+          type:
+          - string
+          - 'null'
+        lastName:
+          type:
+          - string
+          - 'null'
+      required:
+      - firstName
+      - middleName
+      - lastName
     UpdateDomainInvestorKycStatusBodyDto:
       type: object
       properties:
@@ -4087,32 +4510,268 @@ components:
           - expired
       required:
       - kycStatus
-    UpdateDomainInvestorAccreditationStatusBodyDto:
+    TokenCalculatorData:
       type: object
       properties:
-        accreditationStatus:
-          type: string
-          enum:
-          - not-verified
-          - pending
-          - accredited
-          - rejected
-          - not-accredited
-          - not-applicable
-      required:
-      - accreditationStatus
-    GetDomainTokenDocumentsResponseDto:
-      type: object
-      properties:
-        totalItems:
+        tokenValue:
           type: number
-        data:
+        tiers:
           type: array
           items:
-            $ref: '#/components/schemas/DomainTokenDocumentDataDto'
+            $ref: '#/components/schemas/CalculatorDataTiers'
       required:
-      - totalItems
+      - tokenValue
+      - tiers
+    CreateDomainTokenLostSharesTransactionsBodyDto:
+      type: object
+      properties:
+        sourceWalletAddress:
+          type: string
+        tokenAmount:
+          type: number
+        destinationWalletAddress:
+          type: string
+        issuanceDate:
+          type: string
+        reason:
+          type: string
+      required:
+      - sourceWalletAddress
+      - tokenAmount
+      - destinationWalletAddress
+      - issuanceDate
+      - reason
+    CreateDomainInvestorIndividualLegalSignerBodyDto:
+      type: object
+      properties:
+        firstName:
+          type: string
+        middleName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        birthdate:
+          type: string
+        countryCode:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+          enum:
+          - AL
+          - AK
+          - AZ
+          - AR
+          - CA
+          - CO
+          - CT
+          - DE
+          - DC
+          - FL
+          - GA
+          - HI
+          - ID
+          - IL
+          - IN
+          - IA
+          - KS
+          - KY
+          - LA
+          - ME
+          - MT
+          - NE
+          - NV
+          - NH
+          - NJ
+          - NM
+          - NY
+          - NC
+          - ND
+          - OH
+          - OK
+          - OR
+          - MD
+          - MA
+          - MI
+          - MN
+          - MS
+          - MO
+          - PA
+          - RI
+          - SC
+          - SD
+          - TN
+          - TX
+          - UT
+          - VT
+          - VA
+          - WA
+          - WV
+          - WI
+          - WY
+          - AS
+          - GU
+          - MP
+          - PR
+          - VI
+          - UM
+          - FM
+          - MH
+          - PW
+          - AA
+          - AE
+          - AP
+          - CM
+          - CZ
+          - NB
+          - PI
+          - TT
+        street:
+          type: string
+        streetNumber:
+          type: string
+        zipCode:
+          type: string
+        document:
+          $ref: '#/components/schemas/LegalSignerBodyDocumentDto'
+      required:
+      - firstName
+      - lastName
+      - email
+      - birthdate
+      - countryCode
+      - city
+      - street
+      - streetNumber
+      - zipCode
+      - document
+    DomainDto:
+      type: object
+      properties:
+        domainId:
+          type: string
+        name:
+          type: string
+        raisingStatus:
+          type: boolean
+        tokensIssued:
+          type: boolean
+        logo:
+          type:
+          - string
+          - 'null'
+        logoDark:
+          type:
+          - string
+          - 'null'
+        logoSquare:
+          type:
+          - string
+          - 'null'
+        logoFullName:
+          type:
+          - string
+          - 'null'
+        amountPledged:
+          type: number
+        amountFunded:
+          type: number
+        registeredInvestors:
+          type: number
+        tokenHoldersCount:
+          type: number
+        pendingActions:
+          type: number
+        dashboardUrl:
+          type: string
+        isDemo:
+          type: boolean
+        landingPageUrl:
+          type:
+          - string
+          - 'null'
+        mainCurrencyIdentifier:
+          type: string
+        defaultTokenId:
+          type: string
+        blockchain:
+          type: string
+      required:
+      - domainId
+      - name
+      - raisingStatus
+      - tokensIssued
+      - logo
+      - logoDark
+      - logoSquare
+      - logoFullName
+      - amountPledged
+      - amountFunded
+      - registeredInvestors
+      - tokenHoldersCount
+      - pendingActions
+      - dashboardUrl
+      - landingPageUrl
+      - mainCurrencyIdentifier
+      - defaultTokenId
+      - blockchain
+    About:
+      type: object
+      properties:
+        background:
+          type:
+          - string
+          - 'null'
+        text:
+          type:
+          - string
+          - 'null'
+        videoUrl:
+          type:
+          - string
+          - 'null'
+    GetDomainOpportunityResponseDto:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/DomainOpportunityDetailDto'
+      required:
       - data
+    DomainSnapshotRecordResponseDto:
+      type: object
+      properties:
+        investor:
+          $ref: '#/components/schemas/DomainSnapshotRecordInvestor'
+        tokenWallet:
+          $ref: '#/components/schemas/DomainSnapshotRecordWallet'
+        tokens:
+          type: number
+        payoutWallet:
+          $ref: '#/components/schemas/DomainSnapshotRecordPayoutWallet'
+        type:
+          type: string
+          enum:
+          - wallet
+          - treasury
+          - bonus
+      required:
+      - investor
+      - tokenWallet
+      - tokens
+      - payoutWallet
+      - type
+    AddSignResponseAdditionalDataDto:
+      type: object
+      properties:
+        networkId:
+          type: number
+        networkType:
+          type: string
+        multiSigTransactionExecution:
+          type: boolean
     GetDomainTokenTransactionResponseDto:
       type: object
       properties:
@@ -4323,443 +4982,6 @@ components:
       - sellerTransactionCommission
       - sellerTransactionFee
       - updatedAt
-    GetDomainInvestorIssuanceResponseDto:
-      type: object
-      properties:
-        issuanceId:
-          type: number
-        createdAt:
-          type: string
-        executedAt:
-          type: string
-        issueAmount:
-          type: number
-        description:
-          type: string
-        status:
-          type: string
-          enum:
-          - pending
-          - processing
-          - success
-          - failure
-        target:
-          type: string
-          enum:
-          - wallet
-          - treasury
-        source:
-          type: string
-          enum:
-          - automated
-          - manual
-        issuanceDate:
-          type: string
-        canDelete:
-          type: boolean
-        tokenName:
-          type: string
-      required:
-      - issuanceId
-      - createdAt
-      - executedAt
-      - issueAmount
-      - description
-      - status
-      - target
-      - source
-      - issuanceDate
-      - canDelete
-      - tokenName
-    AddDomainInvestorsBodyDto:
-      type: object
-      properties:
-        tokenId:
-          type: string
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/AddDomainInvestor'
-      required:
-      - tokenId
-      - data
-    GetDomainCustodiansResponseDto:
-      type: object
-      properties:
-        totalItems:
-          type: number
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/DomainCustodianDto'
-      required:
-      - totalItems
-      - data
-    UpdateDomainTokenTransactionStatusBodyDto:
-      type: object
-      properties:
-        status:
-          default: sent
-          enum:
-          - pending
-          - sent
-          - success
-          - failure
-          - mempool
-          - canceled
-          type: string
-        transactionProviderId:
-          type: string
-        signatureTransactionId:
-          type: number
-      required:
-      - transactionProviderId
-      - signatureTransactionId
-    GetDomainTokenResponseDto:
-      type: object
-      properties:
-        tokenValue:
-          type:
-          - number
-          - 'null'
-        decimals:
-          type: number
-        tokenName:
-          type: string
-        tokenDescription:
-          type: string
-        isTokenRepresentsDebt:
-          type: boolean
-        isDeployed:
-          type: boolean
-        tokenIconUrl:
-          type: string
-        tokenVideoUrl:
-          type: string
-        enableFundraise:
-          type: boolean
-        enableTokenLifecycleManagement:
-          type: boolean
-        isInvestorPays:
-          type: boolean
-      required:
-      - tokenValue
-      - decimals
-      - tokenName
-      - tokenDescription
-      - isTokenRepresentsDebt
-      - isDeployed
-      - tokenIconUrl
-      - enableFundraise
-      - enableTokenLifecycleManagement
-      - isInvestorPays
-    DomainRoundDataDto:
-      type: object
-      properties:
-        roundId:
-          type: number
-        name:
-          type: string
-        status:
-          type: string
-          enum:
-          - planned
-          - active
-          - done
-        issuanceDate:
-          type: string
-        createdAt:
-          type: string
-        updatedAt:
-          type: string
-        startsAt:
-          type: string
-        endsAt:
-          type:
-          - string
-          - 'null'
-        minInvestmentFiat:
-          type:
-          - number
-          - 'null'
-        minInvestmentCrypto:
-          type:
-          - number
-          - 'null'
-      required:
-      - roundId
-      - name
-      - status
-      - issuanceDate
-      - createdAt
-      - updatedAt
-      - startsAt
-      - endsAt
-      - minInvestmentFiat
-      - minInvestmentCrypto
-    GetDomainInvestorDocumentsResponseDto:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/UserDocumentType'
-        investorDocumentId:
-          type: string
-        createdAt:
-          type: string
-        documentFace:
-          type: string
-        documentTitle:
-          type: string
-        documentNumber:
-          type:
-          - string
-          - 'null'
-        imageUrl:
-          type: string
-        thumbnailUrl:
-          type: string
-        contentType:
-          type: string
-        showToInvestor:
-          type: boolean
-        origin:
-          type: string
-          enum:
-          - securitize-id
-          - internal
-        tokenId:
-          type:
-          - string
-          - 'null'
-      required:
-      - type
-      - investorDocumentId
-      - createdAt
-      - documentFace
-      - documentTitle
-      - documentNumber
-      - imageUrl
-      - thumbnailUrl
-      - contentType
-      - showToInvestor
-      - origin
-      - tokenId
-    TransformedOperatorDto:
-      type: object
-      properties:
-        authorizations:
-          type: array
-          items:
-            $ref: '#/components/schemas/Authorization'
-        authorizationLevel:
-          $ref: '#/components/schemas/AuthorizationLevel'
-        domainIds:
-          type: array
-          items:
-            type: string
-        operatorExternalId:
-          type: string
-        name:
-          type: string
-        email:
-          type: string
-        enabled:
-          type: boolean
-        createdAt:
-          type: string
-        updatedAt:
-          type: string
-        lastLoginAt:
-          type:
-          - string
-          - 'null'
-        lastLoginIp:
-          type:
-          - string
-          - 'null'
-        brokerDealerGroupId:
-          type:
-          - number
-          - 'null'
-        organizationId:
-          type:
-          - string
-          - 'null'
-        isViewOnly:
-          type:
-          - boolean
-          - 'null'
-      required:
-      - authorizations
-      - authorizationLevel
-      - domainIds
-      - operatorExternalId
-      - name
-      - email
-      - enabled
-      - createdAt
-      - updatedAt
-      - lastLoginAt
-      - lastLoginIp
-      - brokerDealerGroupId
-      - organizationId
-      - isViewOnly
-    GetDomainInvestorIndividualLegalSignerResponseDto:
-      type: object
-      properties:
-        legalSignerId:
-          type: number
-        signerType:
-          type: string
-          enum:
-          - individual
-          - entity
-        email:
-          type: string
-        individualName:
-          $ref: '#/components/schemas/IndividualName'
-        address:
-          $ref: '#/components/schemas/Address'
-        birthdate:
-          type:
-          - string
-          - 'null'
-        documents:
-          type: array
-          items:
-            $ref: '#/components/schemas/LegalSignerResponseDocumentDto'
-        createdAt:
-          type: string
-      required:
-      - legalSignerId
-      - signerType
-      - email
-      - individualName
-      - address
-      - birthdate
-      - documents
-      - createdAt
-    DomainTokenDocumentDataDto:
-      type: object
-      properties:
-        tokenDocumentId:
-          type: number
-        name:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-          enum:
-          - pdf
-          - doc
-          - ppt
-          - url
-          - other
-        createdAt:
-          type: string
-        updatedAt:
-          type: string
-        domainId:
-          type: string
-        tokenId:
-          type: string
-        url:
-          type: string
-        category:
-          type: string
-          enum:
-          - basic
-          - investor-only
-      required:
-      - tokenDocumentId
-      - name
-      - title
-      - type
-      - createdAt
-      - updatedAt
-      - domainId
-      - tokenId
-      - url
-      - category
-    LegalSignerResponseDocumentDto:
-      type: object
-      properties:
-        createDate:
-          type: string
-        docCategory:
-          type: string
-          enum:
-          - signer-identification
-          - signer-entity
-        docType:
-          type: string
-          enum:
-          - passport
-          - driving-licence
-          - national-identity-card
-          - residence-permit
-          - visa
-          - passport-card
-          - work-permit
-          - state-id
-          - uk-biometric-residence-permit
-          - tax-id
-          - voter-id
-          - certificate-of-naturalisation
-          - home-office-letter
-          - immigration-status-document
-          - birth-certificate
-          - selfie
-          - other
-          - document-or-certificate-of-trust
-          - list-of-trustees
-          - certificate-of-formation
-          - partnership-agreement
-          - lp-list-and-authorised-signers-list
-          - articles-of-organization
-          - articles-of-corporation
-          - operating-agreement
-          - members-and-authorised-signers-list
-          - by-laws
-          - shareholders-list-and-authorised-signers-list
-        documentId:
-          type: number
-        fileName:
-          type: string
-        fileType:
-          type: string
-        side:
-          type: string
-          enum:
-          - front
-          - back
-        thumbnail:
-          type: string
-        uri:
-          type: string
-      required:
-      - createDate
-      - docCategory
-      - docType
-      - documentId
-      - fileName
-      - fileType
-      - side
-      - thumbnail
-      - uri
-    SendDomainInvestorsSecIdEmailsResponseDto:
-      type: object
-      properties:
-        successfulActions:
-          type: number
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorDto'
-      required:
-      - successfulActions
-      - errors
     SetTokenNavBodyDto:
       type: object
       properties:
@@ -4774,658 +4996,22 @@ components:
           example: '1.42'
       required:
       - tokenValue
-    GetDomainsResponseDto:
+    CreateDomainInvestorInvestmentBodyDto:
       type: object
       properties:
-        totalItems:
+        currencyIdentifier:
+          type: string
+          minLength: 3
+          maxLength: 3
+        currencyId:
           type: number
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/DomainDto'
-      required:
-      - totalItems
-      - data
-    JurisdictionsDto:
-      type: object
-      properties:
-        restrictedJurisdictions:
-          type: array
-          items:
-            type: string
-        restrictedJurisdictionsState:
-          type: array
-          items:
-            type: string
-        generalDisclaimer:
-          type:
-          - string
-          - 'null'
-        standardCountryDisclaimer:
-          type:
-          - string
-          - 'null'
-        standardQualificationDefinition:
-          type:
-          - string
-          - 'null'
-      required:
-      - restrictedJurisdictions
-      - restrictedJurisdictionsState
-    LegalSignerBodyDocumentDto:
-      type: object
-      properties:
-        file:
-          type: string
-          description: file must be base64 encoded
-        contentType:
-          type: string
-          enum:
-          - image/png
-          - image/jpeg
-          - application/pdf
-        fileName:
-          type: string
-      required:
-      - file
-      - contentType
-      - fileName
-    DomainTokenHolderDataDto:
-      type: object
-      properties:
-        externalId:
-          type:
-          - string
-          - 'null'
-        email:
-          type:
-          - string
-          - 'null'
-        createdAt:
-          type:
-          - string
-          - 'null'
-        updatedAt:
-          type:
-          - string
-          - 'null'
-        walletAddress:
-          type: string
-        totalTokens:
-          type: number
-        percentage:
-          type: number
-        tokenInTreasury:
-          type: number
-        isLocked:
-          type: boolean
-        firstName:
-          type: string
-        lastName:
-          type: string
-        name:
-          type:
-          - string
-          - 'null'
-        entityName:
-          type:
-          - string
-          - 'null'
-        countryCode:
-          type: string
-        stateCode:
-          type:
-          - string
-          - 'null'
-        labels:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        investorType:
-          type: string
-          enum:
-          - individual
-          - entity
-          - custodian-wallet-manager
-          - fbo-individual
-          - fbo-entity
-          - omnibus
-        jsonOpen:
-          type:
-          - string
-          - 'null'
-        jsonPrivate:
-          type:
-          - string
-          - 'null'
-        birthdate:
-          type:
-          - string
-          - 'null'
-      required:
-      - externalId
-      - email
-      - createdAt
-      - updatedAt
-      - firstName
-      - lastName
-      - name
-      - entityName
-      - countryCode
-      - stateCode
-      - labels
-      - investorType
-      - jsonOpen
-      - jsonPrivate
-      - birthdate
-    DomainSnapshotRecordResponseDto:
-      type: object
-      properties:
-        investor:
-          $ref: '#/components/schemas/DomainSnapshotRecordInvestor'
-        tokenWallet:
-          $ref: '#/components/schemas/DomainSnapshotRecordWallet'
-        tokens:
-          type: number
-        payoutWallet:
-          $ref: '#/components/schemas/DomainSnapshotRecordPayoutWallet'
-        type:
-          type: string
-          enum:
-          - wallet
-          - treasury
-          - bonus
-      required:
-      - investor
-      - tokenWallet
-      - tokens
-      - payoutWallet
-      - type
-    SendDomainTokenOutreachNotificationsBodyDto:
-      type: object
-      properties:
-        stage:
-          type: string
-          default: onboarding
-          enum:
-          - onboarding
-          - holders
-          - fundraise
-        toAllInvestors:
-          type: boolean
-          default: false
-        additionalEmails:
-          type: array
-          items:
-            type: string
-        subject:
-          type: string
-        body:
-          type: string
-        fromAddress:
-          type: string
-        fromName:
-          type: string
-        replyToAddress:
-          type: string
-        replyToName:
-          type: string
-        cc:
-          type: array
-          items:
-            type: string
-        bcc:
-          type: array
-          items:
-            type: string
-        attachments:
-          type: array
-          items:
-            $ref: '#/components/schemas/AttachmentDto'
-      required:
-      - subject
-      - body
-      - fromAddress
-      - fromName
-    GetDomainTokenDto:
-      type: object
-      properties:
-        tokenId:
-          type: string
-        name:
-          type: string
-        tokenIconUrl:
-          type:
-          - string
-          - 'null'
-        decimals:
-          type: number
-        symbol:
-          type:
-          - string
-          - 'null'
-        isDeployed:
-          type: boolean
-        deploymentId:
-          type:
-          - string
-          - 'null'
-      required:
-      - tokenId
-      - name
-      - tokenIconUrl
-      - decimals
-      - symbol
-      - isDeployed
-      - deploymentId
-    AttributeDto:
-      type: object
-      properties:
-        id:
-          type: number
-        title:
-          type: string
-        content:
-          type: string
-        order:
-          type: number
-      required:
-      - title
-      - content
-      - order
-    BlockchainTransactionAdditionalDataDto:
-      type: object
-      properties:
-        networkId:
-          type: number
-        networkType:
-          type: string
-        chainId:
-          type: number
-        txType:
-          type: string
-      required:
-      - networkId
-      - networkType
-      - chainId
-      - txType
-    DomainOpportunityDto:
-      type: object
-      properties:
-        opportunityId:
-          type: number
-        content:
-          type: string
-        enabled:
-          type: boolean
-        image:
-          type: string
-        issuerId:
-          type: string
-        order:
-          type: number
-        title:
-          type: string
-        tokenId:
-          type: string
-        createdAt:
-          type: string
-        updatedAt:
-          type: string
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/Attribute'
-      required:
-      - opportunityId
-      - content
-      - enabled
-      - image
-      - issuerId
-      - order
-      - title
-      - tokenId
-      - createdAt
-      - updatedAt
-      - attributes
-    AddSignResponseAdditionalDataDto:
-      type: object
-      properties:
-        networkId:
-          type: number
-        networkType:
-          type: string
-        multiSigTransactionExecution:
-          type: boolean
-    UpdateDomainRoundBody:
-      type: object
-      properties:
-        jurisdictionalExceptionsData:
-          type: array
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/MinInvestmentJurisdictionalException'
-            - $ref: '#/components/schemas/DocusignJurisdictionalException'
         roundId:
           type: number
-        name:
-          type: string
-        startsAt:
-          type: string
-        endsAt:
-          type: string
-        status:
-          type: string
-          enum:
-          - planned
-          - active
-          - done
-        issuanceDate:
-          type: string
-        minInvestmentFiat:
-          type: number
-        minInvestmentCrypto:
-          type: number
-        investmentTermsAndConditions:
-          type: string
-        subscriptionAgreementDocusignId:
-          type: string
-        subscriptionAgreementCustodianDocusignId:
-          type: string
-        isTokenCalculatorVisible:
-          type: boolean
-        tokenCalculatorData:
-          $ref: '#/components/schemas/TokenCalculatorData'
-        json:
+        tokenId:
           type: string
       required:
       - roundId
-    AddDomainCustodianBodyDto:
-      type: object
-      properties:
-        name:
-          type: string
-        friendlyName:
-          type: string
-        email:
-          type: string
-        address:
-          type: string
-      required:
-      - name
-      - friendlyName
-      - email
-    GetDomainQuestionsResponseDto:
-      type: object
-      properties:
-        totalItems:
-          type: number
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/DomainQuestionDto'
-      required:
-      - totalItems
-      - data
-    SocialLink:
-      type: object
-      properties:
-        id:
-          type:
-          - number
-          - 'null'
-        name:
-          type:
-          - string
-          - 'null'
-        icon:
-          type:
-          - string
-          - 'null'
-        alt:
-          type:
-          - string
-          - 'null'
-        url:
-          type:
-          - string
-          - 'null'
-    CreateDomainInvestorInvestmentResponseDto:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - fiat
-          - crypto
-        currencyId:
-          type: number
-        status:
-          type: string
-          enum:
-          - in_progress
-          - pending
-          - confirmed
-          - cancelled
-          - refunded
-          - new_round
-        roundId:
-          type: number
-      required:
-      - type
-      - currencyId
-      - status
-      - roundId
-    AddDomainTokenDocumentResponseDto:
-      type: object
-      properties:
-        tokenDocumentId:
-          type: number
-        name:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-          enum:
-          - pdf
-          - doc
-          - ppt
-          - url
-          - other
-        domainId:
-          type: string
-        tokenId:
-          type: string
-        url:
-          type: string
-        category:
-          type: string
-          enum:
-          - basic
-          - investor-only
-      required:
-      - tokenDocumentId
-      - name
-      - title
-      - type
-      - domainId
       - tokenId
-      - url
-      - category
-    UpdateDomainTokenBodyDto:
-      type: object
-      properties:
-        tokenValue:
-          type: number
-        tokenName:
-          type: string
-        decimals:
-          type: number
-        tokenIconKey:
-          type: string
-        isTokenRepresentsDebt:
-          type: boolean
-    DeleteDomainInvestorIssuanceBodyDto:
-      type: object
-      properties:
-        issuanceId:
-          type: number
-      required:
-      - issuanceId
-    DomainInvestorCurrencyDto:
-      type: object
-      properties:
-        currencyId:
-          type: number
-        type:
-          type: string
-          enum:
-          - crypto
-          - fiat
-        identifier:
-          type: string
-        name:
-          type: string
-      required:
-      - currencyId
-      - type
-      - identifier
-      - name
-    SendDomainInvestorsSecIdEmailsBodyDto:
-      type: object
-      properties:
-        externalIds:
-          type: array
-          items:
-            type: string
-        exceptExternalIds:
-          type: array
-          items:
-            type: string
-        emailContent:
-          type: string
-        view:
-          type: string
-          enum:
-          - onboarding
-          - holders
-          - fundraise
-        q:
-          type: string
-        fullName:
-          type: string
-        email:
-          type: string
-        countryCode:
-          type: string
-        stateCode:
-          type: string
-        investorType:
-          type: string
-          enum:
-          - individual
-          - entity
-          - custodian-wallet-manager
-          - fbo-individual
-          - fbo-entity
-        kycStatus:
-          type: string
-          enum:
-          - none
-          - processing
-          - updates-required
-          - manual-review
-          - verified
-          - rejected
-          - expired
-        fromCreatedAt:
-          type: string
-        toCreatedAt:
-          type: string
-        fromTotalTokens:
-          type: number
-        toTotalTokens:
-          type: number
-        fromAmountPledged:
-          type: number
-        toAmountPledged:
-          type: number
-        fromAmountFunded:
-          type: number
-        toAmountFunded:
-          type: number
-        subscriptionAgreementStatus:
-          type: string
-          enum:
-          - none
-          - requested
-          - sent
-          - signed
-          - confirmed
-          - rejected
-          - pre-signed
-        tokenStatus:
-          type: string
-          enum:
-          - issued
-          - not-issued
-        registrationSource:
-          type: string
-        roundId:
-          type: number
-        investorStatus:
-          type: string
-          enum:
-          - pending-kyc
-          - pending-accreditation
-          - pending-investor-signature
-          - pending-issuer-signature
-          - pending-funding
-          - ready
-          - 'true'
-          - 'false'
-        birthDate:
-          type: string
-        walletRegistrationStatus:
-          type: string
-          enum:
-          - pending
-          - syncing
-          - ready
-          - rejected
-          - cancelled
-        tokenWalletAddress:
-          type: string
-        fromPercentage:
-          type: number
-        toPercentage:
-          type: number
-        isLocked:
-          type: boolean
-        documentNumber:
-          type: string
-        documentType:
-          type: string
-          enum:
-          - passport
-          - driving-licence
-          - national-identity-card
-          - residence-permit
-          - visa
-          - passport-card
-          - work-permit
-          - state-id
-          - uk-biometric-residence-permit
-          - tax-id
-          - voter-id
-          - certificate-of-naturalisation
-          - home-office-letter
-          - immigration-status-document
-          - birth-certificate
-          - other
     InvestorsArea:
       type: object
       properties:
@@ -5442,691 +5028,20 @@ components:
       - about
       - wizard
       - socialLinks
-    AddDomainTokenBlockchainTransactionSignResponseDto:
+    GetDomainInvestorInvestmentAmountResponseDto:
       type: object
       properties:
-        transactionId:
-          type: string
-        transactionProviderId:
-          type: string
-        status:
-          type: string
-          enum:
-          - pending
-          - sent
-          - success
-          - failure
-          - mempool
-          - canceled
-        transactionData:
-          type: string
-        additionalData:
-          $ref: '#/components/schemas/AddSignResponseAdditionalDataDto'
-      required:
-      - transactionId
-      - transactionProviderId
-      - status
-    AddDomainTokenBlockchainTransactionSignBodyDto:
-      type: object
-      properties:
-        signatureTransactionId:
+        amount:
           type: number
-        signedTransaction:
-          type: string
-        signerAddress:
-          type: string
-        additionalData:
-          $ref: '#/components/schemas/AddSignBodyAdditionalDataDto'
-      required:
-      - signatureTransactionId
-      - signedTransaction
-      - signerAddress
-    CreateDomainInvestorTransferTbeTransactionResponseDto:
-      type: object
-      properties:
-        signatureTransactionId:
-          type: number
-      required:
-      - signatureTransactionId
-    DomainInvestorLabelBodyDto:
-      type: object
-      properties:
-        label:
-          type: string
-      required:
-      - label
-    GetDomainMainCurrencyResponseDto:
-      type: object
-      properties:
-        identifier:
-          type: string
-      required:
-      - identifier
-    CreateDomainTokenBlockchainTransactionResponseDto:
-      type: object
-      properties:
-        signatureTransactionId:
-          type: number
-        type:
-          enum:
-          - LockTokens
-          - BurnTokens
-          - BurnTBETokens
-          - UpdateRole
-          - IssueTokens
-          - TransferTBE
-          - InternalTBETransfer
-          - IssueTokensToTBE
-          - ReleaseLock
-          - HoldTrading
-          - RemoveWallet
-          - RegisterWallet
-          - ReleaseTrading
-          - RemoveInvestor
-          - UpdateComplianceRules
-          - UpdateCountryComplianceStatus
-          - CreateAssetAlgorand
-          - ReallocateTokens
-          type: string
-        status:
-          enum:
-          - pending
-          - signed
-          - sent
-          - success
-          - failure
-          type: string
-        description:
-          type: string
-        createdAt:
-          type: string
-      required:
-      - signatureTransactionId
-      - type
-      - status
-      - description
-      - createdAt
-    GetDomainTokenTransactionsResponseDatumOwnerDto:
-      type: object
-      properties:
-        externalId:
-          type: string
-        investorName:
-          type: string
-        investorCountry:
-          type: string
-        investorUSState:
-          type:
-          - string
-          - 'null'
-        investorWalletAddress:
-          type:
-          - string
-          - 'null'
-        investorBalanceAfterTransaction:
-          type:
-          - number
-          - 'null'
-        walletBalanceAfterTransaction:
-          type:
-          - number
-          - 'null'
-        walletType:
-          type: string
-          enum:
-          - onchain
-          - drs
-          - bonus
-      required:
-      - externalId
-      - investorName
-      - investorCountry
-      - investorUSState
-      - investorWalletAddress
-      - investorBalanceAfterTransaction
-      - walletBalanceAfterTransaction
-      - walletType
-    AddDomainTokenBlockchainTransactionDataResponseDto:
-      type: object
-      properties:
-        transactionData:
-          type: string
-        additionalData:
-          $ref: '#/components/schemas/BlockchainTransactionAdditionalDataDto'
-      required:
-      - transactionData
-      - additionalData
-    ErrorDto:
-      type: object
-      properties:
-        user:
-          $ref: '#/components/schemas/UserDto'
-        error:
-          type: object
-      required:
-      - user
-      - error
-    DocusignJurisdictionalException:
-      type: object
-      properties:
-        exceptionName:
-          enum:
-          - docusign-id
-          - custodian-docusign-id
-          type: string
-        exceptionValue:
-          type: string
-        countryCode:
-          type: string
-      required:
-      - exceptionName
-      - exceptionValue
-      - countryCode
-    GetDomainCurrenciesResponseDto:
-      type: object
-      properties:
-        totalItems:
-          type: number
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/DomainInvestorCurrencyDto'
-      required:
-      - totalItems
-      - data
-    GetDomainInvestorInvestmentResponseDto:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - in-progress
-          - pending
-          - confirmed
-          - cancelled
-          - refunded
-          - new-round
-          - ''
-    GetDomainSnapshotRecordsResponseDto:
-      type: object
-      properties:
-        totalItems:
-          type: number
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/DomainSnapshotRecordResponseDto'
-      required:
-      - totalItems
-      - data
-    About:
-      type: object
-      properties:
-        background:
-          type:
-          - string
-          - 'null'
-        text:
-          type:
-          - string
-          - 'null'
-        videoUrl:
-          type:
-          - string
-          - 'null'
-    GetDomainTokenFundraiseInvestorsResponseDto:
-      type: object
-      properties:
-        totalItems:
-          type: number
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/DomainTokenFundraiseInvestorsDatumDto'
-      required:
-      - totalItems
-      - data
-    GetDomainInvestorAccreditationStatusResponseDto:
-      type: object
-      properties:
-        accreditationStatus:
-          type: string
-          enum:
-          - not-verified
-          - pending
-          - accredited
-          - rejected
-          - not-accredited
-          - not-applicable
-      required:
-      - accreditationStatus
-    CreateDomainOpportunityDocumentBodyDto:
-      type: object
-      properties:
-        file:
-          type: string
-          description: file must be base64 encoded
-        opportunityId:
-          type: number
-        title:
-          type: string
-        fileType:
-          type: string
-          enum:
-          - image/png
-          - image/jpeg
-          - application/pdf
-        order:
-          type: number
-        requireKyc:
-          type: boolean
-        requireQualification:
-          type: boolean
-      required:
-      - file
-      - opportunityId
-      - title
-      - fileType
-      - order
-    GetDomainInvestorKycStatusResponseDto:
-      type: object
-      properties:
-        kycStatus:
-          type: string
-          enum:
-          - none
-          - processing
-          - updates-required
-          - manual-review
-          - verified
-          - rejected
-          - expired
-        kycStatusChangingDate:
-          type: string
-        hasReport:
-          type: boolean
-      required:
-      - kycStatus
-      - kycStatusChangingDate
-      - hasReport
-    DomainSnapshotRecordInvestor:
-      type: object
-      properties:
-        externalId:
-          type: string
-        name:
-          type: string
-        email:
-          type: string
-      required:
-      - externalId
-      - name
-      - email
-    DomainTokenFundraiseInvestorsDatumDto:
-      type: object
-      properties:
-        kycStatus:
-          type: string
-          enum:
-          - none
-          - processing
-          - updates-required
-          - manual-review
-          - verified
-          - rejected
-          - expired
-        amountFunded:
-          type:
-          - number
-          - 'null'
-        amountPledged:
-          type:
-          - number
-          - 'null'
-        bonusTokens:
-          type: number
-        tokensAssigned:
-          type: number
-        tokenStatus:
-          type: string
-          enum:
-          - issued
-          - not-issued
-        subscriptionAgreementStatus:
-          type: string
-          enum:
-          - none
-          - requested
-          - sent
-          - signed
-          - confirmed
-          - rejected
-          - pre-signed
-        roundIds:
-          type: array
-          items:
-            type: number
-        investorStatus:
-          type: string
-          enum:
-          - pending-kyc
-          - pending-accreditation
-          - pending-investor-signature
-          - pending-issuer-signature
-          - pending-funding
-          - ready
-          - 'true'
-          - 'false'
-        externalId:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        name:
-          type:
-          - string
-          - 'null'
-        email:
-          type: string
-        entityName:
-          type:
-          - string
-          - 'null'
-        countryCode:
-          type: string
-        stateCode:
-          type:
-          - string
-          - 'null'
-        createdAt:
-          type: string
-        updatedAt:
-          type: string
-        labels:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        investorType:
-          type: string
-          enum:
-          - individual
-          - entity
-          - custodian-wallet-manager
-          - fbo-individual
-          - fbo-entity
-          - omnibus
-        jsonOpen:
-          type:
-          - string
-          - 'null'
-        jsonPrivate:
-          type:
-          - string
-          - 'null'
-        birthdate:
-          type:
-          - string
-          - 'null'
-      required:
-      - kycStatus
-      - amountFunded
-      - amountPledged
-      - bonusTokens
-      - tokensAssigned
-      - roundIds
-      - externalId
-      - firstName
-      - lastName
-      - name
-      - email
-      - entityName
-      - countryCode
-      - stateCode
-      - createdAt
-      - updatedAt
-      - labels
-      - investorType
-      - jsonOpen
-      - jsonPrivate
-      - birthdate
-    AddDomainSnapshotBodyDto:
-      type: object
-      properties:
-        tokenId:
-          type: string
-        name:
-          type: string
-      required:
-      - tokenId
-      - name
-    OwnerDto:
-      type: object
-      properties:
-        externalId:
-          type: string
-        omnibusWalletOwnerId:
-          type: number
-        custodianWalletManagerId:
-          type: number
-        name:
-          type: string
-      required:
-      - name
-    GetDomainInvestorLegalSignersResponseDto:
-      type: object
-      properties:
-        totalItems:
-          type: number
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/LegalSigner'
-      required:
-      - totalItems
-      - data
-    Announcements:
-      type: object
-      properties:
-        background:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        body:
-          type:
-          - string
-          - 'null'
-        subtitle:
-          type:
-          - string
-          - 'null'
-    AddDomainTokenDocumentBodyDto:
-      type: object
-      properties:
-        name:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-          enum:
-          - pdf
-          - doc
-          - ppt
-          - url
-          - other
-        url:
-          type: string
-        category:
-          type: string
-          enum:
-          - basic
-          - investor-only
-      required:
-      - name
-      - title
-      - type
-      - url
-      - category
-    CreateDomainInvestorDocumentBodyDto:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/UserDocumentType'
-        file:
-          type: string
-          description: file must be base64 encoded
-        documentFace:
-          type: string
-          enum:
-          - front
-          - back
-        documentNumber:
-          type: string
-        documentTitle:
-          type: string
-        showToInvestor:
-          type: boolean
-          default: false
-        contentType:
-          type: string
-          enum:
-          - image/png
-          - image/jpeg
-          - application/pdf
-        tokenId:
-          type: string
-      required:
-      - type
-      - file
-      - documentFace
-      - contentType
-    GetDomainInvestorWalletResponseDto:
-      type: object
-      properties:
-        tokenWalletId:
-          type: number
-        name:
-          type: string
-        address:
-          type: string
-        status:
-          type: string
-          enum:
-          - pending
-          - syncing
-          - ready
-          - rejected
-          - cancelled
-        creationDate:
-          format: date-time
-          type: string
-        tokensHeld:
-          type: number
-        tokensPending:
-          type: number
-        tokensLocked:
-          type: number
-        owner:
-          $ref: '#/components/schemas/OwnerDto'
-        walletType:
-          type: string
-          enum:
-          - normal
-          - omnibus
-          - custodian
-        link:
-          type: string
-        omnibusTokens:
-          type: number
-        isMain:
-          type: boolean
-        isCustodian:
-          type: boolean
-        walletAmlGrade:
-          type: number
-        categories:
-          type: array
-          items:
-            type: string
-      required:
-      - tokenWalletId
-      - name
-      - address
-      - status
-      - creationDate
-      - tokensHeld
-      - tokensPending
-      - tokensLocked
-      - owner
-      - walletType
-      - link
-      - omnibusTokens
-      - isMain
-      - isCustodian
-      - walletAmlGrade
-      - categories
-    CreateDomainTokenClawbackTransactionsBodyDto:
-      type: object
-      properties:
-        documentId:
-          type: string
-        transactionHash:
-          type: string
-        reason:
-          type: string
-      required:
-      - documentId
-      - transactionHash
-      - reason
-    UpdateDomainInvestorTokenQualificationStatusBodyDto:
-      type: object
-      properties:
-        tokenId:
-          type: string
-        tokenQualificationStatus:
-          type: string
-          enum:
-          - none
-          - pending
-          - verified
-          - rejected
-          - 'no'
-          - expired
-          - updates-required
-          - not-accredited
-      required:
-      - tokenId
-      - tokenQualificationStatus
-    TokenCalculatorData:
-      type: object
-      properties:
-        tokenValue:
-          type: number
-        tiers:
-          type: array
-          items:
-            $ref: '#/components/schemas/CalculatorDataTiers'
-      required:
-      - tokenValue
-      - tiers
-    AddDomainInvestor:
+        currency:
+          $ref: '#/components/schemas/DomainInvestorCurrencyDto'
+    EditDomainInvestorsBodyDto:
       type: object
       properties:
         gender:
           $ref: '#/components/schemas/Gender'
-        tokenWalletAddresses:
-          type: array
-          items:
-            type: string
-        documentType:
-          $ref: '#/components/schemas/UserDocumentType'
+        address:
+          type: string
         firstName:
           type: string
         middleName:
@@ -6146,10 +5061,8 @@ components:
           enum:
           - individual
           - entity
-          - custodian-wallet-manager
-          - fbo-individual
           - fbo-entity
-          - omnibus
+          - fbo-individual
         custodianId:
           type: number
         entityName:
@@ -6175,8 +5088,6 @@ components:
           type: string
           minLength: 0
           maxLength: 10
-        address:
-          type: string
         additionalInfo:
           type: string
         taxId:
@@ -6197,244 +5108,28 @@ components:
           type: string
         cityOfBirth:
           type: string
-        kycStatus:
+        operatorComments:
           type: string
-          enum:
-          - none
-          - processing
-          - updates-required
-          - manual-review
-          - verified
-          - rejected
-          - expired
-        kycStatusChangingDate:
+        securitizeIdProfileId:
           type: string
-        kycStatusExpiryDate:
+        jsonOpen:
           type: string
-        kycPerformedAt:
+        jsonPrivate:
           type: string
-        accreditationStatus:
-          type: string
-          enum:
-          - not-verified
-          - pending
-          - accredited
-          - rejected
-          - not-accredited
-          - not-applicable
-        qualificationStatus:
-          type: string
-          enum:
-          - not-verified
-          - pending
-          - qualified
-          - rejected
-          - not-qualified
-          - not-qualified-but-can-invest
-          - not-applicable
-        accreditedDeclarationDate:
-          type: string
-        accreditedExpiryDate:
-          type: string
-        subscriptionAgreementStatus:
-          type: string
-          enum:
-          - none
-          - requested
-          - sent
-          - signed
-          - confirmed
-          - rejected
-          - pre-signed
-        subscriptionAgreementSignedAt:
-          type: string
-        amountPledged:
-          type: number
-        investmentAmount:
-          type: number
-        investmentDate:
-          type: string
-        currency:
-          type: string
-        treasuryTokens:
-          type: number
-        assignedTokens:
-          type: number
-        documentIdNumber:
-          type: string
-        labels:
-          type: string
-      required:
-      - firstName
-      - lastName
-      - email
-      - investorType
-    AddSignBodyAdditionalDataDto:
+    GetDomainInvestorInvestmentResponseDto:
       type: object
       properties:
-        multiSigTransactionExecution:
-          type: boolean
-        multiSigWalletId:
-          type: string
-        multiSigWalletNonce:
-          type: string
-        clientTransactionId:
-          type: string
-        signature:
-          $ref: '#/components/schemas/SignatureDto'
-    CreateDomainTokenDestroyTbeTransactionsBodyDto:
-      type: object
-      properties:
-        externalId:
-          type: string
-        tokenAmount:
-          type: number
-        reason:
-          type: string
-      required:
-      - externalId
-      - tokenAmount
-      - reason
-    Wizard:
-      type: object
-      properties:
-        background:
-          type:
-          - string
-          - 'null'
-    InvestorsOrderField:
-      type: string
-      enum:
-      - first-name
-      - last-name
-      - full-name
-      - name
-      - country-code
-      - registration-source
-      - investor-type
-      - has-securitize-id
-      - kyc-status
-      - accredited-status
-      - entity-name
-      - tokens-assigned
-      - amount-pledged
-      - investor-status
-      - wallet-address
-      - wallet-registration-status
-      - created-at
-      - updated-at
-      - token-status
-      - subscription-agreement-status
-      - amount-funded
-      - total-tokens
-      - is-locked
-      - birthdate
-    UserDto:
-      type: object
-      properties:
-        id:
-          type: string
-        fullName:
-          type: string
-      required:
-      - id
-      - fullName
-    CreateDomainInvestorIssuanceBodyDto:
-      type: object
-      properties:
-        tokenId:
-          type: string
-        tokenWalletId:
-          type: number
-        sourceType:
-          type: string
-          enum:
-          - wallet
-          - treasury
-        issuanceDate:
-          type: string
-        issueAmount:
-          type: number
-        clearAfterIssuance:
-          type: boolean
-        reason:
-          type: string
-      required:
-      - tokenId
-      - sourceType
-      - issuanceDate
-      - issueAmount
-      - clearAfterIssuance
-    BlockchainTransactionDto:
-      type: object
-      properties:
-        signatureTransactionId:
-          type: number
-        deploymentId:
-          type: string
-        type:
-          type: string
-          enum:
-          - LockTokens
-          - BurnTokens
-          - BurnTBETokens
-          - UpdateRole
-          - IssueTokens
-          - TransferTBE
-          - InternalTBETransfer
-          - IssueTokensToTBE
-          - ReleaseLock
-          - HoldTrading
-          - RemoveWallet
-          - RegisterWallet
-          - ReleaseTrading
-          - RemoveInvestor
-          - UpdateComplianceRules
-          - UpdateCountryComplianceStatus
-          - CreateAssetAlgorand
-          - ReallocateTokens
         status:
           type: string
           enum:
+          - in-progress
           - pending
-          - sent
-          - success
-          - failure
-          - mempool
-          - canceled
-        description:
-          type: string
-        creationTime:
-          type: number
-        date:
-          type: string
-      required:
-      - signatureTransactionId
-      - deploymentId
-      - type
-      - status
-      - description
-      - creationTime
-      - date
-    GetDomainInvestorSubscriptionAgreementStatusResponseDto:
-      type: object
-      properties:
-        subscriptionAgreementStatus:
-          enum:
-          - none
-          - requested
-          - sent
-          - signed
           - confirmed
-          - rejected
-          - pre-signed
-          - null
-          type:
-          - string
-          - 'null'
-      required:
-      - subscriptionAgreementStatus
-    GetDomainTokenTransactionsResponseDto:
+          - cancelled
+          - refunded
+          - new-round
+          - ''
+    GetDomainQuestionsResponseDto:
       type: object
       properties:
         totalItems:
@@ -6442,303 +5137,11 @@ components:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/GetDomainTokenTransactionsResponseDatumDto'
+            $ref: '#/components/schemas/DomainQuestionDto'
       required:
       - totalItems
       - data
-    AddDomainTokenBlockchainTransactionDataBodyDto:
-      type: object
-      properties:
-        signatureTransactionId:
-          type: number
-        signerAddress:
-          type: string
-      required:
-      - signatureTransactionId
-      - signerAddress
-    AddDomainInvestorBodyDto:
-      type: object
-      properties:
-        address:
-          type: string
-        firstName:
-          type: string
-        middleName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        phoneNumber:
-          type: string
-        birthdate:
-          type: string
-        gender:
-          type: string
-          enum:
-          - male
-          - female
-          - ''
-        investorType:
-          type: string
-          enum:
-          - individual
-          - entity
-        custodianId:
-          type: number
-        entityName:
-          type: string
-        entityType:
-          type: string
-          enum:
-          - revocable-trust
-          - irrevocable-trust
-          - limited-general-partnership
-          - llc
-          - corporation
-          - other
-        countryCode:
-          type: string
-        state:
-          type: string
-        city:
-          type: string
-        zipCode:
-          type: string
-          minLength: 0
-          maxLength: 10
-        taxId:
-          type: string
-        taxCountryCode:
-          type: string
-        operatorComments:
-          type: string
-        securitizeIdProfileId:
-          type: string
-        sendEmail:
-          type: boolean
-        generateBlockchainId:
-          type: boolean
-      required:
-      - firstName
-      - lastName
-      - email
-      - investorType
-      - countryCode
-    CreateDomainTokenDestroyTransactionsBodyDto:
-      type: object
-      properties:
-        sourceWalletAddress:
-          type: string
-        tokenAmount:
-          type: number
-        reason:
-          type: string
-      required:
-      - sourceWalletAddress
-      - tokenAmount
-      - reason
-    HistoricalTokenValueDto:
-      type: object
-      properties:
-        id:
-          type: number
-          description: Historical token value record id
-          example: '111'
-        tokenValue:
-          type: string
-          description: BigNumber string
-          example: '1.42'
-        tokenValueDate:
-          format: date-time
-          type: string
-          description: Date of the token value
-          example: '2025-02-03T17:01:25.281Z'
-        operatorId:
-          type: number
-          description: Internal numeric operator id
-          example: '850'
-        operatorName:
-          type: string
-          description: Operator associated with this historical token value record
-          example: '850'
-        issuerId:
-          type: string
-        tokenId:
-          type: string
-        createdAt:
-          format: date-time
-          type: string
-        updatedAt:
-          format: date-time
-          type: string
-        deletedAt:
-          format: date-time
-          type: string
-      required:
-      - id
-      - tokenValue
-      - tokenValueDate
-      - operatorId
-      - issuerId
-      - tokenId
-      - createdAt
-      - updatedAt
-      - deletedAt
-    Address:
-      type: object
-      properties:
-        street:
-          type:
-          - string
-          - 'null'
-        streetNumber:
-          type:
-          - string
-          - 'null'
-        city:
-          type:
-          - string
-          - 'null'
-        countryCode:
-          type:
-          - string
-          - 'null'
-        state:
-          type:
-          - string
-          - 'null'
-        zip:
-          type:
-          - string
-          - 'null'
-      required:
-      - street
-      - streetNumber
-      - city
-      - countryCode
-      - state
-      - zip
-    DomainDto:
-      type: object
-      properties:
-        domainId:
-          type: string
-        name:
-          type: string
-        raisingStatus:
-          type: boolean
-        tokensIssued:
-          type: boolean
-        logo:
-          type:
-          - string
-          - 'null'
-        logoDark:
-          type:
-          - string
-          - 'null'
-        logoSquare:
-          type:
-          - string
-          - 'null'
-        logoFullName:
-          type:
-          - string
-          - 'null'
-        amountPledged:
-          type: number
-        amountFunded:
-          type: number
-        registeredInvestors:
-          type: number
-        tokenHoldersCount:
-          type: number
-        pendingActions:
-          type: number
-        dashboardUrl:
-          type: string
-        isDemo:
-          type: boolean
-        landingPageUrl:
-          type:
-          - string
-          - 'null'
-        mainCurrencyIdentifier:
-          type: string
-        defaultTokenId:
-          type: string
-        blockchain:
-          type: string
-      required:
-      - domainId
-      - name
-      - raisingStatus
-      - tokensIssued
-      - logo
-      - logoDark
-      - logoSquare
-      - logoFullName
-      - amountPledged
-      - amountFunded
-      - registeredInvestors
-      - tokenHoldersCount
-      - pendingActions
-      - dashboardUrl
-      - landingPageUrl
-      - mainCurrencyIdentifier
-      - defaultTokenId
-      - blockchain
-    UpdateDomainOpportunityBodyDto:
-      type: object
-      properties:
-        opportunityId:
-          type: number
-        imageFile:
-          type: string
-          description: file must be base64 encoded
-        tokenId:
-          type: string
-        enabled:
-          type: boolean
-        title:
-          type: string
-        content:
-          type: string
-        contentType:
-          type: string
-          enum:
-          - image/png
-          - image/jpeg
-        order:
-          type: number
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/AttributeDto'
-      required:
-      - opportunityId
-      - tokenId
-      - enabled
-      - title
-      - content
-    DeleteDomainInvestorWalletsBodyDto:
-      type: object
-      properties:
-        tokenWalletId:
-          type: number
-        tokenId:
-          type: string
-        address:
-          type: string
-    GetDomainInvestorLabelResponseDto:
-      type: object
-      properties:
-        label:
-          type: string
-      required:
-      - label
-    CreateDomainInvestorTransactionResponseDto:
+    GetDomainInvestorTransactionResponseDto:
       type: object
       properties:
         transactionId:
@@ -6754,313 +5157,50 @@ components:
           - refund
         amount:
           type: number
-        mainCurrencyWorth:
+        currencyId:
           type: number
-        externalTransactionConfirmation:
-          type: string
+        data:
+          type:
+          - string
+          - 'null'
         source:
           type: string
           enum:
           - automated
           - manual
-        currencyId:
+        mainCurrencyWorth:
           type: number
+        externalTransactionConfirmation:
+          type: string
       required:
       - transactionId
       - transactionTime
       - direction
       - amount
+      - currencyId
+      - data
+      - source
       - mainCurrencyWorth
       - externalTransactionConfirmation
-      - source
-      - currencyId
-    DomainSnapshotResponseDto:
+    Announcements:
       type: object
       properties:
-        snapshotId:
-          type: number
-        domainId:
-          type: string
-        name:
-          type: string
-        date:
-          type: string
-        status:
-          enum:
-          - distributed
-          - none
-          - pending
-          - confirmed
-          type: string
-        distributeCreated:
-          type: boolean
-      required:
-      - snapshotId
-      - domainId
-      - name
-      - date
-      - status
-      - distributeCreated
-    LegalSigner:
-      type: object
-      properties:
-        legalSignerId:
-          type: number
-        signerType:
-          type: string
-          enum:
-          - individual
-          - entity
-        name:
-          type: string
-        isLegalSigner:
-          type: boolean
-        isBeneficialOwner:
-          type: boolean
-        taxId:
+        background:
           type:
           - string
           - 'null'
-      required:
-      - legalSignerId
-      - signerType
-      - name
-      - isLegalSigner
-      - isBeneficialOwner
-      - taxId
-    GetDomainTokenDocumentResponseDto:
-      type: object
-      properties:
-        tokenDocumentId:
-          type: number
-        name:
-          type: string
         title:
-          type: string
-        type:
-          type: string
-          enum:
-          - pdf
-          - doc
-          - ppt
-          - url
-          - other
-        createdAt:
-          type: string
-        updatedAt:
-          type: string
-        domainId:
-          type: string
-        url:
-          type: string
-        category:
-          type: string
-          enum:
-          - basic
-          - investor-only
-      required:
-      - tokenDocumentId
-      - name
-      - title
-      - type
-      - createdAt
-      - updatedAt
-      - domainId
-      - url
-      - category
-    UserDocumentType:
-      type: string
-      enum:
-      - passport
-      - driver-license
-      - national-identity-card
-      - residence-permit
-      - visa
-      - passport-card
-      - work-permit
-      - state-id
-      - uk-biometric-residence-permit
-      - tax-id
-      - voter-id
-      - certificate-of-naturalisation
-      - home-office-letter
-      - immigration-status-document
-      - birth-certificate
-      - other
-      - selfie
-      - certificate-of-formation
-      - articles-of-organization
-      - operating-agreement
-      - address-proof
-      - shareholders-list-and-authorised-signers-list
-      - by-laws
-      - cash-card
-      - health-insurance-card
-      - my-number-card
-      - driver-history-certificate
-      - special-permanent-resident-certificate
-      - resident-record-card
-    GetDomainTokenTransactionsResponseDatumDto:
-      type: object
-      properties:
-        id:
-          type: number
-        txId:
-          type:
-          - number
-          - 'null'
-        type:
-          type: string
-          enum:
-          - issuance
-          - reallocation
-          - transfer-ok
-          - transfer-rejected
-          - reclaim
-          - destroy
-          - freeze
-          - unfreeze
-        notes:
           type:
           - string
           - 'null'
-        sender:
-          $ref: '#/components/schemas/GetDomainTokenTransactionsResponseDatumOwnerDto'
-        ethTxId:
+        body:
           type:
           - string
           - 'null'
-        txIdLink:
+        subtitle:
           type:
           - string
           - 'null'
-        receiver:
-          $ref: '#/components/schemas/GetDomainTokenTransactionsResponseDatumOwnerDto'
-        senderType:
-          type: string
-          enum:
-          - investor
-          - issuer
-          - unknown
-        processType:
-          type: string
-          enum:
-          - empty
-          - routine
-          - non-routine
-          - amendment
-        receiverType:
-          type: string
-          enum:
-          - investor
-          - issuer
-          - unknown
-        closedTimestamp:
-          type: string
-        initialTimestamp:
-          type: string
-        manuallyModified:
-          type: boolean
-        manuallyCreated:
-          type: boolean
-        amount:
-          type: number
-      required:
-      - id
-      - txId
-      - type
-      - notes
-      - ethTxId
-      - txIdLink
-      - senderType
-      - processType
-      - receiverType
-      - closedTimestamp
-      - initialTimestamp
-      - manuallyModified
-      - manuallyCreated
-      - amount
-    CreateDomainOpportunityDocumentResponseDto:
-      type: object
-      properties:
-        documentUrl:
-          type: string
-        documentId:
-          type: number
-        title:
-          type: string
-        order:
-          type: number
-        requireQualification:
-          type: boolean
-        requireKyc:
-          type: boolean
-        fileType:
-          type: string
-        createdAt:
-          type: string
-        updatedAt:
-          type: string
-      required:
-      - documentUrl
-      - documentId
-      - title
-      - order
-      - requireQualification
-      - requireKyc
-      - fileType
-      - createdAt
-      - updatedAt
-    DeleteDomainInvestorTransactionBodyDto:
-      type: object
-      properties:
-        transactionId:
-          type: number
-      required:
-      - transactionId
-    General:
-      type: object
-      properties:
-        issuerName:
-          type:
-          - string
-          - 'null'
-        colorScheme:
-          $ref: '#/components/schemas/ColorScheme'
-        images:
-          $ref: '#/components/schemas/Images'
-      required:
-      - colorScheme
-      - images
-    CalculatorDataTiers:
-      type: object
-      properties:
-        minInvestmentAmount:
-          type: number
-        bonusPercentage:
-          type: number
-      required:
-      - minInvestmentAmount
-      - bonusPercentage
-    GetOrganizationsResponseDto:
-      type: object
-      properties:
-        totalItems:
-          type: number
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/GetOrganizationsResponseDatumDto'
-      required:
-      - totalItems
-      - data
-    DeleteDomainInvestorLegalSignerBodyDto:
-      type: object
-      properties:
-        legalSignerId:
-          type: number
-      required:
-      - legalSignerId
     DomainInvestorDto:
       type: object
       properties:
@@ -7265,19 +5405,505 @@ components:
       - labels
       - createdAt
       - updatedAt
-    UpdateDomainGeneralInvestorsAreaBodyDto:
+    GetDomainOpportunitiesResponseDto:
       type: object
       properties:
-        announcements:
-          $ref: '#/components/schemas/Announcements'
-        about:
-          $ref: '#/components/schemas/About'
-        wizard:
-          $ref: '#/components/schemas/Wizard'
-        socialLinks:
-          $ref: '#/components/schemas/SocialLinks'
-        dashboardUrl:
+        totalItems:
+          type: number
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DomainOpportunityDto'
+      required:
+      - totalItems
+      - data
+    DeleteDomainInvestorTransactionBodyDto:
+      type: object
+      properties:
+        transactionId:
+          type: number
+      required:
+      - transactionId
+    DomainTokenDocumentDataDto:
+      type: object
+      properties:
+        tokenDocumentId:
+          type: number
+        name:
           type: string
+        title:
+          type: string
+        type:
+          type: string
+          enum:
+          - pdf
+          - doc
+          - ppt
+          - url
+          - other
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+        domainId:
+          type: string
+        tokenId:
+          type: string
+        url:
+          type: string
+        category:
+          type: string
+          enum:
+          - basic
+          - investor-only
+      required:
+      - tokenDocumentId
+      - name
+      - title
+      - type
+      - createdAt
+      - updatedAt
+      - domainId
+      - tokenId
+      - url
+      - category
+    ErrorDto:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/UserDto'
+        error:
+          type: object
+      required:
+      - user
+      - error
+    CreateDomainInvestorEntityLegalSignerBodyDto:
+      type: object
+      properties:
+        email:
+          type: string
+        document:
+          $ref: '#/components/schemas/EntityLegalSignerBodyDocumentDto'
+        legalName:
+          type: string
+        businessName:
+          type: string
+        entityType:
+          type: string
+          enum:
+          - revocable-trust
+          - irrevocable-trust
+          - limited-general-partnership
+          - llc
+          - corporation
+          - other
+        taxId:
+          type: string
+      required:
+      - email
+      - document
+      - legalName
+      - businessName
+      - entityType
+      - taxId
+    CreateDomainInvestorTransactionResponseDto:
+      type: object
+      properties:
+        transactionId:
+          type: number
+        transactionTime:
+          type: string
+        direction:
+          type: string
+          enum:
+          - deposit
+          - withdraw
+          - liquidation
+          - refund
+        amount:
+          type: number
+        mainCurrencyWorth:
+          type: number
+        externalTransactionConfirmation:
+          type: string
+        source:
+          type: string
+          enum:
+          - automated
+          - manual
+        currencyId:
+          type: number
+      required:
+      - transactionId
+      - transactionTime
+      - direction
+      - amount
+      - mainCurrencyWorth
+      - externalTransactionConfirmation
+      - source
+      - currencyId
+    UpdateDomainOpportunityBodyDto:
+      type: object
+      properties:
+        opportunityId:
+          type: number
+        imageFile:
+          type: string
+          description: file must be base64 encoded
+        tokenId:
+          type: string
+        enabled:
+          type: boolean
+        title:
+          type: string
+        content:
+          type: string
+        contentType:
+          type: string
+          enum:
+          - image/png
+          - image/jpeg
+        order:
+          type: number
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttributeDto'
+      required:
+      - opportunityId
+      - tokenId
+      - enabled
+      - title
+      - content
+    DomainSnapshotResponseDto:
+      type: object
+      properties:
+        snapshotId:
+          type: number
+        domainId:
+          type: string
+        name:
+          type: string
+        date:
+          type: string
+        status:
+          enum:
+          - distributed
+          - none
+          - pending
+          - confirmed
+          type: string
+        distributeCreated:
+          type: boolean
+      required:
+      - snapshotId
+      - domainId
+      - name
+      - date
+      - status
+      - distributeCreated
+    CreateDomainTokenDestroyTransactionsBodyDto:
+      type: object
+      properties:
+        sourceWalletAddress:
+          type: string
+        tokenAmount:
+          type: number
+        reason:
+          type: string
+      required:
+      - sourceWalletAddress
+      - tokenAmount
+      - reason
+    GetDomainSnapshotRecordsResponseDto:
+      type: object
+      properties:
+        totalItems:
+          type: number
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DomainSnapshotRecordResponseDto'
+      required:
+      - totalItems
+      - data
+    SendDomainInvestorsSecIdEmailsBodyDto:
+      type: object
+      properties:
+        externalIds:
+          type: array
+          items:
+            type: string
+        exceptExternalIds:
+          type: array
+          items:
+            type: string
+        emailContent:
+          type: string
+        view:
+          type: string
+          enum:
+          - onboarding
+          - holders
+          - fundraise
+        q:
+          type: string
+        fullName:
+          type: string
+        email:
+          type: string
+        countryCode:
+          type: string
+        stateCode:
+          type: string
+        investorType:
+          type: string
+          enum:
+          - individual
+          - entity
+          - custodian-wallet-manager
+          - fbo-individual
+          - fbo-entity
+        kycStatus:
+          type: string
+          enum:
+          - none
+          - processing
+          - updates-required
+          - manual-review
+          - verified
+          - rejected
+          - expired
+        fromCreatedAt:
+          type: string
+        toCreatedAt:
+          type: string
+        fromTotalTokens:
+          type: number
+        toTotalTokens:
+          type: number
+        fromAmountPledged:
+          type: number
+        toAmountPledged:
+          type: number
+        fromAmountFunded:
+          type: number
+        toAmountFunded:
+          type: number
+        subscriptionAgreementStatus:
+          type: string
+          enum:
+          - none
+          - requested
+          - sent
+          - signed
+          - confirmed
+          - rejected
+          - pre-signed
+        tokenStatus:
+          type: string
+          enum:
+          - issued
+          - not-issued
+        registrationSource:
+          type: string
+        roundId:
+          type: number
+        investorStatus:
+          type: string
+          enum:
+          - pending-kyc
+          - pending-accreditation
+          - pending-investor-signature
+          - pending-issuer-signature
+          - pending-funding
+          - ready
+          - 'true'
+          - 'false'
+        birthDate:
+          type: string
+        walletRegistrationStatus:
+          type: string
+          enum:
+          - pending
+          - syncing
+          - ready
+          - rejected
+          - cancelled
+        tokenWalletAddress:
+          type: string
+        fromPercentage:
+          type: number
+        toPercentage:
+          type: number
+        isLocked:
+          type: boolean
+        documentNumber:
+          type: string
+        documentType:
+          type: string
+          enum:
+          - passport
+          - driving-licence
+          - national-identity-card
+          - residence-permit
+          - visa
+          - passport-card
+          - work-permit
+          - state-id
+          - uk-biometric-residence-permit
+          - tax-id
+          - voter-id
+          - certificate-of-naturalisation
+          - home-office-letter
+          - immigration-status-document
+          - birth-certificate
+          - other
+    GetDomainInvestorLabelResponseDto:
+      type: object
+      properties:
+        label:
+          type: string
+      required:
+      - label
+    DomainOpportunityDto:
+      type: object
+      properties:
+        opportunityId:
+          type: number
+        content:
+          type: string
+        enabled:
+          type: boolean
+        image:
+          type: string
+        issuerId:
+          type: string
+        order:
+          type: number
+        title:
+          type: string
+        tokenId:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attribute'
+      required:
+      - opportunityId
+      - content
+      - enabled
+      - image
+      - issuerId
+      - order
+      - title
+      - tokenId
+      - createdAt
+      - updatedAt
+      - attributes
+    Attribute:
+      type: object
+      properties:
+        title:
+          type: string
+        content:
+          type: string
+        order:
+          type: number
+      required:
+      - title
+      - content
+      - order
+    UpdateDomainInvestorTokenQualificationStatusBodyDto:
+      type: object
+      properties:
+        tokenId:
+          type: string
+        tokenQualificationStatus:
+          type: string
+          enum:
+          - none
+          - pending
+          - verified
+          - rejected
+          - 'no'
+          - expired
+          - updates-required
+          - not-accredited
+      required:
+      - tokenId
+      - tokenQualificationStatus
+    CreateDomainInvestorTransferTbeTransactionResponseDto:
+      type: object
+      properties:
+        signatureTransactionId:
+          type: number
+      required:
+      - signatureTransactionId
+    UserDocumentType:
+      type: string
+      enum:
+      - passport
+      - driver-license
+      - national-identity-card
+      - residence-permit
+      - visa
+      - passport-card
+      - work-permit
+      - state-id
+      - uk-biometric-residence-permit
+      - tax-id
+      - voter-id
+      - certificate-of-naturalisation
+      - home-office-letter
+      - immigration-status-document
+      - birth-certificate
+      - other
+      - selfie
+      - certificate-of-formation
+      - articles-of-organization
+      - operating-agreement
+      - address-proof
+      - shareholders-list-and-authorised-signers-list
+      - by-laws
+      - cash-card
+      - health-insurance-card
+      - my-number-card
+      - driver-history-certificate
+      - special-permanent-resident-certificate
+      - resident-record-card
+    GetDomainInvestorQualificationStatusResponseDto:
+      type: object
+      properties:
+        qualificationStatus:
+          type: string
+          enum:
+          - not-verified
+          - pending
+          - qualified
+          - rejected
+          - not-qualified
+          - not-qualified-but-can-invest
+          - not-applicable
+      required:
+      - qualificationStatus
+    OwnerDto:
+      type: object
+      properties:
+        externalId:
+          type: string
+        omnibusWalletOwnerId:
+          type: number
+        custodianWalletManagerId:
+          type: number
+        name:
+          type: string
+      required:
+      - name
     UpdateDomainInvestorQualificationStatusBodyDto:
       type: object
       properties:
@@ -7293,19 +5919,108 @@ components:
           - not-applicable
       required:
       - qualificationStatus
-    GetOrganizationsResponseDatumDto:
+    GetDomainTokenTransactionsResponseDatumDto:
       type: object
       properties:
-        organizationId:
+        id:
+          type: number
+        txId:
+          type:
+          - number
+          - 'null'
+        type:
           type: string
-        name:
+          enum:
+          - issuance
+          - reallocation
+          - transfer-ok
+          - transfer-rejected
+          - reclaim
+          - destroy
+          - freeze
+          - unfreeze
+        notes:
+          type:
+          - string
+          - 'null'
+        sender:
+          $ref: '#/components/schemas/GetDomainTokenTransactionsResponseDatumOwnerDto'
+        ethTxId:
+          type:
+          - string
+          - 'null'
+        txIdLink:
+          type:
+          - string
+          - 'null'
+        receiver:
+          $ref: '#/components/schemas/GetDomainTokenTransactionsResponseDatumOwnerDto'
+        senderType:
           type: string
-        createdAt:
+          enum:
+          - investor
+          - issuer
+          - unknown
+        processType:
+          type: string
+          enum:
+          - empty
+          - routine
+          - non-routine
+          - amendment
+        receiverType:
+          type: string
+          enum:
+          - investor
+          - issuer
+          - unknown
+        closedTimestamp:
+          type: string
+        initialTimestamp:
+          type: string
+        manuallyModified:
+          type: boolean
+        manuallyCreated:
+          type: boolean
+        amount:
+          type: number
+      required:
+      - id
+      - txId
+      - type
+      - notes
+      - ethTxId
+      - txIdLink
+      - senderType
+      - processType
+      - receiverType
+      - closedTimestamp
+      - initialTimestamp
+      - manuallyModified
+      - manuallyCreated
+      - amount
+    UpdateDomainInvestorTransactionBodyDto:
+      type: object
+      properties:
+        transactionId:
+          type: number
+        direction:
+          type: string
+          enum:
+          - deposit
+          - withdraw
+          - liquidation
+          - refund
+        amount:
+          type: number
+        externalTransactionConfirmation:
+          type: string
+        mainCurrencyWorth:
+          type: number
+        transactionTime:
           type: string
       required:
-      - organizationId
-      - name
-      - createdAt
+      - transactionId
     UpdateDomainOpportunityDocumentBodyDto:
       type: object
       properties:
@@ -7333,6 +6048,116 @@ components:
       required:
       - opportunityDocumentId
       - opportunityId
+    DomainOpportunityDocument:
+      type: object
+      properties:
+        documentId:
+          type: number
+        opportunityId:
+          type: number
+        title:
+          type: string
+        documentUrl:
+          type: string
+        order:
+          type: number
+        requireQualification:
+          type: boolean
+        requireKyc:
+          type: boolean
+        fileType:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      required:
+      - documentId
+      - opportunityId
+      - title
+      - documentUrl
+      - order
+      - requireQualification
+      - requireKyc
+      - fileType
+      - createdAt
+      - updatedAt
+    GetDomainInvestorIssuanceResponseDto:
+      type: object
+      properties:
+        issuanceId:
+          type: number
+        createdAt:
+          type: string
+        executedAt:
+          type: string
+        issueAmount:
+          type: number
+        description:
+          type: string
+        status:
+          type: string
+          enum:
+          - pending
+          - processing
+          - success
+          - failure
+        target:
+          type: string
+          enum:
+          - wallet
+          - treasury
+        source:
+          type: string
+          enum:
+          - automated
+          - manual
+        issuanceDate:
+          type: string
+        canDelete:
+          type: boolean
+        tokenName:
+          type: string
+      required:
+      - issuanceId
+      - createdAt
+      - executedAt
+      - issueAmount
+      - description
+      - status
+      - target
+      - source
+      - issuanceDate
+      - canDelete
+      - tokenName
+    AddDomainTokenDocumentBodyDto:
+      type: object
+      properties:
+        name:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+          enum:
+          - pdf
+          - doc
+          - ppt
+          - url
+          - other
+        url:
+          type: string
+        category:
+          type: string
+          enum:
+          - basic
+          - investor-only
+      required:
+      - name
+      - title
+      - type
+      - url
+      - category
     GetDomainTokenBlockchainTransactionResponseDto:
       type: object
       properties:
@@ -7401,26 +6226,135 @@ components:
       - description
       - creationTime
       - date
-    AddDomainInvestorWalletsBodyDto:
+    CreateDomainInvestorDocumentResponseDto:
       type: object
       properties:
+        type:
+          $ref: '#/components/schemas/UserDocumentType'
+        investorDocumentId:
+          type: string
+        createdAt:
+          type: string
+        documentFace:
+          type: string
+          enum:
+          - front
+          - back
+        documentNumber:
+          type: string
+        documentTitle:
+          type: string
+        imageUrl:
+          type: string
+        thumbnailUrl:
+          type: string
+        showToInvestor:
+          type: boolean
+        contentType:
+          type: string
+          enum:
+          - image/png
+          - image/jpeg
+          - application/pdf
+        tokenId:
+          type:
+          - string
+          - 'null'
+      required:
+      - type
+      - investorDocumentId
+      - createdAt
+      - documentFace
+      - imageUrl
+      - thumbnailUrl
+      - showToInvestor
+      - contentType
+      - tokenId
+    UpdateDomainInvestorAccreditationStatusBodyDto:
+      type: object
+      properties:
+        accreditationStatus:
+          type: string
+          enum:
+          - not-verified
+          - pending
+          - accredited
+          - rejected
+          - not-accredited
+          - not-applicable
+      required:
+      - accreditationStatus
+    DomainSnapshotRecordInvestor:
+      type: object
+      properties:
+        externalId:
+          type: string
         name:
           type: string
-        address:
+        email:
           type: string
-        tokenId:
+      required:
+      - externalId
+      - name
+      - email
+    UpdateDomainOpportunityContentBodyDto:
+      type: object
+      properties:
+        contentId:
+          type: number
+        attributeType:
+          enum:
+          - text
+          - video
+          - image
           type: string
-        ignoreInvestorPays:
+        imageFile:
+          type: string
+          description: file must be base64 encoded
+        opportunityId:
+          type: number
+        title:
+          type: string
+        content:
+          type: string
+        resource:
+          type: string
+        contentType:
+          type: string
+          enum:
+          - image/png
+          - image/jpeg
+        order:
+          type: number
+        alignment:
+          type: string
+          enum:
+          - none
+          - left
+          - right
+        showToVerifiedInvestorsOnly:
           type: boolean
-        categories:
+        showInTokenDetails:
+          type: boolean
+        showInOpportunity:
+          type: boolean
+      required:
+      - contentId
+      - attributeType
+      - opportunityId
+    SendDomainInvestorsSecIdEmailsResponseDto:
+      type: object
+      properties:
+        successfulActions:
+          type: number
+        errors:
           type: array
           items:
-            type: string
+            $ref: '#/components/schemas/ErrorDto'
       required:
-      - name
-      - address
-      - tokenId
-    GetDomainTokenHoldersResponseDto:
+      - successfulActions
+      - errors
+    GetDomainTokenFundraiseInvestorsResponseDto:
       type: object
       properties:
         totalItems:
@@ -7428,19 +6362,686 @@ components:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/DomainTokenHolderDataDto'
+            $ref: '#/components/schemas/DomainTokenFundraiseInvestorsDatumDto'
       required:
       - totalItems
       - data
-    CreateDomainInvestorTransferTbeTransactionBodyDto:
+    GetDomainInvestorWalletResponseDto:
       type: object
       properties:
         tokenWalletId:
           type: number
-        amount:
+        name:
+          type: string
+        address:
+          type: string
+        status:
+          type: string
+          enum:
+          - pending
+          - syncing
+          - ready
+          - rejected
+          - cancelled
+        creationDate:
+          format: date-time
+          type: string
+        tokensHeld:
           type: number
+        tokensPending:
+          type: number
+        tokensLocked:
+          type: number
+        owner:
+          $ref: '#/components/schemas/OwnerDto'
+        walletType:
+          type: string
+          enum:
+          - normal
+          - omnibus
+          - custodian
+        link:
+          type: string
+        omnibusTokens:
+          type: number
+        isMain:
+          type: boolean
+        isCustodian:
+          type: boolean
+        walletAmlGrade:
+          type: number
+        categories:
+          type: array
+          items:
+            type: string
       required:
       - tokenWalletId
+      - name
+      - address
+      - status
+      - creationDate
+      - tokensHeld
+      - tokensPending
+      - tokensLocked
+      - owner
+      - walletType
+      - link
+      - omnibusTokens
+      - isMain
+      - isCustodian
+      - walletAmlGrade
+      - categories
+    UpdateDomainTokenBodyDto:
+      type: object
+      properties:
+        tokenValue:
+          type: number
+        tokenName:
+          type: string
+        decimals:
+          type: number
+        tokenIconKey:
+          type: string
+        isTokenRepresentsDebt:
+          type: boolean
+    Content:
+      type: object
+      properties:
+        contentId:
+          type: number
+        opportunityId:
+          type: number
+        attributeType:
+          type: string
+          enum:
+          - text
+          - video
+          - image
+        title:
+          type: string
+        content:
+          type: string
+        resource:
+          type:
+          - string
+          - 'null'
+        order:
+          type: number
+        alignment:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      required:
+      - contentId
+      - opportunityId
+      - attributeType
+      - title
+      - content
+      - order
+      - alignment
+      - createdAt
+      - updatedAt
+    CreateDomainOpportunityDocumentResponseDto:
+      type: object
+      properties:
+        documentUrl:
+          type: string
+        documentId:
+          type: number
+        title:
+          type: string
+        order:
+          type: number
+        requireQualification:
+          type: boolean
+        requireKyc:
+          type: boolean
+        fileType:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      required:
+      - documentUrl
+      - documentId
+      - title
+      - order
+      - requireQualification
+      - requireKyc
+      - fileType
+      - createdAt
+      - updatedAt
+    GetDomainOpportunityDocumentResponseDto:
+      type: object
+      properties:
+        documentId:
+          type: number
+        opportunityId:
+          type: number
+        title:
+          type: string
+        fileType:
+          type: string
+        order:
+          type: number
+        requireKyc:
+          type: boolean
+        requireQualification:
+          type: boolean
+        documentUrl:
+          type: string
+        createdAt:
+          type: string
+      required:
+      - documentId
+      - opportunityId
+      - title
+      - fileType
+      - order
+      - requireKyc
+      - requireQualification
+      - documentUrl
+      - createdAt
+    GetDomainInvestorLegalSignersResponseDto:
+      type: object
+      properties:
+        totalItems:
+          type: number
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LegalSigner'
+      required:
+      - totalItems
+      - data
+    JurisdictionsDto:
+      type: object
+      properties:
+        restrictedJurisdictions:
+          type: array
+          items:
+            type: string
+        restrictedJurisdictionsState:
+          type: array
+          items:
+            type: string
+        generalDisclaimer:
+          type:
+          - string
+          - 'null'
+        standardCountryDisclaimer:
+          type:
+          - string
+          - 'null'
+        standardQualificationDefinition:
+          type:
+          - string
+          - 'null'
+      required:
+      - restrictedJurisdictions
+      - restrictedJurisdictionsState
+    CreateDomainTokenBlockchainTransactionResponseDto:
+      type: object
+      properties:
+        signatureTransactionId:
+          type: number
+        type:
+          enum:
+          - LockTokens
+          - BurnTokens
+          - BurnTBETokens
+          - UpdateRole
+          - IssueTokens
+          - TransferTBE
+          - InternalTBETransfer
+          - IssueTokensToTBE
+          - ReleaseLock
+          - HoldTrading
+          - RemoveWallet
+          - RegisterWallet
+          - ReleaseTrading
+          - RemoveInvestor
+          - UpdateComplianceRules
+          - UpdateCountryComplianceStatus
+          - CreateAssetAlgorand
+          - ReallocateTokens
+          type: string
+        status:
+          enum:
+          - pending
+          - signed
+          - sent
+          - success
+          - failure
+          type: string
+        description:
+          type: string
+        createdAt:
+          type: string
+      required:
+      - signatureTransactionId
+      - type
+      - status
+      - description
+      - createdAt
+    DomainTokenHolderDataDto:
+      type: object
+      properties:
+        externalId:
+          type:
+          - string
+          - 'null'
+        email:
+          type:
+          - string
+          - 'null'
+        createdAt:
+          type:
+          - string
+          - 'null'
+        updatedAt:
+          type:
+          - string
+          - 'null'
+        walletAddress:
+          type: string
+        totalTokens:
+          type: number
+        percentage:
+          type: number
+        tokenInTreasury:
+          type: number
+        isLocked:
+          type: boolean
+        firstName:
+          type: string
+        lastName:
+          type: string
+        name:
+          type:
+          - string
+          - 'null'
+        entityName:
+          type:
+          - string
+          - 'null'
+        countryCode:
+          type: string
+        stateCode:
+          type:
+          - string
+          - 'null'
+        labels:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        investorType:
+          type: string
+          enum:
+          - individual
+          - entity
+          - custodian-wallet-manager
+          - fbo-individual
+          - fbo-entity
+          - omnibus
+        jsonOpen:
+          type:
+          - string
+          - 'null'
+        jsonPrivate:
+          type:
+          - string
+          - 'null'
+        birthdate:
+          type:
+          - string
+          - 'null'
+      required:
+      - externalId
+      - email
+      - createdAt
+      - updatedAt
+      - firstName
+      - lastName
+      - name
+      - entityName
+      - countryCode
+      - stateCode
+      - labels
+      - investorType
+      - jsonOpen
+      - jsonPrivate
+      - birthdate
+    GetDomainTokenTransactionsResponseDto:
+      type: object
+      properties:
+        totalItems:
+          type: number
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetDomainTokenTransactionsResponseDatumDto'
+      required:
+      - totalItems
+      - data
+    CreateDomainTokenClawbackTransactionsBodyDto:
+      type: object
+      properties:
+        documentId:
+          type: string
+        transactionHash:
+          type: string
+        reason:
+          type: string
+      required:
+      - documentId
+      - transactionHash
+      - reason
+    GetDomainSnapshotsResponseDto:
+      type: object
+      properties:
+        totalItems:
+          type: number
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DomainSnapshotResponseDto'
+      required:
+      - totalItems
+      - data
+    LegalSigner:
+      type: object
+      properties:
+        legalSignerId:
+          type: number
+        signerType:
+          type: string
+          enum:
+          - individual
+          - entity
+        name:
+          type: string
+        isLegalSigner:
+          type: boolean
+        isBeneficialOwner:
+          type: boolean
+        taxId:
+          type:
+          - string
+          - 'null'
+      required:
+      - legalSignerId
+      - signerType
+      - name
+      - isLegalSigner
+      - isBeneficialOwner
+      - taxId
+    GetDomainRoundsResponseDto:
+      type: object
+      properties:
+        totalItems:
+          type: number
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DomainRoundDataDto'
+      required:
+      - totalItems
+      - data
+    AddDomainCustodianBodyDto:
+      type: object
+      properties:
+        name:
+          type: string
+        friendlyName:
+          type: string
+        email:
+          type: string
+        address:
+          type: string
+      required:
+      - name
+      - friendlyName
+      - email
+    AddDomainTokenDocumentResponseDto:
+      type: object
+      properties:
+        tokenDocumentId:
+          type: number
+        name:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+          enum:
+          - pdf
+          - doc
+          - ppt
+          - url
+          - other
+        domainId:
+          type: string
+        tokenId:
+          type: string
+        url:
+          type: string
+        category:
+          type: string
+          enum:
+          - basic
+          - investor-only
+      required:
+      - tokenDocumentId
+      - name
+      - title
+      - type
+      - domainId
+      - tokenId
+      - url
+      - category
+    AddDomainInvestorBodyDto:
+      type: object
+      properties:
+        address:
+          type: string
+        firstName:
+          type: string
+        middleName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        phoneNumber:
+          type: string
+        birthdate:
+          type: string
+        gender:
+          type: string
+          enum:
+          - male
+          - female
+          - ''
+        investorType:
+          type: string
+          enum:
+          - individual
+          - entity
+        custodianId:
+          type: number
+        entityName:
+          type: string
+        entityType:
+          type: string
+          enum:
+          - revocable-trust
+          - irrevocable-trust
+          - limited-general-partnership
+          - llc
+          - corporation
+          - other
+        countryCode:
+          type: string
+        state:
+          type: string
+        city:
+          type: string
+        zipCode:
+          type: string
+          minLength: 0
+          maxLength: 10
+        taxId:
+          type: string
+        taxCountryCode:
+          type: string
+        operatorComments:
+          type: string
+        securitizeIdProfileId:
+          type: string
+        sendEmail:
+          type: boolean
+        generateBlockchainId:
+          type: boolean
+      required:
+      - firstName
+      - lastName
+      - email
+      - investorType
+      - countryCode
+    GetDomainTokensResponseDto:
+      type: object
+      properties:
+        totalItems:
+          type: number
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetDomainTokenDto'
+      required:
+      - totalItems
+      - data
+    UpdateDomainInvestorWalletBodyDto:
+      type: object
+      properties:
+        tokenWalletId:
+          type: number
+        name:
+          type: string
+        address:
+          type: string
+        status:
+          type: string
+          enum:
+          - pending
+          - syncing
+          - ready
+          - rejected
+          - cancelled
+        isMain:
+          type: boolean
+        isCustodian:
+          type: boolean
+        categories:
+          type: array
+          items:
+            type: string
+      required:
+      - tokenWalletId
+    AddDomainInvestorsBodyDto:
+      type: object
+      properties:
+        tokenId:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddDomainInvestor'
+      required:
+      - tokenId
+      - data
+    GetOperatorsResponseDto:
+      type: object
+      properties:
+        totalItems:
+          type: number
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransformedOperatorDto'
+      required:
+      - totalItems
+      - data
+    AddDomainTokenBlockchainTransactionDataResponseDto:
+      type: object
+      properties:
+        transactionData:
+          type: string
+        additionalData:
+          $ref: '#/components/schemas/BlockchainTransactionAdditionalDataDto'
+      required:
+      - transactionData
+      - additionalData
+    Authorization:
+      type: string
+      enum:
+      - rfe
+      - transfer-agent
+      - compliance-officer
+      - securitize-id
+      - on-chain-manager
+      - auto-deployment-service
+      - investor-outreach
+      - securitize-id-service
+      - securitize-markets
+      - audit-log
+      - privacy-controller
+      - audit-log-issuer
+      - accreditation-lawyer
+      - hsm-controller
+      - new-cp-ui
+      - allow-export
+      - can-create-megaadmin
+    AddDomainTokenBlockchainTransactionDataBodyDto:
+      type: object
+      properties:
+        signatureTransactionId:
+          type: number
+        signerAddress:
+          type: string
+      required:
+      - signatureTransactionId
+      - signerAddress
+    CreateDomainTokenDestroyTbeTransactionsBodyDto:
+      type: object
+      properties:
+        externalId:
+          type: string
+        tokenAmount:
+          type: number
+        reason:
+          type: string
+      required:
+      - externalId
+      - tokenAmount
+      - reason
+    GetDomainCurrenciesResponseDto:
+      type: object
+      properties:
+        totalItems:
+          type: number
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DomainInvestorCurrencyDto'
+      required:
+      - totalItems
+      - data
     UpdateDomainInvestorTokenInfoBodyDto:
       type: object
       properties:
@@ -7450,94 +7051,348 @@ components:
           type: number
       required:
       - tokenId
-    DeleteDomainTokenBlockchainTransactionBodyDto:
+    DomainInvestorCurrencyDto:
       type: object
       properties:
-        signatureTransactionId:
-          type: number
-      required:
-      - signatureTransactionId
-    GetDomainInvestorDocumentResponseDto:
-      type: object
-      properties:
-        documentTitle:
-          type: string
-        imageUrl:
-          type: string
-        contentType:
-          type: string
-        tokenId:
-          type:
-          - string
-          - 'null'
-      required:
-      - documentTitle
-      - imageUrl
-      - contentType
-      - tokenId
-    DomainSnapshotRecordWallet:
-      type: object
-      properties:
-        tokenWalletId:
-          type:
-          - number
-          - 'null'
-        address:
-          type:
-          - string
-          - 'null'
-      required:
-      - tokenWalletId
-      - address
-    DomainSnapshotRecordPayoutWallet:
-      type: object
-      properties:
-        payoutWalletId:
-          type:
-          - number
-          - 'null'
-        address:
-          type:
-          - string
-          - 'null'
-      required:
-      - payoutWalletId
-      - address
-    CreateDomainInvestorTransactionBodyDto:
-      type: object
-      properties:
-        roundId:
-          type: number
-        currencyIdentifier:
-          type: string
-          minLength: 3
-          maxLength: 3
         currencyId:
           type: number
-        direction:
+        type:
           type: string
           enum:
-          - deposit
-          - withdraw
-          - liquidation
-          - refund
-        amount:
-          type: number
-        externalTransactionConfirmation:
+          - crypto
+          - fiat
+        identifier:
           type: string
-        mainCurrencyWorth:
+        name:
+          type: string
+      required:
+      - currencyId
+      - type
+      - identifier
+      - name
+    DocusignJurisdictionalException:
+      type: object
+      properties:
+        exceptionName:
+          enum:
+          - docusign-id
+          - custodian-docusign-id
+          type: string
+        exceptionValue:
+          type: string
+        countryCode:
+          type: string
+      required:
+      - exceptionName
+      - exceptionValue
+      - countryCode
+    SendDomainTokenOutreachNotificationsBodyDto:
+      type: object
+      properties:
+        stage:
+          type: string
+          default: onboarding
+          enum:
+          - onboarding
+          - holders
+          - fundraise
+        toAllInvestors:
+          type: boolean
+          default: false
+        additionalEmails:
+          type: array
+          items:
+            type: string
+        subject:
+          type: string
+        body:
+          type: string
+        fromAddress:
+          type: string
+        fromName:
+          type: string
+        replyToAddress:
+          type: string
+        replyToName:
+          type: string
+        cc:
+          type: array
+          items:
+            type: string
+        bcc:
+          type: array
+          items:
+            type: string
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttachmentDto'
+      required:
+      - subject
+      - body
+      - fromAddress
+      - fromName
+    GetOrganizationsResponseDto:
+      type: object
+      properties:
+        totalItems:
           type: number
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetOrganizationsResponseDatumDto'
+      required:
+      - totalItems
+      - data
+    GetDomainRoundResponseDto:
+      type: object
+      properties:
+        jurisdictionalExceptionsData:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/MinInvestmentJurisdictionalException'
+            - $ref: '#/components/schemas/DocusignJurisdictionalException'
+        roundId:
+          type: number
+        issuerId:
+          type: string
         tokenId:
           type: string
-        transactionTime:
+        name:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+        startsAt:
+          type: string
+        endsAt:
+          type:
+          - string
+          - 'null'
+        minInvestmentCrypto:
+          type:
+          - number
+          - 'null'
+        minInvestmentFiat:
+          type:
+          - number
+          - 'null'
+        investmentTermsAndConditions:
+          type:
+          - string
+          - 'null'
+        status:
+          type: string
+          enum:
+          - planned
+          - active
+          - done
+        issuanceDate:
+          type: string
+        subscriptionAgreementDocusignId:
+          type:
+          - string
+          - 'null'
+        subscriptionAgreementCustodianDocusignId:
+          type:
+          - string
+          - 'null'
+        isTokenCalculatorVisible:
+          type: boolean
+        tokenCalculatorData:
+          $ref: '#/components/schemas/TokenCalculatorData'
+        json:
+          type:
+          - string
+          - 'null'
+      required:
+      - jurisdictionalExceptionsData
+      - roundId
+      - issuerId
+      - tokenId
+      - name
+      - createdAt
+      - updatedAt
+      - startsAt
+      - endsAt
+      - minInvestmentCrypto
+      - minInvestmentFiat
+      - investmentTermsAndConditions
+      - status
+      - issuanceDate
+      - subscriptionAgreementDocusignId
+      - isTokenCalculatorVisible
+      - json
+    DeleteDomainInvestorDocumentBodyDto:
+      type: object
+      properties:
+        investorDocumentId:
+          type: string
+      required:
+      - investorDocumentId
+    HistoricalTokenValueDto:
+      type: object
+      properties:
+        id:
+          type: number
+          description: Historical token value record id
+          example: '111'
+        tokenValue:
+          type: string
+          description: BigNumber string
+          example: '1.42'
+        tokenValueDate:
+          format: date-time
+          type: string
+          description: Date of the token value
+          example: '2025-02-03T17:01:25.281Z'
+        operatorId:
+          type: number
+          description: Internal numeric operator id
+          example: '850'
+        operatorName:
+          type: string
+          description: Operator associated with this historical token value record
+          example: '850'
+        issuerId:
+          type: string
+        tokenId:
+          type: string
+        createdAt:
+          format: date-time
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+        deletedAt:
           format: date-time
           type: string
       required:
-      - roundId
-      - direction
-      - amount
-      - externalTransactionConfirmation
+      - id
+      - tokenValue
+      - tokenValueDate
+      - operatorId
+      - issuerId
       - tokenId
+      - createdAt
+      - updatedAt
+      - deletedAt
+    AttributeDto:
+      type: object
+      properties:
+        id:
+          type: number
+        title:
+          type: string
+        content:
+          type: string
+        order:
+          type: number
+      required:
+      - title
+      - content
+      - order
+    UpdateDomainRoundBody:
+      type: object
+      properties:
+        jurisdictionalExceptionsData:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/MinInvestmentJurisdictionalException'
+            - $ref: '#/components/schemas/DocusignJurisdictionalException'
+        roundId:
+          type: number
+        name:
+          type: string
+        startsAt:
+          type: string
+        endsAt:
+          type: string
+        status:
+          type: string
+          enum:
+          - planned
+          - active
+          - done
+        issuanceDate:
+          type: string
+        minInvestmentFiat:
+          type: number
+        minInvestmentCrypto:
+          type: number
+        investmentTermsAndConditions:
+          type: string
+        subscriptionAgreementDocusignId:
+          type: string
+        subscriptionAgreementCustodianDocusignId:
+          type: string
+        isTokenCalculatorVisible:
+          type: boolean
+        tokenCalculatorData:
+          $ref: '#/components/schemas/TokenCalculatorData'
+        json:
+          type: string
+      required:
+      - roundId
+    DeleteDomainInvestorIssuanceBodyDto:
+      type: object
+      properties:
+        issuanceId:
+          type: number
+      required:
+      - issuanceId
+    GetDomainTokenDocumentResponseDto:
+      type: object
+      properties:
+        tokenDocumentId:
+          type: number
+        name:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+          enum:
+          - pdf
+          - doc
+          - ppt
+          - url
+          - other
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+        domainId:
+          type: string
+        url:
+          type: string
+        category:
+          type: string
+          enum:
+          - basic
+          - investor-only
+      required:
+      - tokenDocumentId
+      - name
+      - title
+      - type
+      - createdAt
+      - updatedAt
+      - domainId
+      - url
+      - category
+    CreateDomainInvestorTransferTbeTransactionBodyDto:
+      type: object
+      properties:
+        tokenWalletId:
+          type: number
+        amount:
+          type: number
+      required:
+      - tokenWalletId
     CreateDomainInvestorIssuanceResponseDto:
       type: object
       properties:
@@ -7589,182 +7444,72 @@ components:
       - lockReason
       - status
       - source
-    CreateDomainInvestorDocumentResponseDto:
+    BlockchainTransactionDto:
       type: object
       properties:
+        signatureTransactionId:
+          type: number
+        deploymentId:
+          type: string
         type:
-          $ref: '#/components/schemas/UserDocumentType'
-        investorDocumentId:
-          type: string
-        createdAt:
-          type: string
-        documentFace:
           type: string
           enum:
-          - front
-          - back
-        documentNumber:
-          type: string
-        documentTitle:
-          type: string
-        imageUrl:
-          type: string
-        thumbnailUrl:
-          type: string
-        showToInvestor:
-          type: boolean
-        contentType:
-          type: string
-          enum:
-          - image/png
-          - image/jpeg
-          - application/pdf
-        tokenId:
-          type:
-          - string
-          - 'null'
-      required:
-      - type
-      - investorDocumentId
-      - createdAt
-      - documentFace
-      - imageUrl
-      - thumbnailUrl
-      - showToInvestor
-      - contentType
-      - tokenId
-    UpdateDomainInvestorSubscriptionAgreementStatusBodyDto:
-      type: object
-      properties:
-        subscriptionAgreementStatus:
+          - LockTokens
+          - BurnTokens
+          - BurnTBETokens
+          - UpdateRole
+          - IssueTokens
+          - TransferTBE
+          - InternalTBETransfer
+          - IssueTokensToTBE
+          - ReleaseLock
+          - HoldTrading
+          - RemoveWallet
+          - RegisterWallet
+          - ReleaseTrading
+          - RemoveInvestor
+          - UpdateComplianceRules
+          - UpdateCountryComplianceStatus
+          - CreateAssetAlgorand
+          - ReallocateTokens
+        status:
           type: string
           enum:
-          - none
-          - requested
+          - pending
           - sent
-          - signed
-          - confirmed
-          - rejected
-          - pre-signed
-        roundId:
+          - success
+          - failure
+          - mempool
+          - canceled
+        description:
+          type: string
+        creationTime:
           type: number
+        date:
+          type: string
       required:
-      - subscriptionAgreementStatus
-      - roundId
-    GetDomainOpportunitiesResponseDto:
+      - signatureTransactionId
+      - deploymentId
+      - type
+      - status
+      - description
+      - creationTime
+      - date
+    AddDomainTokenBlockchainTransactionSignBodyDto:
       type: object
       properties:
-        totalItems:
+        signatureTransactionId:
           type: number
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/DomainOpportunityDto'
+        signedTransaction:
+          type: string
+        signerAddress:
+          type: string
+        additionalData:
+          $ref: '#/components/schemas/AddSignBodyAdditionalDataDto'
       required:
-      - totalItems
-      - data
-    GetDomainOpportunityDocumentResponseDto:
-      type: object
-      properties:
-        documentId:
-          type: number
-        opportunityId:
-          type: number
-        title:
-          type: string
-        fileType:
-          type: string
-        order:
-          type: number
-        requireKyc:
-          type: boolean
-        requireQualification:
-          type: boolean
-        documentUrl:
-          type: string
-        createdAt:
-          type: string
-      required:
-      - documentId
-      - opportunityId
-      - title
-      - fileType
-      - order
-      - requireKyc
-      - requireQualification
-      - documentUrl
-      - createdAt
-    UpdateDomainInvestorTransactionBodyDto:
-      type: object
-      properties:
-        transactionId:
-          type: number
-        direction:
-          type: string
-          enum:
-          - deposit
-          - withdraw
-          - liquidation
-          - refund
-        amount:
-          type: number
-        externalTransactionConfirmation:
-          type: string
-        mainCurrencyWorth:
-          type: number
-        transactionTime:
-          type: string
-      required:
-      - transactionId
-    GetDomainInvestorEntityLegalSignerResponseDto:
-      type: object
-      properties:
-        legalSignerId:
-          type: number
-        createdAt:
-          type: string
-        email:
-          type: string
-        signerType:
-          type: string
-          enum:
-          - individual
-          - entity
-        entityType:
-          type: string
-          enum:
-          - revocable-trust
-          - irrevocable-trust
-          - limited-general-partnership
-          - llc
-          - corporation
-          - other
-        legalName:
-          type:
-          - string
-          - 'null'
-        businessName:
-          type:
-          - string
-          - 'null'
-        taxId:
-          type:
-          - string
-          - 'null'
-        documents:
-          type: array
-          items:
-            $ref: '#/components/schemas/LegalSignerResponseDocumentDto'
-      required:
-      - legalSignerId
-      - createdAt
-      - email
-      - signerType
-      - entityType
-      - legalName
-      - businessName
-      - taxId
-      - documents
+      - signatureTransactionId
+      - signedTransaction
+      - signerAddress
     GetDomainInvestorTokenQualificationStatusResponseDto:
       type: object
       properties:
@@ -7781,283 +7526,129 @@ components:
           - not-accredited
       required:
       - tokenQualificationStatus
-    GetOrganizationResponseDto:
+    GetDomainInvestorSubscriptionAgreementStatusResponseDto:
       type: object
       properties:
-        organizationId:
-          type: string
-        name:
-          type: string
-        createdAt:
-          type: string
-      required:
-      - organizationId
-      - name
-      - createdAt
-    DomainOpportunityDocument:
-      type: object
-      properties:
-        documentId:
-          type: number
-        opportunityId:
-          type: number
-        title:
-          type: string
-        documentUrl:
-          type: string
-        order:
-          type: number
-        requireQualification:
-          type: boolean
-        requireKyc:
-          type: boolean
-        fileType:
-          type: string
-        createdAt:
-          type: string
-        updatedAt:
-          type: string
-      required:
-      - documentId
-      - opportunityId
-      - title
-      - documentUrl
-      - order
-      - requireQualification
-      - requireKyc
-      - fileType
-      - createdAt
-      - updatedAt
-    GetDomainOpportunityResponseDto:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/DomainOpportunityDetailDto'
-      required:
-      - data
-    UpdateDomainOpportunityContentBodyDto:
-      type: object
-      properties:
-        contentId:
-          type: number
-        attributeType:
-          enum:
-          - text
-          - video
-          - image
-          type: string
-        imageFile:
-          type: string
-          description: file must be base64 encoded
-        opportunityId:
-          type: number
-        title:
-          type: string
-        content:
-          type: string
-        resource:
-          type: string
-        contentType:
-          type: string
-          enum:
-          - image/png
-          - image/jpeg
-        order:
-          type: number
-        alignment:
-          type: string
+        subscriptionAgreementStatus:
           enum:
           - none
-          - left
-          - right
-        showToVerifiedInvestorsOnly:
-          type: boolean
-        showInTokenDetails:
-          type: boolean
-        showInOpportunity:
-          type: boolean
+          - requested
+          - sent
+          - signed
+          - confirmed
+          - rejected
+          - pre-signed
+          - null
+          type:
+          - string
+          - 'null'
       required:
-      - contentId
-      - attributeType
-      - opportunityId
-    CreateDomainInvestorInvestmentBodyDto:
+      - subscriptionAgreementStatus
+    Gender:
+      type: string
+      enum:
+      - male
+      - female
+      - ''
+    GetDomainCustodiansResponseDto:
       type: object
       properties:
-        currencyIdentifier:
-          type: string
-          minLength: 3
-          maxLength: 3
-        currencyId:
+        totalItems:
           type: number
-        roundId:
-          type: number
-        tokenId:
-          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DomainCustodianDto'
       required:
-      - roundId
-      - tokenId
-    UpdateDomainInvestorPledgedAmountBodyDto:
+      - totalItems
+      - data
+    InvestorsOrderField:
+      type: string
+      enum:
+      - first-name
+      - last-name
+      - full-name
+      - name
+      - country-code
+      - registration-source
+      - investor-type
+      - has-securitize-id
+      - kyc-status
+      - accredited-status
+      - entity-name
+      - tokens-assigned
+      - amount-pledged
+      - investor-status
+      - wallet-address
+      - wallet-registration-status
+      - created-at
+      - updated-at
+      - token-status
+      - subscription-agreement-status
+      - amount-funded
+      - total-tokens
+      - is-locked
+      - birthdate
+    Wizard:
       type: object
       properties:
-        amount:
-          type: number
-        currencyIdentifier:
-          type: string
-          minLength: 3
-          maxLength: 3
-        currencyId:
-          type: number
-        roundId:
-          type: number
-      required:
-      - amount
-      - roundId
-    EditDomainInvestorsBodyDto:
+        background:
+          type:
+          - string
+          - 'null'
+    MinInvestmentJurisdictionalException:
       type: object
       properties:
-        gender:
-          $ref: '#/components/schemas/Gender'
-        address:
-          type: string
-        firstName:
-          type: string
-        middleName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        phonePrefix:
-          type: string
-        phoneNumber:
-          type: string
-        birthdate:
-          type: string
-        investorType:
-          type: string
+        exceptionName:
           enum:
-          - individual
-          - entity
-          - fbo-entity
-          - fbo-individual
-        custodianId:
+          - min-investment-crypto
+          - min-investment-fiat
+          type: string
+        exceptionValue:
           type: number
-        entityName:
-          type: string
-        entityDba:
-          type: string
-        entityType:
-          type: string
-          enum:
-          - revocable-trust
-          - irrevocable-trust
-          - limited-general-partnership
-          - llc
-          - corporation
-          - other
         countryCode:
           type: string
-        state:
-          type: string
-        city:
-          type: string
-        zipCode:
-          type: string
-          minLength: 0
-          maxLength: 10
-        additionalInfo:
-          type: string
-        taxId:
-          type: string
-        taxCountryCode:
-          type: string
-        taxId2:
-          type: string
-        taxCountryCode2:
-          type: string
-        taxId3:
-          type: string
-        taxCountryCode3:
-          type: string
-        identityDocumentNumber:
-          type: string
-        countryOfBirth:
-          type: string
-        cityOfBirth:
-          type: string
-        operatorComments:
-          type: string
-        securitizeIdProfileId:
-          type: string
-        jsonOpen:
-          type: string
-        jsonPrivate:
-          type: string
-    DomainQuestionDto:
+      required:
+      - exceptionName
+      - exceptionValue
+      - countryCode
+    DeleteDomainTokenBlockchainTransactionBodyDto:
       type: object
       properties:
-        questionId:
-          type: string
-        question:
-          type: string
-        answer:
-          type: string
-        section:
-          type: string
-        order:
+        signatureTransactionId:
           type: number
-        isVisible:
+      required:
+      - signatureTransactionId
+    AddDomainInvestorWalletsBodyDto:
+      type: object
+      properties:
+        name:
+          type: string
+        address:
+          type: string
+        tokenId:
+          type: string
+        ignoreInvestorPays:
           type: boolean
+        categories:
+          type: array
+          items:
+            type: string
       required:
-      - questionId
-      - question
-      - answer
-      - section
-      - order
-      - isVisible
-    Attribute:
+      - name
+      - address
+      - tokenId
+    CreateDomainInvestorTransactionBodyDto:
       type: object
       properties:
-        title:
-          type: string
-        content:
-          type: string
-        order:
+        roundId:
           type: number
-      required:
-      - title
-      - content
-      - order
-    CreateDomainTokenInternalTransferTbeTransactionsBodyDto:
-      type: object
-      properties:
-        senderExternalId:
+        currencyIdentifier:
           type: string
-        receiverExternalId:
-          type: string
-        tokenAmount:
+          minLength: 3
+          maxLength: 3
+        currencyId:
           type: number
-        reason:
-          type: string
-      required:
-      - senderExternalId
-      - receiverExternalId
-      - tokenAmount
-      - reason
-    GetDomainInvestorInvestmentAmountResponseDto:
-      type: object
-      properties:
-        amount:
-          type: number
-        currency:
-          $ref: '#/components/schemas/DomainInvestorCurrencyDto'
-    GetDomainInvestorTransactionResponseDto:
-      type: object
-      properties:
-        transactionId:
-          type: number
-        transactionTime:
-          type: string
         direction:
           type: string
           enum:
@@ -8067,95 +7658,296 @@ components:
           - refund
         amount:
           type: number
-        currencyId:
+        externalTransactionConfirmation:
+          type: string
+        mainCurrencyWorth:
+          type: number
+        tokenId:
+          type: string
+        transactionTime:
+          format: date-time
+          type: string
+      required:
+      - roundId
+      - direction
+      - amount
+      - externalTransactionConfirmation
+      - tokenId
+    CreateDomainTokenHoldTradingTransactionsBodyDto:
+      type: object
+      properties:
+        documentId:
+          type: string
+        isPause:
+          type: boolean
+        reason:
+          type: string
+      required:
+      - documentId
+      - isPause
+      - reason
+    GetDomainTokenHoldersResponseDto:
+      type: object
+      properties:
+        totalItems:
           type: number
         data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DomainTokenHolderDataDto'
+      required:
+      - totalItems
+      - data
+    GetDomainInvestorIndividualLegalSignerResponseDto:
+      type: object
+      properties:
+        legalSignerId:
+          type: number
+        signerType:
+          type: string
+          enum:
+          - individual
+          - entity
+        email:
+          type: string
+        individualName:
+          $ref: '#/components/schemas/IndividualName'
+        address:
+          $ref: '#/components/schemas/Address'
+        birthdate:
           type:
           - string
           - 'null'
-        source:
-          type: string
-          enum:
-          - automated
-          - manual
-        mainCurrencyWorth:
-          type: number
-        externalTransactionConfirmation:
+        documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/LegalSignerResponseDocumentDto'
+        createdAt:
           type: string
       required:
-      - transactionId
-      - transactionTime
-      - direction
-      - amount
-      - currencyId
-      - data
-      - source
-      - mainCurrencyWorth
-      - externalTransactionConfirmation
-    DomainGeneralDto:
+      - legalSignerId
+      - signerType
+      - email
+      - individualName
+      - address
+      - birthdate
+      - documents
+      - createdAt
+    CreateDomainInvestorInvestmentResponseDto:
       type: object
       properties:
-        general:
-          $ref: '#/components/schemas/General'
-        investorsArea:
-          $ref: '#/components/schemas/InvestorsArea'
-      required:
-      - general
-      - investorsArea
-    UpdateDomainTokenDocumentBodyDto:
-      type: object
-      properties:
-        tokenDocumentId:
-          type: number
-        name:
-          type: string
-        title:
-          type: string
         type:
           type: string
           enum:
-          - pdf
-          - doc
-          - ppt
-          - url
-          - other
-        url:
-          type: string
-        category:
+          - fiat
+          - crypto
+        currencyId:
+          type: number
+        status:
           type: string
           enum:
-          - basic
-          - investor-only
-      required:
-      - tokenDocumentId
-    SocialLinks:
-      type: object
-      properties:
-        telegram:
-          $ref: '#/components/schemas/SocialLink'
-        twitter:
-          $ref: '#/components/schemas/SocialLink'
-        medium:
-          $ref: '#/components/schemas/SocialLink'
-        facebook:
-          $ref: '#/components/schemas/SocialLink'
-        whatsapp:
-          $ref: '#/components/schemas/SocialLink'
-        supportEmail:
-          type: string
-      required:
-      - telegram
-      - twitter
-      - medium
-      - facebook
-      - whatsapp
-    DeleteDomainTokenDocumentBodyDto:
-      type: object
-      properties:
-        tokenDocumentId:
+          - in_progress
+          - pending
+          - confirmed
+          - cancelled
+          - refunded
+          - new_round
+        roundId:
           type: number
       required:
-      - tokenDocumentId
+      - type
+      - currencyId
+      - status
+      - roundId
+    GetDomainInvestorDocumentResponseDto:
+      type: object
+      properties:
+        documentTitle:
+          type: string
+        imageUrl:
+          type: string
+        contentType:
+          type: string
+        tokenId:
+          type:
+          - string
+          - 'null'
+      required:
+      - documentTitle
+      - imageUrl
+      - contentType
+      - tokenId
+    AddDomainInvestorWalletsResponseDto:
+      type: object
+      properties:
+        tokenWalletId:
+          type: number
+        address:
+          type: string
+        name:
+          type: string
+        status:
+          type: string
+          enum:
+          - syncing
+          - pending
+        isMain:
+          type: boolean
+        isCustodian:
+          type: boolean
+      required:
+      - tokenWalletId
+      - address
+      - name
+      - status
+      - isMain
+      - isCustodian
+    UpdateDomainTokenTransactionStatusBodyDto:
+      type: object
+      properties:
+        status:
+          default: sent
+          enum:
+          - pending
+          - sent
+          - success
+          - failure
+          - mempool
+          - canceled
+          type: string
+        transactionProviderId:
+          type: string
+        signatureTransactionId:
+          type: number
+      required:
+      - transactionProviderId
+      - signatureTransactionId
+    LegalSignerResponseDocumentDto:
+      type: object
+      properties:
+        createDate:
+          type: string
+        docCategory:
+          type: string
+          enum:
+          - signer-identification
+          - signer-entity
+        docType:
+          type: string
+          enum:
+          - passport
+          - driving-licence
+          - national-identity-card
+          - residence-permit
+          - visa
+          - passport-card
+          - work-permit
+          - state-id
+          - uk-biometric-residence-permit
+          - tax-id
+          - voter-id
+          - certificate-of-naturalisation
+          - home-office-letter
+          - immigration-status-document
+          - birth-certificate
+          - selfie
+          - other
+          - document-or-certificate-of-trust
+          - list-of-trustees
+          - certificate-of-formation
+          - partnership-agreement
+          - lp-list-and-authorised-signers-list
+          - articles-of-organization
+          - articles-of-corporation
+          - operating-agreement
+          - members-and-authorised-signers-list
+          - by-laws
+          - shareholders-list-and-authorised-signers-list
+        documentId:
+          type: number
+        fileName:
+          type: string
+        fileType:
+          type: string
+        side:
+          type: string
+          enum:
+          - front
+          - back
+        thumbnail:
+          type: string
+        uri:
+          type: string
+      required:
+      - createDate
+      - docCategory
+      - docType
+      - documentId
+      - fileName
+      - fileType
+      - side
+      - thumbnail
+      - uri
+    GetOperatorResponseDto:
+      type: object
+      properties:
+        authorizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Authorization'
+        authorizationLevel:
+          $ref: '#/components/schemas/AuthorizationLevel'
+        operatorExternalId:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        enabled:
+          type: boolean
+        domainIds:
+          type: array
+          items:
+            type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+        lastLoginAt:
+          type:
+          - string
+          - 'null'
+        lastLoginIp:
+          type:
+          - string
+          - 'null'
+        brokerDealerGroupId:
+          type:
+          - number
+          - 'null'
+        organizationId:
+          type:
+          - string
+          - 'null'
+        isViewOnly:
+          type:
+          - boolean
+          - 'null'
+      required:
+      - authorizations
+      - authorizationLevel
+      - operatorExternalId
+      - name
+      - email
+      - enabled
+      - domainIds
+      - createdAt
+      - updatedAt
+      - lastLoginAt
+      - lastLoginIp
+      - brokerDealerGroupId
+      - organizationId
+      - isViewOnly
     DomainOpportunityDetailDto:
       type: object
       properties:
@@ -8208,6 +8000,47 @@ components:
       - roundId
       - contents
       - documents
+    DeleteDomainInvestorLegalSignerBodyDto:
+      type: object
+      properties:
+        legalSignerId:
+          type: number
+      required:
+      - legalSignerId
+    Address:
+      type: object
+      properties:
+        street:
+          type:
+          - string
+          - 'null'
+        streetNumber:
+          type:
+          - string
+          - 'null'
+        city:
+          type:
+          - string
+          - 'null'
+        countryCode:
+          type:
+          - string
+          - 'null'
+        state:
+          type:
+          - string
+          - 'null'
+        zip:
+          type:
+          - string
+          - 'null'
+      required:
+      - street
+      - streetNumber
+      - city
+      - countryCode
+      - state
+      - zip
     GetDomainTokenBlockchainTransactionsResponseDto:
       type: object
       properties:
@@ -8220,134 +8053,235 @@ components:
       required:
       - totalItems
       - data
-    Gender:
-      type: string
-      enum:
-      - male
-      - female
-      - ''
-    AddDomainInvestorWalletsResponseDto:
+    GetOrganizationResponseDto:
       type: object
       properties:
-        tokenWalletId:
-          type: number
-        address:
+        organizationId:
           type: string
         name:
           type: string
-        status:
+        createdAt:
           type: string
-          enum:
-          - syncing
-          - pending
-        isMain:
-          type: boolean
-        isCustodian:
-          type: boolean
       required:
-      - tokenWalletId
-      - address
+      - organizationId
       - name
-      - status
-      - isMain
-      - isCustodian
-    UpdateDomainInvestorWalletBodyDto:
+      - createdAt
+    GetDomainTokenDto:
+      type: object
+      properties:
+        tokenId:
+          type: string
+        name:
+          type: string
+        tokenIconUrl:
+          type:
+          - string
+          - 'null'
+        decimals:
+          type: number
+        symbol:
+          type:
+          - string
+          - 'null'
+        isDeployed:
+          type: boolean
+        deploymentId:
+          type:
+          - string
+          - 'null'
+      required:
+      - tokenId
+      - name
+      - tokenIconUrl
+      - decimals
+      - symbol
+      - isDeployed
+      - deploymentId
+    UpdateDomainInvestorSubscriptionAgreementStatusBodyDto:
+      type: object
+      properties:
+        subscriptionAgreementStatus:
+          type: string
+          enum:
+          - none
+          - requested
+          - sent
+          - signed
+          - confirmed
+          - rejected
+          - pre-signed
+        roundId:
+          type: number
+      required:
+      - subscriptionAgreementStatus
+      - roundId
+    SignatureDto:
+      type: object
+      properties:
+        s:
+          type: string
+        r:
+          type: string
+        v:
+          type: string
+      required:
+      - s
+      - r
+      - v
+    CreateDomainInvestorIssuanceBodyDto:
+      type: object
+      properties:
+        tokenId:
+          type: string
+        tokenWalletId:
+          type: number
+        sourceType:
+          type: string
+          enum:
+          - wallet
+          - treasury
+        issuanceDate:
+          type: string
+        issueAmount:
+          type: number
+        clearAfterIssuance:
+          type: boolean
+        reason:
+          type: string
+      required:
+      - tokenId
+      - sourceType
+      - issuanceDate
+      - issueAmount
+      - clearAfterIssuance
+    GetDomainInvestorEntityLegalSignerResponseDto:
+      type: object
+      properties:
+        legalSignerId:
+          type: number
+        createdAt:
+          type: string
+        email:
+          type: string
+        signerType:
+          type: string
+          enum:
+          - individual
+          - entity
+        entityType:
+          type: string
+          enum:
+          - revocable-trust
+          - irrevocable-trust
+          - limited-general-partnership
+          - llc
+          - corporation
+          - other
+        legalName:
+          type:
+          - string
+          - 'null'
+        businessName:
+          type:
+          - string
+          - 'null'
+        taxId:
+          type:
+          - string
+          - 'null'
+        documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/LegalSignerResponseDocumentDto'
+      required:
+      - legalSignerId
+      - createdAt
+      - email
+      - signerType
+      - entityType
+      - legalName
+      - businessName
+      - taxId
+      - documents
+    UpdateDomainInvestorPledgedAmountBodyDto:
+      type: object
+      properties:
+        amount:
+          type: number
+        currencyIdentifier:
+          type: string
+          minLength: 3
+          maxLength: 3
+        currencyId:
+          type: number
+        roundId:
+          type: number
+      required:
+      - amount
+      - roundId
+    GetDomainInvestorAccreditationStatusResponseDto:
+      type: object
+      properties:
+        accreditationStatus:
+          type: string
+          enum:
+          - not-verified
+          - pending
+          - accredited
+          - rejected
+          - not-accredited
+          - not-applicable
+      required:
+      - accreditationStatus
+    UpdateDomainGeneralInvestorsAreaBodyDto:
+      type: object
+      properties:
+        announcements:
+          $ref: '#/components/schemas/Announcements'
+        about:
+          $ref: '#/components/schemas/About'
+        wizard:
+          $ref: '#/components/schemas/Wizard'
+        socialLinks:
+          $ref: '#/components/schemas/SocialLinks'
+        dashboardUrl:
+          type: string
+    GetOrganizationsResponseDatumDto:
+      type: object
+      properties:
+        organizationId:
+          type: string
+        name:
+          type: string
+        createdAt:
+          type: string
+      required:
+      - organizationId
+      - name
+      - createdAt
+    General:
+      type: object
+      properties:
+        issuerName:
+          type:
+          - string
+          - 'null'
+        colorScheme:
+          $ref: '#/components/schemas/ColorScheme'
+        images:
+          $ref: '#/components/schemas/Images'
+      required:
+      - colorScheme
+      - images
+    DeleteDomainInvestorWalletsBodyDto:
       type: object
       properties:
         tokenWalletId:
           type: number
-        name:
+        tokenId:
           type: string
         address:
           type: string
-        status:
-          type: string
-          enum:
-          - pending
-          - syncing
-          - ready
-          - rejected
-          - cancelled
-        isMain:
-          type: boolean
-        isCustodian:
-          type: boolean
-        categories:
-          type: array
-          items:
-            type: string
-      required:
-      - tokenWalletId
-    GetDomainRoundsResponseDto:
-      type: object
-      properties:
-        totalItems:
-          type: number
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/DomainRoundDataDto'
-      required:
-      - totalItems
-      - data
-    MinInvestmentJurisdictionalException:
-      type: object
-      properties:
-        exceptionName:
-          enum:
-          - min-investment-crypto
-          - min-investment-fiat
-          type: string
-        exceptionValue:
-          type: number
-        countryCode:
-          type: string
-      required:
-      - exceptionName
-      - exceptionValue
-      - countryCode
-    IndividualName:
-      type: object
-      properties:
-        firstName:
-          type:
-          - string
-          - 'null'
-        middleName:
-          type:
-          - string
-          - 'null'
-        lastName:
-          type:
-          - string
-          - 'null'
-      required:
-      - firstName
-      - middleName
-      - lastName
-    Images:
-      type: object
-      properties:
-        logo:
-          type:
-          - string
-          - 'null'
-        logoSquare:
-          type:
-          - string
-          - 'null'
-        logoDark:
-          type:
-          - string
-          - 'null'
-        logoFullName:
-          type:
-          - string
-          - 'null'
-        favicon:
-          type:
-          - string
-          - 'null'
     AttachmentDto:
       type: object
       properties:
@@ -8362,19 +8296,275 @@ components:
       - file
       - fileName
       - contentType
-    CreateDomainTokenHoldTradingTransactionsBodyDto:
+    DomainQuestionDto:
       type: object
       properties:
-        documentId:
+        questionId:
           type: string
-        isPause:
+        question:
+          type: string
+        answer:
+          type: string
+        section:
+          type: string
+        order:
+          type: number
+        isVisible:
           type: boolean
-        reason:
+      required:
+      - questionId
+      - question
+      - answer
+      - section
+      - order
+      - isVisible
+    DomainGeneralDto:
+      type: object
+      properties:
+        general:
+          $ref: '#/components/schemas/General'
+        investorsArea:
+          $ref: '#/components/schemas/InvestorsArea'
+      required:
+      - general
+      - investorsArea
+    AddDomainInvestor:
+      type: object
+      properties:
+        gender:
+          $ref: '#/components/schemas/Gender'
+        tokenWalletAddresses:
+          type: array
+          items:
+            type: string
+        documentType:
+          $ref: '#/components/schemas/UserDocumentType'
+        firstName:
+          type: string
+        middleName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        phonePrefix:
+          type: string
+        phoneNumber:
+          type: string
+        birthdate:
+          type: string
+        investorType:
+          type: string
+          enum:
+          - individual
+          - entity
+          - custodian-wallet-manager
+          - fbo-individual
+          - fbo-entity
+          - omnibus
+        custodianId:
+          type: number
+        entityName:
+          type: string
+        entityDba:
+          type: string
+        entityType:
+          type: string
+          enum:
+          - revocable-trust
+          - irrevocable-trust
+          - limited-general-partnership
+          - llc
+          - corporation
+          - other
+        countryCode:
+          type: string
+        state:
+          type: string
+        city:
+          type: string
+        zipCode:
+          type: string
+          minLength: 0
+          maxLength: 10
+        address:
+          type: string
+        additionalInfo:
+          type: string
+        taxId:
+          type: string
+        taxCountryCode:
+          type: string
+        taxId2:
+          type: string
+        taxCountryCode2:
+          type: string
+        taxId3:
+          type: string
+        taxCountryCode3:
+          type: string
+        identityDocumentNumber:
+          type: string
+        countryOfBirth:
+          type: string
+        cityOfBirth:
+          type: string
+        kycStatus:
+          type: string
+          enum:
+          - none
+          - processing
+          - updates-required
+          - manual-review
+          - verified
+          - rejected
+          - expired
+        kycStatusChangingDate:
+          type: string
+        kycStatusExpiryDate:
+          type: string
+        kycPerformedAt:
+          type: string
+        accreditationStatus:
+          type: string
+          enum:
+          - not-verified
+          - pending
+          - accredited
+          - rejected
+          - not-accredited
+          - not-applicable
+        qualificationStatus:
+          type: string
+          enum:
+          - not-verified
+          - pending
+          - qualified
+          - rejected
+          - not-qualified
+          - not-qualified-but-can-invest
+          - not-applicable
+        accreditedDeclarationDate:
+          type: string
+        accreditedExpiryDate:
+          type: string
+        subscriptionAgreementStatus:
+          type: string
+          enum:
+          - none
+          - requested
+          - sent
+          - signed
+          - confirmed
+          - rejected
+          - pre-signed
+        subscriptionAgreementSignedAt:
+          type: string
+        amountPledged:
+          type: number
+        investmentAmount:
+          type: number
+        investmentDate:
+          type: string
+        currency:
+          type: string
+        treasuryTokens:
+          type: number
+        assignedTokens:
+          type: number
+        documentIdNumber:
+          type: string
+        labels:
           type: string
       required:
-      - documentId
-      - isPause
-      - reason
+      - firstName
+      - lastName
+      - email
+      - investorType
+    AddDomainTokenBlockchainTransactionSignResponseDto:
+      type: object
+      properties:
+        transactionId:
+          type: string
+        transactionProviderId:
+          type: string
+        status:
+          type: string
+          enum:
+          - pending
+          - sent
+          - success
+          - failure
+          - mempool
+          - canceled
+        transactionData:
+          type: string
+        additionalData:
+          $ref: '#/components/schemas/AddSignResponseAdditionalDataDto'
+      required:
+      - transactionId
+      - transactionProviderId
+      - status
+    TransformedOperatorDto:
+      type: object
+      properties:
+        authorizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Authorization'
+        authorizationLevel:
+          $ref: '#/components/schemas/AuthorizationLevel'
+        domainIds:
+          type: array
+          items:
+            type: string
+        operatorExternalId:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        enabled:
+          type: boolean
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+        lastLoginAt:
+          type:
+          - string
+          - 'null'
+        lastLoginIp:
+          type:
+          - string
+          - 'null'
+        brokerDealerGroupId:
+          type:
+          - number
+          - 'null'
+        organizationId:
+          type:
+          - string
+          - 'null'
+        isViewOnly:
+          type:
+          - boolean
+          - 'null'
+      required:
+      - authorizations
+      - authorizationLevel
+      - domainIds
+      - operatorExternalId
+      - name
+      - email
+      - enabled
+      - createdAt
+      - updatedAt
+      - lastLoginAt
+      - lastLoginIp
+      - brokerDealerGroupId
+      - organizationId
+      - isViewOnly
     DomainCustodianDto:
       type: object
       properties:
@@ -8396,159 +8586,65 @@ components:
       - friendlyName
       - email
       - address
-    EntityLegalSignerBodyDocumentDto:
+    BlockchainTransactionAdditionalDataDto:
+      type: object
+      properties:
+        networkId:
+          type: number
+        networkType:
+          type: string
+        chainId:
+          type: number
+        txType:
+          type: string
+      required:
+      - networkId
+      - networkType
+      - chainId
+      - txType
+    CreateDomainOpportunityDocumentBodyDto:
       type: object
       properties:
         file:
           type: string
           description: file must be base64 encoded
-        contentType:
+        opportunityId:
+          type: number
+        title:
+          type: string
+        fileType:
+          type: string
           enum:
           - image/png
           - image/jpeg
           - application/pdf
-          type: string
-        fileName:
-          type: string
-        docType:
-          type: string
-          enum:
-          - document-or-certificate-of-trust
-          - list-of-trustees
-          - certificate-of-formation
-          - partnership-agreement
-          - lp-list-and-authorised-signers-list
-          - articles-of-organization
-          - articles-of-corporation
-          - operating-agreement
-          - members-and-authorised-signers-list
-          - by-laws
-          - shareholders-list-and-authorised-signers-list
-          - other
+        order:
+          type: number
+        requireKyc:
+          type: boolean
+        requireQualification:
+          type: boolean
       required:
       - file
-      - contentType
-      - fileName
-      - docType
-    GetDomainSnapshotsResponseDto:
+      - opportunityId
+      - title
+      - fileType
+      - order
+    ColorScheme:
       type: object
       properties:
-        totalItems:
-          type: number
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/DomainSnapshotResponseDto'
-      required:
-      - totalItems
-      - data
-    CreateDomainInvestorIndividualLegalSignerBodyDto:
-      type: object
-      properties:
-        firstName:
-          type: string
-        middleName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        birthdate:
-          type: string
-        countryCode:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-          enum:
-          - AL
-          - AK
-          - AZ
-          - AR
-          - CA
-          - CO
-          - CT
-          - DE
-          - DC
-          - FL
-          - GA
-          - HI
-          - ID
-          - IL
-          - IN
-          - IA
-          - KS
-          - KY
-          - LA
-          - ME
-          - MT
-          - NE
-          - NV
-          - NH
-          - NJ
-          - NM
-          - NY
-          - NC
-          - ND
-          - OH
-          - OK
-          - OR
-          - MD
-          - MA
-          - MI
-          - MN
-          - MS
-          - MO
-          - PA
-          - RI
-          - SC
-          - SD
-          - TN
-          - TX
-          - UT
-          - VT
-          - VA
-          - WA
-          - WV
-          - WI
-          - WY
-          - AS
-          - GU
-          - MP
-          - PR
-          - VI
-          - UM
-          - FM
-          - MH
-          - PW
-          - AA
-          - AE
-          - AP
-          - CM
-          - CZ
-          - NB
-          - PI
-          - TT
-        street:
-          type: string
-        streetNumber:
-          type: string
-        zipCode:
-          type: string
-        document:
-          $ref: '#/components/schemas/LegalSignerBodyDocumentDto'
-      required:
-      - firstName
-      - lastName
-      - email
-      - birthdate
-      - countryCode
-      - city
-      - street
-      - streetNumber
-      - zipCode
-      - document
+        primaryColor:
+          type:
+          - string
+          - 'null'
+        secondaryColor:
+          type:
+          - string
+          - 'null'
+        actionColor:
+          type:
+          - string
+          - 'null'
     DomainInvestorDataDto:
       type: object
       properties:
@@ -8658,88 +8754,43 @@ components:
       - jsonOpen
       - jsonPrivate
       - birthdate
-    ColorScheme:
+    AddSignBodyAdditionalDataDto:
       type: object
       properties:
-        primaryColor:
+        multiSigTransactionExecution:
+          type: boolean
+        multiSigWalletId:
+          type: string
+        multiSigWalletNonce:
+          type: string
+        clientTransactionId:
+          type: string
+        signature:
+          $ref: '#/components/schemas/SignatureDto'
+    SocialLink:
+      type: object
+      properties:
+        id:
+          type:
+          - number
+          - 'null'
+        name:
           type:
           - string
           - 'null'
-        secondaryColor:
+        icon:
           type:
           - string
           - 'null'
-        actionColor:
+        alt:
           type:
           - string
           - 'null'
-    DeleteDomainInvestorDocumentBodyDto:
-      type: object
-      properties:
-        investorDocumentId:
-          type: string
-      required:
-      - investorDocumentId
-    GetDomainInvestorTokenInfoResponseDto:
-      type: object
-      properties:
-        tokensHeld:
+        url:
           type:
-          - number
+          - string
           - 'null'
-        tokensTreasury:
-          type:
-          - number
-          - 'null'
-        roundTokensAssigned:
-          type:
-          - number
-          - 'null'
-        bonusTokens:
-          type:
-          - number
-          - 'null'
-        roundBonusTokensAssigned:
-          type:
-          - number
-          - 'null'
-        roundBonusTokens:
-          type:
-          - number
-          - 'null'
-      required:
-      - tokensHeld
-      - tokensTreasury
-      - roundTokensAssigned
-      - bonusTokens
-      - roundBonusTokensAssigned
-      - roundBonusTokens
-    AuthorizationLevel:
-      type: string
-      enum:
-      - basic
-      - admin
-      - superadmin
-      - megaadmin
-      - brokerdealer
-    GetDomainInvestorFundingAddressResponseDto:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - crypto
-          - fiat
-        currencyIdentifier:
-          type: string
-        wireTransferInstructions:
-          type: string
-        address:
-          type: string
-      required:
-      - type
-      - currencyIdentifier
-    GetDomainInvestorsResponseDto:
+    GetDomainsResponseDto:
       type: object
       properties:
         totalItems:
@@ -8747,71 +8798,20 @@ components:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/DomainInvestorDataDto'
+            $ref: '#/components/schemas/DomainDto'
       required:
       - totalItems
       - data
-    CreateDomainTokenLostSharesTransactionsBodyDto:
+    CalculatorDataTiers:
       type: object
       properties:
-        sourceWalletAddress:
-          type: string
-        tokenAmount:
+        minInvestmentAmount:
           type: number
-        destinationWalletAddress:
-          type: string
-        issuanceDate:
-          type: string
-        reason:
-          type: string
-      required:
-      - sourceWalletAddress
-      - tokenAmount
-      - destinationWalletAddress
-      - issuanceDate
-      - reason
-    GetDomainTokensResponseDto:
-      type: object
-      properties:
-        totalItems:
-          type: number
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/GetDomainTokenDto'
-      required:
-      - totalItems
-      - data
-    Authorization:
-      type: string
-      enum:
-      - rfe
-      - transfer-agent
-      - compliance-officer
-      - securitize-id
-      - on-chain-manager
-      - auto-deployment-service
-      - investor-outreach
-      - securitize-id-service
-      - securitize-markets
-      - audit-log
-      - privacy-controller
-      - audit-log-issuer
-      - accreditation-lawyer
-      - hsm-controller
-      - new-cp-ui
-      - allow-export
-      - can-create-megaadmin
-    DeleteDomainOpportunityDocumentBodyDto:
-      type: object
-      properties:
-        opportunityId:
-          type: number
-        documentId:
+        bonusPercentage:
           type: number
       required:
-      - opportunityId
-      - documentId
+      - minInvestmentAmount
+      - bonusPercentage
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

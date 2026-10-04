@@ -143,6 +143,22 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    CreateWebhookSubscriptionBodyDto:
+      type: object
+      properties:
+        domainId:
+          type: string
+        eventType:
+          type: string
+        payloadUrl:
+          type: string
+        isActive:
+          type: boolean
+          default: true
+      required:
+      - domainId
+      - eventType
+      - payloadUrl
     WebhookSubscriptionResponseDto:
       type: object
       properties:
@@ -165,6 +181,13 @@ components:
       - nonce
       - payloadUrl
       - isActive
+    UpdateWebhookSubscriptionBodyDto:
+      type: object
+      properties:
+        payloadUrl:
+          type: string
+        isActive:
+          type: boolean
     WebhookSignatureResponseDto:
       type: object
       properties:
@@ -184,29 +207,6 @@ components:
       required:
       - eventType
       - properties
-    CreateWebhookSubscriptionBodyDto:
-      type: object
-      properties:
-        domainId:
-          type: string
-        eventType:
-          type: string
-        payloadUrl:
-          type: string
-        isActive:
-          type: boolean
-          default: true
-      required:
-      - domainId
-      - eventType
-      - payloadUrl
-    UpdateWebhookSubscriptionBodyDto:
-      type: object
-      properties:
-        payloadUrl:
-          type: string
-        isActive:
-          type: boolean
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

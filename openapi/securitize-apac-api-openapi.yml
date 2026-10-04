@@ -203,6 +203,44 @@ components:
       - processing
       - success
       - failure
+    GetBankDepositFileRecordsResponseDto:
+      type: object
+      properties:
+        records:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+      required:
+      - records
+    InterestType:
+      type: string
+      enum:
+      - cash-only
+      - cash-and-point
+    GetTotalPledgedAmountsResponseDto:
+      type: object
+      properties:
+        appliedPledgedAmount:
+          type: number
+        confirmedPledgedAmount:
+          type: number
+      required:
+      - appliedPledgedAmount
+      - confirmedPledgedAmount
+    DeleteBankDepositFileBodyDto:
+      type: object
+      properties:
+        bankDepositFileId:
+          type: number
+      required:
+      - bankDepositFileId
+    Currency:
+      type: string
+      enum:
+      - JPY
+      - USD
     GetBankDepositFilesResponseDto:
       type: object
       properties:
@@ -215,11 +253,30 @@ components:
       required:
       - totalItems
       - data
-    Currency:
-      type: string
-      enum:
-      - JPY
-      - USD
+    CreateBankDepositFileBodyDto:
+      type: object
+      properties:
+        paymentYear:
+          type: number
+        paymentMonth:
+          type: number
+          minimum: 1
+          maximum: 12
+        isInterestPayment:
+          type: boolean
+        interestType:
+          type: string
+          enum:
+          - cash-only
+          - cash-and-point
+        isRedemptionPayment:
+          type: boolean
+      required:
+      - paymentYear
+      - paymentMonth
+      - isInterestPayment
+      - interestType
+      - isRedemptionPayment
     BankDepositFileResponseDto:
       type: object
       properties:
@@ -263,63 +320,6 @@ components:
       - isRedemptionPayment
       - createdAt
       - updatedAt
-    GetTotalPledgedAmountsResponseDto:
-      type: object
-      properties:
-        appliedPledgedAmount:
-          type: number
-        confirmedPledgedAmount:
-          type: number
-      required:
-      - appliedPledgedAmount
-      - confirmedPledgedAmount
-    GetBankDepositFileRecordsResponseDto:
-      type: object
-      properties:
-        records:
-          type: array
-          items:
-            type: array
-            items:
-              type: string
-      required:
-      - records
-    InterestType:
-      type: string
-      enum:
-      - cash-only
-      - cash-and-point
-    CreateBankDepositFileBodyDto:
-      type: object
-      properties:
-        paymentYear:
-          type: number
-        paymentMonth:
-          type: number
-          minimum: 1
-          maximum: 12
-        isInterestPayment:
-          type: boolean
-        interestType:
-          type: string
-          enum:
-          - cash-only
-          - cash-and-point
-        isRedemptionPayment:
-          type: boolean
-      required:
-      - paymentYear
-      - paymentMonth
-      - isInterestPayment
-      - interestType
-      - isRedemptionPayment
-    DeleteBankDepositFileBodyDto:
-      type: object
-      properties:
-        bankDepositFileId:
-          type: number
-      required:
-      - bankDepositFileId
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
