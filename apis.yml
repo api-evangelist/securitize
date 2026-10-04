@@ -283,6 +283,9 @@ apis:
   - type: Webhooks
     url: asyncapi/securitize-webhooks.yml
 common:
+- type: CapabilityMap
+  url: capabilities/securitize-capability-edges.yml
+  name: Securitize Business Capability Map
 - type: Website
   url: https://securitize.io/
 - type: DeveloperPortal
