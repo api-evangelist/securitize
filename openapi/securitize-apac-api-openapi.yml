@@ -197,12 +197,21 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    BankDepositFileStatus:
+    GetTotalPledgedAmountsResponseDto:
+      type: object
+      properties:
+        appliedPledgedAmount:
+          type: number
+        confirmedPledgedAmount:
+          type: number
+      required:
+      - appliedPledgedAmount
+      - confirmedPledgedAmount
+    InterestType:
       type: string
       enum:
-      - processing
-      - success
-      - failure
+      - cash-only
+      - cash-and-point
     GetBankDepositFileRecordsResponseDto:
       type: object
       properties:
@@ -214,21 +223,6 @@ components:
               type: string
       required:
       - records
-    InterestType:
-      type: string
-      enum:
-      - cash-only
-      - cash-and-point
-    GetTotalPledgedAmountsResponseDto:
-      type: object
-      properties:
-        appliedPledgedAmount:
-          type: number
-        confirmedPledgedAmount:
-          type: number
-      required:
-      - appliedPledgedAmount
-      - confirmedPledgedAmount
     DeleteBankDepositFileBodyDto:
       type: object
       properties:
@@ -241,42 +235,6 @@ components:
       enum:
       - JPY
       - USD
-    GetBankDepositFilesResponseDto:
-      type: object
-      properties:
-        totalItems:
-          type: number
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/BankDepositFileResponseDto'
-      required:
-      - totalItems
-      - data
-    CreateBankDepositFileBodyDto:
-      type: object
-      properties:
-        paymentYear:
-          type: number
-        paymentMonth:
-          type: number
-          minimum: 1
-          maximum: 12
-        isInterestPayment:
-          type: boolean
-        interestType:
-          type: string
-          enum:
-          - cash-only
-          - cash-and-point
-        isRedemptionPayment:
-          type: boolean
-      required:
-      - paymentYear
-      - paymentMonth
-      - isInterestPayment
-      - interestType
-      - isRedemptionPayment
     BankDepositFileResponseDto:
       type: object
       properties:
@@ -320,6 +278,48 @@ components:
       - isRedemptionPayment
       - createdAt
       - updatedAt
+    BankDepositFileStatus:
+      type: string
+      enum:
+      - processing
+      - success
+      - failure
+    CreateBankDepositFileBodyDto:
+      type: object
+      properties:
+        paymentYear:
+          type: number
+        paymentMonth:
+          type: number
+          minimum: 1
+          maximum: 12
+        isInterestPayment:
+          type: boolean
+        interestType:
+          type: string
+          enum:
+          - cash-only
+          - cash-and-point
+        isRedemptionPayment:
+          type: boolean
+      required:
+      - paymentYear
+      - paymentMonth
+      - isInterestPayment
+      - interestType
+      - isRedemptionPayment
+    GetBankDepositFilesResponseDto:
+      type: object
+      properties:
+        totalItems:
+          type: number
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/BankDepositFileResponseDto'
+      required:
+      - totalItems
+      - data
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
